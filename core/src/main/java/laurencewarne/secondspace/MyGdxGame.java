@@ -32,6 +32,7 @@ public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
     Viewport viewport;
     OrthographicCamera gameCamera;
+    World world;
     com.badlogic.gdx.physics.box2d.World box2dWorld;
     Box2DDebugRenderer debugRenderer;
     Body playerBody, attachedBody;
@@ -54,7 +55,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	// Inject non-artemis dependencies
 	setup.register(box2dWorld);
 	// Create Artermis World
-	final World world = new World(setup);
+	world = new World(setup);
 	
 	batch = new SpriteBatch();
 	gameCamera = new OrthographicCamera(100, 100);
@@ -116,14 +117,15 @@ public class MyGdxGame extends ApplicationAdapter {
     public void render () {
 
 	handleInput();
-
-	box2dWorld.step(1/60f, 6, 2);
 	viewport.getCamera().position.set(
 	    playerBody.getPosition().x - viewport.getScreenWidth() / 2f,
 	    playerBody.getPosition().y - viewport.getScreenHeight() / 2f,
 	    0f
 	);
 	viewport.getCamera().update();
+
+	world.setDelta(Gdx.graphics.getDeltaTime());
+	world.process();
 
 	Gdx.gl.glClearColor(1, 0, 0, 1);
 	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

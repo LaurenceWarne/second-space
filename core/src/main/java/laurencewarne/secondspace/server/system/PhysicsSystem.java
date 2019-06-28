@@ -16,10 +16,33 @@ public class PhysicsSystem extends IteratingSystem {
     @Wire
     private World box2DWorld;
 
+    @Override
+    public void begin() {
+	box2DWorld.step(1/60f, 6, 2);
+    }
+
     // Called for each matching entity
     @Override
     public void process(int id) {
-	// Check if in box2d world:
-	System.out.println(mPhysics.get(id));
+	
+    }
+
+    @Override
+    public void end() {
+	
+    }
+
+    // When an entity which "matches" this system is created
+    // or has components added so that it matches
+    @Override
+    public void inserted(int id) {
+
+	// Add to box2d world
+    }
+
+    @Override
+    public void removed(int id) {
+
+	// Remove from box2d world
     }
 }

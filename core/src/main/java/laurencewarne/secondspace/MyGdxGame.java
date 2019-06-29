@@ -12,20 +12,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
-import com.badlogic.gdx.physics.box2d.joints.MouseJoint;
-import com.badlogic.gdx.physics.box2d.joints.MouseJointDef;
-import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
 
 public class MyGdxGame extends ApplicationAdapter {
@@ -46,7 +42,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	    new Vector2(0, -10), true
 	);
 	debugRenderer = new Box2DDebugRenderer();
-
 	
 	// Init Artemis stuff: register any plugins, setup the world.
 	final WorldConfiguration setup = new WorldConfigurationBuilder()
@@ -61,7 +56,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	gameCamera = new OrthographicCamera(100, 100);
 	viewport = new FitViewport(100, 100, gameCamera);
 
-	
+
 	// First we create a body definition
 	BodyDef bodyDef = new BodyDef();
 	// We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
@@ -111,6 +106,9 @@ public class MyGdxGame extends ApplicationAdapter {
 	groundBox.setAsBox(viewport.getCamera().viewportWidth, 10.0f);
 	// Create a fixture from our polygon shape and add it to our ground body  
 	groundBody.createFixture(groundBox, 0.0f); 
+
+	int playerID = world.create();
+	world.edit(playerID).create(Physics.class).setBody(playerBody);
     }
 
     @Override

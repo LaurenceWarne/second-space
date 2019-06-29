@@ -4,6 +4,8 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 import laurencewarne.secondspace.server.component.Physics;
@@ -24,7 +26,7 @@ public class PhysicsSystem extends IteratingSystem {
     // Called for each matching entity
     @Override
     public void process(int id) {
-	
+
     }
 
     @Override
@@ -37,12 +39,12 @@ public class PhysicsSystem extends IteratingSystem {
     @Override
     public void inserted(int id) {
 
-	// Add to box2d world
     }
 
     @Override
     public void removed(int id) {
 
 	// Remove from box2d world
+	box2DWorld.destroyBody(mPhysics.get(id).getBody());
     }
 }

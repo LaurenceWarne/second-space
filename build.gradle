@@ -4,14 +4,17 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven {
+	    url "https://plugins.gradle.org/m2/" 
+	    url "https://oss.sonatype.org/content/repositories/snapshots/"
+	    url "https://plugins.gradle.org/m2/"
+	    
+	}
         jcenter()
         google()
     }
     dependencies {
-        
-
+        classpath "io.franzbecker:gradle-lombok:1.11"
     }
 }
 
@@ -56,7 +59,7 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java"
-
+    apply plugin: "io.franzbecker.gradle-lombok"
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -64,8 +67,10 @@ project(":core") {
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-
 	compile "net.onedaybeard.artemis:artemis-odb:2.2.0"
+	compile "net.onedaybeard.artemis:artemis-odb-serializer-json-libgdx:1.4.0"
+
+	compileOnly "org.projectlombok:lombok:1.18.2"
     }
 }
 

@@ -6,7 +6,8 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 project.ext.mainClassName = "com.mygdx.game.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../core/assets");
 
-task run(dependsOn: classes, type: JavaExec) {
+// Create own type here instead?
+tasks.withType(JavaExec) {
     main = project.mainClassName
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
@@ -14,12 +15,21 @@ task run(dependsOn: classes, type: JavaExec) {
     ignoreExitValue = true
 }
 
+task runServer(dependsOn: classes, type: JavaExec) {
+    args '--server'
+}
+// Simple alias for runserver
+task run(dependsOn: classes, type: JavaExec) {
+    args '--server'
+}
+
+task runClient(dependsOn: classes, type: JavaExec) {
+    args '--client'
+}
+
+
+
 task debug(dependsOn: classes, type: JavaExec) {
-    main = project.mainClassName
-    classpath = sourceSets.main.runtimeClasspath
-    standardInput = System.in
-    workingDir = project.assetsDir
-    ignoreExitValue = true
     debug = true
 }
 

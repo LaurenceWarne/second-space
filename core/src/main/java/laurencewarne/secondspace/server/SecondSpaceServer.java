@@ -1,14 +1,13 @@
-package laurencewarne.secondspace;
+package laurencewarne.secondspace.server;
 
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -18,16 +17,12 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
 
-public class SecondSpace extends ApplicationAdapter {
-    SpriteBatch batch;
-    Viewport viewport;
-    OrthographicCamera gameCamera;
+public class SecondSpaceServer extends Game {
+    OrthographicCamera camera;
     World world;
     com.badlogic.gdx.physics.box2d.World box2dWorld;
     Box2DDebugRenderer debugRenderer;
@@ -52,10 +47,7 @@ public class SecondSpace extends ApplicationAdapter {
 	// Create Artermis World
 	world = new World(setup);
 	
-	batch = new SpriteBatch();
-	gameCamera = new OrthographicCamera(100, 100);
-	viewport = new FitViewport(100, 100, gameCamera);
-
+	camera = new OrthographicCamera(100, 100);
 
 	// First we create a body definition
 	BodyDef bodyDef = new BodyDef();
@@ -103,7 +95,7 @@ public class SecondSpace extends ApplicationAdapter {
 	groundBox = new PolygonShape();  
 	// Set the polygon shape as a box which is twice the size of our view port and 20 high
 	// (setAsBox takes half-width and half-height as arguments)
-	groundBox.setAsBox(viewport.getCamera().viewportWidth, 10.0f);
+	groundBox.setAsBox(camera.viewportWidth, 10.0f);
 	// Create a fixture from our polygon shape and add it to our ground body  
 	groundBody.createFixture(groundBox, 0.0f); 
 
@@ -115,12 +107,9 @@ public class SecondSpace extends ApplicationAdapter {
     public void render () {
 
 	handleInput();
-	viewport.getCamera().position.set(
-	    playerBody.getPosition().x - viewport.getScreenWidth() / 2f,
-	    playerBody.getPosition().y - viewport.getScreenHeight() / 2f,
-	    0f
-	);
-	viewport.getCamera().update();
+	// Centre camera around player position
+	camera.position.set(playerBody.getPosition().x, playerBody.getPosition().y, 0f);
+	camera.update();
 
 	world.setDelta(Gdx.graphics.getDeltaTime());
 	world.process();
@@ -128,7 +117,7 @@ public class SecondSpace extends ApplicationAdapter {
 	Gdx.gl.glClearColor(1, 0, 0, 1);
 	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-	debugRenderer.render(box2dWorld, viewport.getCamera().combined);
+	debugRenderer.render(box2dWorld, camera.combined);
     }
 
     public void handleInput() {
@@ -153,7 +142,6 @@ public class SecondSpace extends ApplicationAdapter {
 	
     @Override
     public void dispose () {
-	batch.dispose();
 	square1.dispose();
 	groundBox.dispose();
 	debugRenderer.dispose();

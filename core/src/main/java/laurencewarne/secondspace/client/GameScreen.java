@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -30,6 +31,7 @@ public class GameScreen implements Screen {
     //graphics stuff
     private Viewport gameViewport;
     private OrthographicCamera gameCamera;
+    private BitmapFont font;
     
     @Override
     public void show() {
@@ -42,23 +44,28 @@ public class GameScreen implements Screen {
 	Gdx.input.setInputProcessor(inputMultiplexer);	
 	
 	Gdx.graphics.setTitle("Second Space");
+	font = new BitmapFont();
     }
 
     @Override
     public void render( float delta ) {
     
-	handleInput();
 	gameViewport.apply();
 	gameCamera.update();
 	batch.setProjectionMatrix(gameCamera.combined);
 
-	Gdx.gl.glClearColor(1, 0, 0, 1);
+	Gdx.gl.glClearColor(0, 0, 0, 1);
 	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    }
 
-    private void handleInput() {
-	
-    }    
+	batch.begin();
+	font.draw(
+	    batch, "Hi!",
+	    -gameCamera.viewportWidth / 4f,
+	    5, gameCamera.viewportWidth / 2f,
+	    5, false
+	);
+	batch.end();
+    }
 
     @Override
     public void resize( int width, int height ) {

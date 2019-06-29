@@ -24,7 +24,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
 
-public class MyGdxGame extends ApplicationAdapter {
+public class SecondSpace extends ApplicationAdapter {
     SpriteBatch batch;
     Viewport viewport;
     OrthographicCamera gameCamera;

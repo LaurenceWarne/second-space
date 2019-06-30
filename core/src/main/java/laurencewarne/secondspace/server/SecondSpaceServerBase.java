@@ -19,7 +19,7 @@ import laurencewarne.secondspace.server.system.PhysicsSystem;
 import lombok.Getter;
 
 /**
-Headless implementation of @link{Game}, ie does no rendering, just updates.
+ * Headless implementation of @link{Game}, ie does no rendering, just updates.
  */
 @Getter
 public class SecondSpaceServerBase extends Game {
@@ -28,7 +28,7 @@ public class SecondSpaceServerBase extends Game {
     private World world;
 
     @Override
-    public void create () {
+    public void create() {
 	// Box2D stuff
 	box2dWorld = new com.badlogic.gdx.physics.box2d.World(
 	    new Vector2(0, -10), true
@@ -96,13 +96,13 @@ public class SecondSpaceServerBase extends Game {
     }
 
     @Override
-    public void render () {
+    public void render() {
 	world.setDelta(Gdx.graphics.getDeltaTime());
 	world.process();
     }
 
     @Override
-    public void dispose () {
+    public void dispose() {
 	world.dispose();	
     }
     

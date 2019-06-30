@@ -16,7 +16,7 @@ tasks.withType(JavaExec) {
 }
 
 task runServer(dependsOn: classes, type: JavaExec) {
-    args '--server'
+    args =  ['--server', '--headless']
 }
 // Simple alias for runserver
 task run(dependsOn: classes, type: JavaExec) {
@@ -27,9 +27,8 @@ task runClient(dependsOn: classes, type: JavaExec) {
     args '--client'
 }
 
-
-
 task debug(dependsOn: classes, type: JavaExec) {
+    args '--server'
     debug = true
 }
 

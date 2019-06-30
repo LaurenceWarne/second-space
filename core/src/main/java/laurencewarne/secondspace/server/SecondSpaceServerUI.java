@@ -8,6 +8,9 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import lombok.Getter;
 
+/**
+ * Renders box2d world with @Link{Box2DDebugRenderer}, Also allows for movement of camera with arrow keys.
+ */
 @Getter
 public class SecondSpaceServerUI extends SecondSpaceServerBase {
 
@@ -20,7 +23,6 @@ public class SecondSpaceServerUI extends SecondSpaceServerBase {
 
     @Override
     public void create() {
-
 	super.create();
 	debugRenderer = new Box2DDebugRenderer();
 	camera = new OrthographicCamera(100, 100);	
@@ -28,9 +30,7 @@ public class SecondSpaceServerUI extends SecondSpaceServerBase {
 
     @Override
     public void render() {
-
 	handleInput();
-	// Centre camera around player position
 	camera.position.set(cameraX, cameraY, 0f);
 	camera.update();
 
@@ -38,7 +38,6 @@ public class SecondSpaceServerUI extends SecondSpaceServerBase {
 
 	Gdx.gl.glClearColor(1, 0, 0, 1);
 	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 	debugRenderer.render(getBox2dWorld(), camera.combined);
     }
 
@@ -58,7 +57,7 @@ public class SecondSpaceServerUI extends SecondSpaceServerBase {
     }
 
     @Override
-    public void dispose () {
+    public void dispose() {
 	super.dispose();
 	debugRenderer.dispose();
     }

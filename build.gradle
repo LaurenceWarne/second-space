@@ -71,6 +71,8 @@ project(":core") {
 	compile "net.onedaybeard.artemis:artemis-odb-serializer-json-libgdx:2.2.0"
 	compile 'com.google.guava:guava:28.0-jre'
 
+	testCompile "junit:junit:4.12"        
+        testCompile "org.mockito:mockito-core:2.28.2"
 
 	compileOnly "org.projectlombok:lombok:1.18.2"
     }

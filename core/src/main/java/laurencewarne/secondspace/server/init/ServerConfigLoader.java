@@ -48,7 +48,7 @@ public class ServerConfigLoader {
 	    
 	}
 	return new ServerConfig(
-	    properties.getProperty("WorldFileName", defaultWorldSaveFileName),
+	    properties.getProperty("worldFileName", defaultWorldSaveFileName),
 	    maxClientConnections
 	);
     }

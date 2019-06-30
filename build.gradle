@@ -68,7 +68,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
 	compile "net.onedaybeard.artemis:artemis-odb:2.2.0"
-	compile "net.onedaybeard.artemis:artemis-odb-serializer-json-libgdx:1.4.0"
+	compile "net.onedaybeard.artemis:artemis-odb-serializer-json-libgdx:2.2.0"
 
 	compileOnly "org.projectlombok:lombok:1.18.2"
     }

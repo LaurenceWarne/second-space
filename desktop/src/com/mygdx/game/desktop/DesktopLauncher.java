@@ -6,7 +6,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 import laurencewarne.secondspace.client.SecondSpaceClient;
-import laurencewarne.secondspace.server.SecondSpaceServer;
+import laurencewarne.secondspace.server.SecondSpaceServerBase;
+import laurencewarne.secondspace.server.SecondSpaceServerUI;
 
 public class DesktopLauncher {
     public static void main (String[] args) {
@@ -20,11 +21,11 @@ public class DesktopLauncher {
 	    // See if we should run a headless server
 	    if (args.length > 1 && "--headless".equals(args[1])) {
 		HeadlessApplicationConfiguration hConfig = new HeadlessApplicationConfiguration();
-		new HeadlessApplication(new SecondSpaceServer(), hConfig);
+		new HeadlessApplication(new SecondSpaceServerBase(), hConfig);
 	    }
 	    // Else run debug server
 	    else {
-		new LwjglApplication(new SecondSpaceServer(), config);
+		new LwjglApplication(new SecondSpaceServerUI(), config);
 	    }
 	}
 	

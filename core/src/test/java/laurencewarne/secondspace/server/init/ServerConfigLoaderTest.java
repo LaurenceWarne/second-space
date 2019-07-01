@@ -26,7 +26,8 @@ public class ServerConfigLoaderTest {
     @Before
     public void setUp() {
 	MockitoAnnotations.initMocks(this);
-	// See:
+	// For obtaining a Stream from a string see:
+	// https://stackoverflow.com/questions/782178/how-do-i-convert-a-string-to-an-inputstream-in-java
 	when(serverConfigFile.read())
 	    .thenReturn(
 		new ByteArrayInputStream(
@@ -48,5 +49,40 @@ public class ServerConfigLoaderTest {
 	configLoader = new ServerConfigLoader(serverConfigFile);	
 	ServerConfig serverConfig = configLoader.load();
 	assertEquals("my-world.json", serverConfig.getWorldSaveFileLocation());
+    }
+
+    @Test
+    public void testConfigLoadsMaxConnectionsCorrectly() {
+	final String config = "maxConnections=5";
+	when(serverConfigFile.read())
+	    .thenReturn(
+		new ByteArrayInputStream(
+		    config.getBytes(StandardCharsets.UTF_8)
+		)
+	    );
+	configLoader = new ServerConfigLoader(serverConfigFile);	
+	ServerConfig serverConfig = configLoader.load();
+	assertEquals(5, serverConfig.getMaxClientConnections());
+    }
+
+    @Test
+    public void testConfigLoadsDefaultConnectionsAndFileNameOnEmptyConfig() {
+	final String config = "";
+	when(serverConfigFile.read())
+	    .thenReturn(
+		new ByteArrayInputStream(
+		    config.getBytes(StandardCharsets.UTF_8)
+		)
+	    );
+	configLoader = new ServerConfigLoader(serverConfigFile);	
+	ServerConfig serverConfig = configLoader.load();
+	assertEquals(
+	    configLoader.getDefaultMaxClientConnections(),
+	    serverConfig.getMaxClientConnections()
+	);
+	assertEquals(
+	    configLoader.getDefaultWorldSaveFileName(),
+	    serverConfig.getWorldSaveFileLocation()
+	);	
     }
 }

@@ -1,10 +1,28 @@
-apply plugin: "java"
+// Plugin request for plugin already on the classpath must not include a version
+plugins {
+    id 'java'
+    id 'io.freefair.lombok'
+}
 
 sourceCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = [ "src/main/java" ]
 sourceSets.test.java.srcDirs = [ "src/test/java" ]
+
+dependencies {
+    compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+    compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+    compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+    compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+    compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+    compile "net.onedaybeard.artemis:artemis-odb:2.2.0"
+    compile "net.onedaybeard.artemis:artemis-odb-serializer-json-libgdx:2.2.0"
+    compile "com.google.guava:guava:28.0-jre"
+
+    testCompile "junit:junit:4.12"        
+    testCompile "org.mockito:mockito-core:2.28.2"
+}
 
 eclipse.project {
     name = appName + "-core"

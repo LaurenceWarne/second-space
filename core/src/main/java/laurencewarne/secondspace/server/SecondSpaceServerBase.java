@@ -21,6 +21,7 @@ import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.init.ServerConfigLoader;
 import laurencewarne.secondspace.server.init.ServerConfigLoader.ServerConfig;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
+import laurencewarne.secondspace.server.system.WorldDeserializationSystem;
 import lombok.Getter;
 
 /**
@@ -53,12 +54,14 @@ public class SecondSpaceServerBase extends Game {
 	// Init Artemis stuff: register any plugins, setup the world.
 	final WorldConfiguration setup = new WorldConfigurationBuilder()
 	    .with(
+		new WorldDeserializationSystem(),
 		new PhysicsSystem(),
 		manager
 	    )
 	    .build();
 	// Inject non-artemis dependencies
 	setup.register(box2dWorld);
+	setup.register("worldSaveFileLocation", serverConf.getWorldSaveFileLocation());
 	// Create Artermis World
 	world = new World(setup);
 	manager.setSerializer(new JsonArtemisSerializer(world));

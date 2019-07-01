@@ -3,7 +3,7 @@ package laurencewarne.secondspace.server.system;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import com.artemis.BaseEntitySystem;
+import com.artemis.BaseSystem;
 import com.artemis.annotations.Wire;
 import com.artemis.io.SaveFileFormat;
 import com.artemis.managers.WorldSerializationManager;
@@ -13,9 +13,9 @@ import lombok.NonNull;
 /**
  * Loads the world from file
  */
-public class WorldDeserializationSystem extends BaseEntitySystem {
+public class WorldDeserializationSystem extends BaseSystem {
 
-    @Wire @NonNull
+	@Wire(name="worldSaveFileLocation") @NonNull
     private String worldSaveFileLocation;
 
     @Override

@@ -3,8 +3,11 @@ package laurencewarne.secondspace.server;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
+import com.artemis.io.JsonArtemisSerializer;
+import com.artemis.managers.WorldSerializationManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -15,6 +18,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 
 import laurencewarne.secondspace.server.component.Physics;
+import laurencewarne.secondspace.server.init.ServerConfigLoader;
+import laurencewarne.secondspace.server.init.ServerConfigLoader.ServerConfig;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
 import lombok.Getter;
 
@@ -24,25 +29,40 @@ import lombok.Getter;
 @Getter
 public class SecondSpaceServerBase extends Game {
 
+    private static final String TAG = SecondSpaceServerBase.class.getName();
+
     private com.badlogic.gdx.physics.box2d.World box2dWorld;
     private World world;
 
     @Override
     public void create() {
+	// Load config
+	FileHandle file = Gdx.files.local("server.properties");
+	if (!file.exists()) {
+	    Gdx.app.log(TAG, "No server.properties file found, creating empty one.");
+	    file.writeString("", false);
+	}
+	ServerConfig serverConf = new ServerConfigLoader(file).load();
+
 	// Box2D stuff
 	box2dWorld = new com.badlogic.gdx.physics.box2d.World(
 	    new Vector2(0, -10), true
 	);
 
+	final WorldSerializationManager manager = new WorldSerializationManager();
 	// Init Artemis stuff: register any plugins, setup the world.
 	final WorldConfiguration setup = new WorldConfigurationBuilder()
-	    .with(new PhysicsSystem())
+	    .with(
+		new PhysicsSystem(),
+		manager
+	    )
 	    .build();
 	// Inject non-artemis dependencies
 	setup.register(box2dWorld);
 	// Create Artermis World
 	world = new World(setup);
-
+	manager.setSerializer(new JsonArtemisSerializer(world));
+	
 	BodyDef bodyDef = new BodyDef();
 	bodyDef.type = BodyType.DynamicBody;
 	bodyDef.position.set(0, 50);

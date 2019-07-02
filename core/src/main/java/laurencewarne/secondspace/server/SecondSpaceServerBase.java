@@ -20,6 +20,8 @@ import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.init.ServerConfigLoader;
 import laurencewarne.secondspace.server.init.ServerConfigLoader.ServerConfig;
+import laurencewarne.secondspace.server.system.AddRectangleCommandExecutorSystem;
+import laurencewarne.secondspace.server.system.PhysicsRectangleDataResolverSystem;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
 import laurencewarne.secondspace.server.system.TerminalSystem;
 import laurencewarne.secondspace.server.system.WorldDeserializationSystem;
@@ -57,6 +59,8 @@ public class SecondSpaceServerBase extends Game {
 	    .with(
 		new WorldDeserializationSystem(),
 		new TerminalSystem(),
+		new AddRectangleCommandExecutorSystem(),
+		new PhysicsRectangleDataResolverSystem(),
 		new PhysicsSystem(),
 		manager
 	    )

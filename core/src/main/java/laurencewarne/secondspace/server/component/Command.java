@@ -5,8 +5,9 @@ import com.artemis.annotations.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Transient @Getter @Setter
+@Transient @Getter @Setter @ToString
 public class Command extends Component {
 
     private String commandString;

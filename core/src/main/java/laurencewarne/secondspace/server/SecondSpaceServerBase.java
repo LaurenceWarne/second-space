@@ -21,6 +21,7 @@ import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.init.ServerConfigLoader;
 import laurencewarne.secondspace.server.init.ServerConfigLoader.ServerConfig;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
+import laurencewarne.secondspace.server.system.TerminalSystem;
 import laurencewarne.secondspace.server.system.WorldDeserializationSystem;
 import lombok.Getter;
 
@@ -55,6 +56,7 @@ public class SecondSpaceServerBase extends Game {
 	final WorldConfiguration setup = new WorldConfigurationBuilder()
 	    .with(
 		new WorldDeserializationSystem(),
+		new TerminalSystem(),
 		new PhysicsSystem(),
 		manager
 	    )

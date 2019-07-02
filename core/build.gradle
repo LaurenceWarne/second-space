@@ -19,6 +19,7 @@ dependencies {
     compile "net.onedaybeard.artemis:artemis-odb:2.2.0"
     compile "net.onedaybeard.artemis:artemis-odb-serializer-json-libgdx:2.2.0"
     compile "com.google.guava:guava:28.0-jre"
+    compile "org.jline:jline:3.11.0"
 
     testCompile "junit:junit:4.12"        
     testCompile "org.mockito:mockito-core:2.28.2"

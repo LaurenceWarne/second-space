@@ -6,7 +6,7 @@ import java.util.Set;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
-import com.google.common.collect.Sets;
+import com.google.common.collect.ImmutableSet;
 
 import laurencewarne.secondspace.server.component.Command;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
@@ -25,7 +25,7 @@ public class AddRectangleCommandExecutorSystem extends BaseEntitySystem {
     private ComponentMapper<PhysicsRectangleData> mPhysicsRectangleData;
 
     private ArgumentParser parser;
-    private Set<String> validCommands = Sets.newHashSet(
+    private Set<String> validCommands = ImmutableSet.of(
 	"addRectangle", "add-rectangle", "ar"
     );
 
@@ -76,5 +76,4 @@ public class AddRectangleCommandExecutorSystem extends BaseEntitySystem {
 	    mCommand.remove(id);
 	}
     }
-
 }

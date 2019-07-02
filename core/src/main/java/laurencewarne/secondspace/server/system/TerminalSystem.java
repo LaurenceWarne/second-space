@@ -51,7 +51,6 @@ public class TerminalSystem extends BaseEntitySystem {
 	    String commandString = commandQueue.poll();
 	    Command command = mCommand.create(world.create());
 	    command.setCommandString(commandString);
-	    System.out.println(command);
 	}
     }
 }

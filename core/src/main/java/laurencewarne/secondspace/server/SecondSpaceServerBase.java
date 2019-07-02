@@ -41,36 +41,48 @@ public class SecondSpaceServerBase extends Game {
     @Override
     public void create() {
 	// Load config
-	FileHandle file = Gdx.files.local("server.properties");
-	if (!file.exists()) {
-	    Gdx.app.log(TAG, "No server.properties file found, creating empty one.");
-	    file.writeString("", false);
+	FileHandle serverConfigFile = Gdx.files.local("server.properties");
+	if (!serverConfigFile.exists()) {
+	    Gdx.app.log(
+		TAG,
+		"No server.properties file found, creating empty one."
+	    );
+	    serverConfigFile.writeString("", false);
 	}
-	ServerConfig serverConf = new ServerConfigLoader(file).load();
+	ServerConfig serverConf = new ServerConfigLoader(
+	    serverConfigFile
+	).load();
 
-	// Box2D stuff
-	box2dWorld = new com.badlogic.gdx.physics.box2d.World(
-	    new Vector2(0, -10), true
-	);
-
-	final WorldSerializationManager manager = new WorldSerializationManager();
 	// Init Artemis stuff: register any plugins, setup the world.
 	final WorldConfiguration setup = new WorldConfigurationBuilder()
 	    .with(
+		new WorldSerializationManager(),
 		new WorldDeserializationSystem(),
 		new TerminalSystem(),
 		new AddRectangleCommandExecutorSystem(),
 		new PhysicsRectangleDataResolverSystem(),
-		new PhysicsSystem(),
-		manager
+		new PhysicsSystem()
 	    )
 	    .build();
+
 	// Inject non-artemis dependencies
+	box2dWorld = new com.badlogic.gdx.physics.box2d.World(
+	    new Vector2(0, -10), true
+	);
 	setup.register(box2dWorld);
-	setup.register("worldSaveFileLocation", serverConf.getWorldSaveFileLocation());
+	FileHandle worldSaveFile = Gdx.files.local(
+	    serverConf.getWorldSaveFileLocation()
+	);
+	if (!worldSaveFile.exists()) {
+	    Gdx.app.log(
+		TAG,
+		"Creating empty world save file: " + worldSaveFile.path()
+	    );
+	    worldSaveFile.writeString("{}", false);
+	}
+	setup.register("worldSaveFile", worldSaveFile);
 	// Create Artermis World
 	world = new World(setup);
-	manager.setSerializer(new JsonArtemisSerializer(world));
 	
 	BodyDef bodyDef = new BodyDef();
 	bodyDef.type = BodyType.DynamicBody;

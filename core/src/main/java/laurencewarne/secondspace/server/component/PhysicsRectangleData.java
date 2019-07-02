@@ -1,7 +1,6 @@
 package laurencewarne.secondspace.server.component;
 
 import com.artemis.Component;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import lombok.Getter;
 import lombok.Setter;

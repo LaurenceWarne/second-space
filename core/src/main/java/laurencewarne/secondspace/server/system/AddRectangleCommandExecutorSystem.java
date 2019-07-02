@@ -8,7 +8,7 @@ import laurencewarne.secondspace.server.component.Command;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 
 /**
- * 
+ * A {@link BaseEntitySystem} implementation which runs "addRectangle" commands from {@link Command} components. "addRectangle" commands add {@link PhysicsDataRectangle} components to the world.
  */
 @All(Command.class)
 public class AddRectangleCommandExecutorSystem extends BaseEntitySystem {

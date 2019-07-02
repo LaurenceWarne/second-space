@@ -16,6 +16,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 
+/**
+ * A {@link BaseEntitySystem} implementation which creates {@link Physics} components from corresponding {@link PhysicsRectangleData} components.
+ */
 @All(PhysicsRectangleData.class)
 @Exclude(Physics.class)
 public class PhysicsRectangleDataResolverSystem extends BaseEntitySystem {

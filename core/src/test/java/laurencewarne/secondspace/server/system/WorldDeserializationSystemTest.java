@@ -23,6 +23,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import laurencewarne.secondspace.server.component.ComponentX;
+import laurencewarne.secondspace.server.component.ComponentY;
 
 public class WorldDeserializationSystemTest {
 
@@ -98,5 +99,46 @@ public class WorldDeserializationSystemTest {
 	assertTrue(mX.has(id2));
 	assertEquals("cool-component", mX.get(id1).text);
 	assertEquals("cooler-component", mX.get(id2).text);
-    }    
+    }
+
+    @Test
+    public void testSystemCanLoadTwoDifferentComponents() {
+	int id = world1.create();
+	world1.edit(id).create(ComponentX.class).text = "cool-component";
+	world1.edit(id).create(ComponentY.class).setF(45f);
+	world1.process();
+	loadWorld2();
+
+	world2.process();
+	ComponentMapper<ComponentX> mX = world2.getMapper(ComponentX.class);
+	ComponentMapper<ComponentY> mY = world2.getMapper(ComponentY.class);
+	assertTrue(mX.has(id));
+	assertTrue(mY.has(id));
+	assertEquals("cool-component", mX.get(id).text);
+	assertEquals(45f, mY.get(id).getF(), 0.0001f);
+    }
+
+    @Test
+    public void testSystemLoadsNothingOnEmptyFile() {
+	WorldConfiguration setup2 = new WorldConfigurationBuilder()
+	    .with(
+		wsm2 = new WorldSerializationManager(),
+		new WorldDeserializationSystem()
+	    )
+	    .build();
+	when(worldSaveFile.read())
+	    .thenReturn(
+		new ByteArrayInputStream("{}".getBytes(StandardCharsets.UTF_8))
+	    );
+	setup2.register("worldSaveFile", worldSaveFile);
+	world2 = new World(setup2);
+	world2.process();
+	assertTrue(
+	    world2
+	    .getAspectSubscriptionManager()
+	    .get(Aspect.all())
+	    .getEntities()
+	    .isEmpty()		   
+	);
+    }
 }

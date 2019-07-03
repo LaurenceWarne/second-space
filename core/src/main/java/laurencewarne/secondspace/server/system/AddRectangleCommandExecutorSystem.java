@@ -44,7 +44,6 @@ public class AddRectangleCommandExecutorSystem extends BaseEntitySystem {
 	parser.addArgument("-Y", "-y", "--ycoord")
 	    .type(Float.class)
 	    .setDefault(0f);
-	
     }
     
     @Override

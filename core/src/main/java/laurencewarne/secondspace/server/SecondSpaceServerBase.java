@@ -77,6 +77,7 @@ public class SecondSpaceServerBase extends Game {
 		TAG,
 		"Creating empty world save file: " + worldSaveFile.path()
 	    );
+	    // Minimum acceptable JSON file
 	    worldSaveFile.writeString("{}", false);
 	}
 	setup.register("worldSaveFile", worldSaveFile);

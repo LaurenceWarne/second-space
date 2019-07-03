@@ -3,7 +3,6 @@ package laurencewarne.secondspace.server;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
-import com.artemis.io.JsonArtemisSerializer;
 import com.artemis.managers.WorldSerializationManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

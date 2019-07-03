@@ -1,4 +1,4 @@
-package com.mygdx.game.desktop;
+package laurencewarne.secondspace;
 
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;

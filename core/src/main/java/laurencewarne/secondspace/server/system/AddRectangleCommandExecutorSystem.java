@@ -32,16 +32,16 @@ public class AddRectangleCommandExecutorSystem extends BaseEntitySystem {
     @Override
     public void initialize() {
 	parser = ArgumentParsers.newFor("add-rectangle").build();
-	parser.addArgument("-W", "--width")
+	parser.addArgument("-W", "-w", "--width")
 	    .type(Float.class)
 	    .setDefault(2f);
-	parser.addArgument("-H", "--height")
+	parser.addArgument("-H", "-h", "--height")
 	    .type(Float.class)
 	    .setDefault(2f);
-	parser.addArgument("-X", "--xcoord")
+	parser.addArgument("-X", "-x", "--xcoord")
 	    .type(Float.class)
 	    .setDefault(0f);
-	parser.addArgument("-Y", "--ycoord")
+	parser.addArgument("-Y", "-y", "--ycoord")
 	    .type(Float.class)
 	    .setDefault(0f);
 	

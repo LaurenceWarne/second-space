@@ -3,9 +3,9 @@ plugins {
 }
 
 sourceCompatibility = 1.8
-sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.java.srcDirs = [ "src/main/java" ]
 
-project.ext.mainClassName = "com.mygdx.game.desktop.DesktopLauncher"
+project.ext.mainClassName = "laurencewarne.secondspace.DesktopLauncher"
 project.ext.assetsDir = new File("../core/assets");
 
 dependencies {
@@ -30,6 +30,7 @@ tasks.withType(JavaExec) {
 task runServer(dependsOn: classes, type: JavaExec) {
     args =  ['--server', '--headless']
 }
+
 // Simple alias for runserver
 task run(dependsOn: classes, type: JavaExec) {
     args '--server'

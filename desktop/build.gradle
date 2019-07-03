@@ -50,6 +50,8 @@ task dist(type: Jar) {
     from sourceSets.main.output.resourcesDir
     from {configurations.compile.collect {zipTree(it)}}
     from project.assetsDir;
+    // auto appends version
+    archivesBaseName = "server"
  
     manifest {
         attributes 'Main-Class': project.mainClassName

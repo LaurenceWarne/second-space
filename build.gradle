@@ -16,18 +16,19 @@ buildscript {
 }
 
 plugins {
-    id 'org.ajoberstar.reckon' version '0.11.0'
     id "io.freefair.lombok" version "3.7.5" apply false
+    id "com.palantir.git-version" version "0.11.0"
 }
 
 allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
 
-    version = ""
+    def details = versionDetails()
+    version = "${details.lastTag}-${details.commitDistance}-${details.gitHash}"
 
     ext {
-        appName = "second-space"
+        appName = 'second-space'
         gdxVersion = '1.9.9'
         box2DLightsVersion = '1.4'
         aiVersion = '1.8.0'

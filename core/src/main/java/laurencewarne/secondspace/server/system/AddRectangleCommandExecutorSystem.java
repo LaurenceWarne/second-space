@@ -35,7 +35,7 @@ public class AddRectangleCommandExecutorSystem extends BaseEntitySystem {
 	parser.addArgument("-W", "-w", "--width")
 	    .type(Float.class)
 	    .setDefault(2f);
-	parser.addArgument("-H", "-h", "--height")
+	parser.addArgument("-H", "--height")
 	    .type(Float.class)
 	    .setDefault(2f);
 	parser.addArgument("-X", "-x", "--xcoord")

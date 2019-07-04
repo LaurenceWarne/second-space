@@ -1,5 +1,8 @@
 package laurencewarne.secondspace.server;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
@@ -15,10 +18,13 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+
+import org.aeonbits.owner.ConfigFactory;
 
 import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.init.ServerConfigLoader;
-import laurencewarne.secondspace.server.init.ServerConfigLoader.ServerConfig;
+import laurencewarne.secondspace.server.init.ServerConfig;
 import laurencewarne.secondspace.server.system.AddRectangleCommandExecutorSystem;
 import laurencewarne.secondspace.server.system.PhysicsRectangleDataResolverSystem;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
@@ -41,16 +47,25 @@ public class SecondSpaceServerBase extends Game {
     public void create() {
 	// Load config
 	FileHandle serverConfigFile = Gdx.files.local("server.properties");
-	if (!serverConfigFile.exists()) {
-	    Gdx.app.log(
-		TAG,
-		"No server.properties file found, creating empty one."
-	    );
-	    serverConfigFile.writeString("", false);
+	final Properties serverProperties = new Properties();
+	try {
+	    serverProperties.load(serverConfigFile.read());
 	}
-	ServerConfig serverConf = new ServerConfigLoader(
-	    serverConfigFile
-	).load();
+	catch (GdxRuntimeException e){
+	    Gdx.app.error(
+		TAG,
+		"Server properties file is not a valid file or missing, using default server configuration"
+	    );
+	}
+	catch (IOException|IllegalArgumentException e){
+	    Gdx.app.error(
+		TAG,
+		"Error occurred whilst reading the server properties file, using default server configuration."
+	    );
+	}
+	ServerConfig serverConfig = ConfigFactory.create(
+	    ServerConfig.class, serverProperties
+	);
 
 	// Init Artemis stuff: register any plugins, setup the world.
 	final WorldConfiguration setup = new WorldConfigurationBuilder()
@@ -70,7 +85,7 @@ public class SecondSpaceServerBase extends Game {
 	);
 	setup.register(box2dWorld);
 	FileHandle worldSaveFile = Gdx.files.local(
-	    serverConf.getWorldSaveFileLocation()
+	    serverConfig.worldSaveFileLocation()
 	);
 	if (!worldSaveFile.exists()) {
 	    Gdx.app.log(

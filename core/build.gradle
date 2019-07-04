@@ -21,6 +21,7 @@ dependencies {
     compile "com.google.guava:guava:28.0-jre"
     compile "org.jline:jline:3.11.0"
     compile "net.sourceforge.argparse4j:argparse4j:0.8.1"
+    compile "org.aeonbits.owner:owner:1.0.8"
 
     testCompile "junit:junit:4.12"        
     testCompile "org.mockito:mockito-core:2.28.2"

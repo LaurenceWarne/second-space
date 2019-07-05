@@ -12,7 +12,7 @@ import com.badlogic.gdx.files.FileHandle;
 import lombok.NonNull;
 
 /**
- * Loads the world from file
+ * Loads the world from a specified file.
  */
 public class WorldDeserializationSystem extends BaseSystem {
 

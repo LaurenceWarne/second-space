@@ -10,19 +10,16 @@ import java.util.Properties;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.MockitoAnnotations;
 
 public class ServerConfigTest {
 
     private Properties props;
     private String fileContents = "worldSaveFileLocation=name\nmaxClientConnections=100";
 
-    private ServerConfig config;
+    private ServerConfig serverConfig;
 
     @Before
     public void setUp() {
-	MockitoAnnotations.initMocks(this);
-
 	props = new Properties();
     }
 
@@ -45,7 +42,7 @@ public class ServerConfigTest {
     public void testConfigLoadsWorldSaveFileNameCorrectly() {
 	fileContents = "worldSaveFileLocation=my-world.json";
 	loadFileContentsIntoProperties();
-	ServerConfig serverConfig = ConfigFactory.create(
+	serverConfig = ConfigFactory.create(
 	    ServerConfig.class, props
 	);
 	assertEquals("my-world.json", serverConfig.worldSaveFileLocation());
@@ -55,7 +52,7 @@ public class ServerConfigTest {
     public void testConfigLoadsMaxConnectionsCorrectly() {
 	fileContents = "maxClientConnections=5";
 	loadFileContentsIntoProperties();
-	ServerConfig serverConfig = ConfigFactory.create(
+	serverConfig = ConfigFactory.create(
 	    ServerConfig.class, props
 	);
 	assertEquals(5, serverConfig.maxClientConnections());
@@ -65,7 +62,7 @@ public class ServerConfigTest {
     public void testConfigLoadsDefaultConnectionsAndFileNameOnEmptyConfig() {
 	fileContents = "";
 	loadFileContentsIntoProperties();
-	ServerConfig serverConfig = ConfigFactory.create(
+	serverConfig = ConfigFactory.create(
 	    ServerConfig.class, props
 	);
 	assertEquals(10, serverConfig.maxClientConnections());

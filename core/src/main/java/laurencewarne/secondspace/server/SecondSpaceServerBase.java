@@ -23,7 +23,6 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import org.aeonbits.owner.ConfigFactory;
 
 import laurencewarne.secondspace.server.component.Physics;
-import laurencewarne.secondspace.server.init.ServerConfigLoader;
 import laurencewarne.secondspace.server.init.ServerConfig;
 import laurencewarne.secondspace.server.system.AddRectangleCommandExecutorSystem;
 import laurencewarne.secondspace.server.system.PhysicsRectangleDataResolverSystem;

@@ -50,7 +50,7 @@ public class WorldSerializationSystemTest {
 	WorldConfiguration setup = new WorldConfigurationBuilder()
 	    .with(
 		wsm = new WorldSerializationManager(),
-		sys = new WorldSerializationSystem()
+		sys = new WorldSerializationSystem(1f)
 	    )
 	    .build();
 	setup.register("worldSaveFile", worldSaveFile);

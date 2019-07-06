@@ -3,7 +3,6 @@ package laurencewarne.secondspace.server.system;
 import java.io.OutputStream;
 
 import com.artemis.Aspect;
-import com.artemis.BaseSystem;
 import com.artemis.annotations.Wire;
 import com.artemis.io.JsonArtemisSerializer;
 import com.artemis.io.SaveFileFormat;
@@ -15,18 +14,25 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import lombok.NonNull;
 
 /**
- *
+ * A system which writes the world to an injected file at specified intervals.
  */
-public class WorldSerializationSystem extends BaseSystem {
+public class WorldSerializationSystem extends BaseIntervalSystem {
 
     @Wire(name="worldSaveFile") @NonNull
     private FileHandle worldSaveFile;
+
+    public WorldSerializationSystem(float interval) {
+	super(interval);
+    }
 
     @Override
     public void processSystem() {
 	serialize();
     }
 
+    /**
+     * Serialize world to the file referenced by getWorldSavefile().
+     */
     public void serialize() {
 	///////////////////////////////////////////////////////////////////////////
 	// Check we can get serialization manager and its initialized correctly. //

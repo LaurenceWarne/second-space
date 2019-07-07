@@ -21,6 +21,8 @@ import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import org.aeonbits.owner.ConfigFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.init.ServerConfig;
@@ -37,7 +39,7 @@ import lombok.Getter;
 @Getter
 public class SecondSpaceServerBase extends Game {
 
-    private static final String TAG = SecondSpaceServerBase.class.getName();
+    private final Logger logger = LoggerFactory.getLogger(SecondSpaceServerBase.class);
 
     private com.badlogic.gdx.physics.box2d.World box2dWorld;
     private World world;
@@ -51,15 +53,15 @@ public class SecondSpaceServerBase extends Game {
 	    serverProperties.load(serverConfigFile.read());
 	}
 	catch (GdxRuntimeException e){
-	    Gdx.app.error(
-		TAG,
-		"Server properties file is not a valid file or missing, using default server configuration"
+	    logger.info(
+		"Server properties file is not a valid file or missing," +
+		" using default server configuration"
 	    );
 	}
 	catch (IOException|IllegalArgumentException e){
-	    Gdx.app.error(
-		TAG,
-		"Error occurred whilst reading the server properties file, using default server configuration."
+	    logger.error(
+		"Error occurred whilst reading the server properties file," +
+		" using default server configuration."
 	    );
 	}
 	ServerConfig serverConfig = ConfigFactory.create(
@@ -87,10 +89,7 @@ public class SecondSpaceServerBase extends Game {
 	    serverConfig.worldSaveFileLocation()
 	);
 	if (!worldSaveFile.exists()) {
-	    Gdx.app.log(
-		TAG,
-		"Creating empty world save file: " + worldSaveFile.path()
-	    );
+	    logger.info("Creating empty world save file: {}", worldSaveFile.path());
 	    // Minimum acceptable JSON file
 	    worldSaveFile.writeString("{}", false);
 	}
@@ -160,5 +159,4 @@ public class SecondSpaceServerBase extends Game {
     public void dispose() {
 	world.dispose();	
     }
-    
 }

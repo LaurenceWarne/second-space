@@ -1,5 +1,6 @@
 package laurencewarne.secondspace.server.system;
 
+import java.io.IOException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -11,6 +12,8 @@ import org.jline.reader.EndOfFileException;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.UserInterruptException;
+import org.jline.terminal.Terminal;
+import org.jline.terminal.TerminalBuilder;
 
 import laurencewarne.secondspace.server.component.Command;
 
@@ -25,8 +28,14 @@ public class TerminalSystem extends BaseEntitySystem {
     public void initialize() {
 	new Thread() {
 	    public void run() {
-		final LineReader reader = LineReaderBuilder.builder()
-		    .build();
+		final LineReaderBuilder readerBuilder = LineReaderBuilder.builder();
+		try {
+		    Terminal terminal = TerminalBuilder.builder().dumb(true).build();
+		    readerBuilder.terminal(terminal);
+		} catch (IOException e1) {
+		    // Could no build terminal, but we don't really care
+		}
+		final LineReader reader = readerBuilder.build();
 		String line = null;
 		while (true) {
 		    try {
@@ -48,8 +57,8 @@ public class TerminalSystem extends BaseEntitySystem {
     @Override
     public void processSystem() {
 	if (!commandQueue.isEmpty()) {
-	    String commandString = commandQueue.poll();
-	    Command command = mCommand.create(world.create());
+	    final String commandString = commandQueue.poll();
+	    final Command command = mCommand.create(world.create());
 	    command.setCommandString(commandString);
 	}
     }

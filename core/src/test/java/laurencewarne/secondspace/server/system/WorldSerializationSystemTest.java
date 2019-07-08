@@ -1,13 +1,18 @@
 package laurencewarne.secondspace.server.system;
 
+import static org.hamcrest.text.MatchesPattern.matchesPattern;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -19,6 +24,7 @@ import com.artemis.io.SaveFileFormat;
 import com.artemis.managers.WorldSerializationManager;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,12 +35,18 @@ import org.mockito.stubbing.Answer;
 
 import laurencewarne.secondspace.server.component.ComponentX;
 import laurencewarne.secondspace.server.component.ComponentY;
+import uk.org.lidalia.slf4jtest.LoggingEvent;
+import uk.org.lidalia.slf4jtest.TestLogger;
+import uk.org.lidalia.slf4jtest.TestLoggerFactory;
 
 public class WorldSerializationSystemTest {
 
     @Mock
     private FileHandle worldSaveFile;
 
+    private TestLogger logger = TestLoggerFactory.getTestLogger(
+	WorldSerializationSystem.class
+    );    
     private World world;
     private WorldSerializationManager wsm;
     private WorldSerializationSystem sys;
@@ -121,4 +133,24 @@ public class WorldSerializationSystemTest {
 	assertEquals(46f, mY.get(id1).f, 0.0001f);
     }
 
+    @Test
+    public void testErrorLoggedWithInvalidFile() {
+	WorldConfiguration setup = new WorldConfigurationBuilder()
+	    .with(
+		wsm = new WorldSerializationManager(),
+		sys = new WorldSerializationSystem(1f)
+	    )
+	    .build();
+	setup.register("worldSaveFile", worldSaveFile);
+	when(worldSaveFile.write(anyBoolean()))
+	    .thenThrow(new GdxRuntimeException(""));
+	world = new World(setup);
+	sys.serialize();
+	List<LoggingEvent> events = logger.getAllLoggingEvents();
+	LoggingEvent lastLog = events.get(events.size() - 1);
+	assertThat(
+	    lastLog.getMessage(),
+	    matchesPattern(".*file.*not.*written.*")
+	);
+    }
 }

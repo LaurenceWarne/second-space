@@ -70,7 +70,7 @@ public class SecondSpaceServerBase extends Game {
 		new AddRectangleCommandExecutorSystem(),
 		new PhysicsRectangleDataResolverSystem(),
 		new PhysicsSystem(),
-		new PhysicsRectangleSynchronizerSystem(5f),
+		new PhysicsRectangleSynchronizerSystem(1f),
 		new WorldSerializationSystem(10f)
 	    )
 	    .build();

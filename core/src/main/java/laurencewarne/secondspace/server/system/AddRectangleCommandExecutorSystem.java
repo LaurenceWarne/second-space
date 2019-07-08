@@ -8,6 +8,9 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.google.common.collect.ImmutableSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import laurencewarne.secondspace.server.component.Command;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import net.sourceforge.argparse4j.ArgumentParsers;
@@ -22,6 +25,9 @@ import net.sourceforge.argparse4j.inf.Namespace;
 @All(Command.class)
 public class AddRectangleCommandExecutorSystem extends BaseEntitySystem {
 
+    private final Logger logger = LoggerFactory.getLogger(
+	AddRectangleCommandExecutorSystem.class
+    );
     private ComponentMapper<Command> mCommand;
     private ComponentMapper<PhysicsRectangleData> mPhysicsRectangleData;
 
@@ -56,17 +62,17 @@ public class AddRectangleCommandExecutorSystem extends BaseEntitySystem {
 
     @Override
     public void inserted(int id) {
-	Command command = mCommand.get(id);
-	String commandString = command.getCommandString();
-	String[] commandArr = commandString.split("\\s+");
+	final Command command = mCommand.get(id);
+	final String commandString = command.getCommandString();
+	final String[] commandArr = commandString.split("\\s+");
 	// Check if valid
 	if (commandArr.length > 1 && validCommands.contains(commandArr[0])) {
-	    String[] args = Arrays.copyOfRange(
+	    final String[] args = Arrays.copyOfRange(
 		commandArr, 1, commandArr.length
 	    );
-	    PhysicsRectangleData c = mPhysicsRectangleData.create(world.create());
+	    final PhysicsRectangleData c = mPhysicsRectangleData.create(world.create());
 	    try {
-		Namespace res = parser.parseArgs(args);
+		final Namespace res = parser.parseArgs(args);
 		c.setWidth(res.getFloat("width"));
 		c.setHeight(res.getFloat("height"));
 		c.setX(res.getFloat("xcoord"));
@@ -74,7 +80,10 @@ public class AddRectangleCommandExecutorSystem extends BaseEntitySystem {
 		c.setStatic(res.get("static"));
 	    }
 	    catch (ArgumentParserException e){
-		System.out.println(e);
+		logger.error(
+		    "Error parsing 'addRectangle' command: {}",
+		    e.getStackTrace().toString()
+		);
 	    }
 	    mCommand.remove(id);
 	}

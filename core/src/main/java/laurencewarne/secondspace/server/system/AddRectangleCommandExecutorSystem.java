@@ -11,6 +11,7 @@ import com.google.common.collect.ImmutableSet;
 import laurencewarne.secondspace.server.component.Command;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import net.sourceforge.argparse4j.ArgumentParsers;
+import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
@@ -44,6 +45,8 @@ public class AddRectangleCommandExecutorSystem extends BaseEntitySystem {
 	parser.addArgument("-Y", "-y", "--ycoord")
 	    .type(Float.class)
 	    .setDefault(0f);
+	parser.addArgument("-S", "-s", "--static")
+	    .action(Arguments.storeTrue());
     }
     
     @Override
@@ -68,6 +71,7 @@ public class AddRectangleCommandExecutorSystem extends BaseEntitySystem {
 		c.setHeight(res.getFloat("height"));
 		c.setX(res.getFloat("xcoord"));
 		c.setY(res.getFloat("ycoord"));
+		c.setStatic(res.get("static"));
 	    }
 	    catch (ArgumentParserException e){
 		System.out.println(e);

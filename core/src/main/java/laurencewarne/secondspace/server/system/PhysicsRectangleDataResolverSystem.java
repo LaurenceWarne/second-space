@@ -36,21 +36,24 @@ public class PhysicsRectangleDataResolverSystem extends BaseEntitySystem {
     
     @Override
     public void inserted(int id) {
-	final PhysicsRectangleData c = mPhysicsRectangleData.get(id);
-	final BodyDef bodyDef = new BodyDef();
-	bodyDef.type = BodyType.DynamicBody;
-	bodyDef.position.set(c.getX(), c.getY());
-	PolygonShape rect = new PolygonShape();
-	rect.setAsBox(c.getWidth(), c.getHeight());
+		final PhysicsRectangleData c = mPhysicsRectangleData.get(id);
+		final BodyDef bodyDef = new BodyDef();
+		if (!c.isStatic()) {
+			bodyDef.type = BodyType.DynamicBody;
+		}
+		bodyDef.position.set(c.getX(), c.getY());
+		PolygonShape rect = new PolygonShape();
+		rect.setAsBox(c.getWidth(), c.getHeight());
 
-	final Body body = box2DWorld.createBody(bodyDef);
-	final FixtureDef fixtureDef = new FixtureDef();
-	fixtureDef.shape = rect;
-	fixtureDef.density = 0.5f; 
-	fixtureDef.friction = 0.4f;
-	fixtureDef.restitution = 0.6f;
-	final Fixture fixture = body.createFixture(fixtureDef); 
+		final Body body = box2DWorld.createBody(bodyDef);
+		final FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.shape = rect;
+		fixtureDef.density = 0.5f; 
+		fixtureDef.friction = 0.4f;
+		fixtureDef.restitution = 0.6f;
+		final Fixture fixture = body.createFixture(fixtureDef); 
 
-	mPhysics.create(id).setBody(body);
+		mPhysics.create(id).setBody(body);
+		rect.dispose();
     }
 }

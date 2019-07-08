@@ -11,6 +11,9 @@ import com.artemis.utils.IntBag;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import lombok.NonNull;
 
 /**
@@ -20,6 +23,9 @@ public class WorldSerializationSystem extends BaseIntervalSystem {
 
     @Wire(name="worldSaveFile") @NonNull
     private FileHandle worldSaveFile;
+    private final Logger logger = LoggerFactory.getLogger(
+	WorldSerializationSystem.class
+    );
 
     public WorldSerializationSystem(float interval) {
 	super(interval);
@@ -37,13 +43,16 @@ public class WorldSerializationSystem extends BaseIntervalSystem {
 	///////////////////////////////////////////////////////////////////////////
 	// Check we can get serialization manager and its initialized correctly. //
 	///////////////////////////////////////////////////////////////////////////
-	WorldSerializationManager serializationManager;
-	try {
-	    serializationManager = world.getSystem(
-		WorldSerializationManager.class
-	    );
-	} catch (Exception e) {
+	final WorldSerializationManager serializationManager = world.getSystem(
+	    WorldSerializationManager.class
+	);
+	// PR artemis-odb for better javadoc?
+	if (serializationManager == null) {
 	    // WorldSerializationManager not added to world
+	    logger.error(
+		"A WorldSerializationManager instance has not been" +
+		" added to the world"
+	    );
 	    return;
 	}
 	if (serializationManager.getSerializer() == null){
@@ -60,6 +69,10 @@ public class WorldSerializationSystem extends BaseIntervalSystem {
 	    os = worldSaveFile.write(false);
 	} catch (GdxRuntimeException e) {
 	    // File is a directory or could just not be written to
+	    logger.error(
+		"The specified save file is either a directory or" +
+		" could not be written to"
+	    );
 	    return;
 	}
 	final IntBag allEntities = world
@@ -67,5 +80,7 @@ public class WorldSerializationSystem extends BaseIntervalSystem {
 	    .get(Aspect.all())
 	    .getEntities();
 	serializationManager.save(os, new SaveFileFormat(allEntities));
+	logger.info("Completed auto save");
+	logger.debug("Saved {} entities to file", allEntities.size());
     }
 }

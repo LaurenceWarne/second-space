@@ -29,7 +29,7 @@ public class TerminalSystem extends BaseEntitySystem {
 
     @Override
     public void initialize() {
-	logger.info("Starting line reader in new thread");
+	logger.debug("Starting line reader in new thread");
 	new Thread() {
 	    public void run() {
 		final LineReaderBuilder readerBuilder = LineReaderBuilder.builder();

@@ -9,6 +9,9 @@ import com.artemis.io.SaveFileFormat;
 import com.artemis.managers.WorldSerializationManager;
 import com.badlogic.gdx.files.FileHandle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import lombok.NonNull;
 
 /**
@@ -18,17 +21,22 @@ public class WorldDeserializationSystem extends BaseSystem {
 
 	@Wire(name="worldSaveFile") @NonNull
     private FileHandle worldSaveFile;
+	private final Logger logger = LoggerFactory.getLogger(
+		WorldDeserializationSystem.class
+	);
 
     @Override
     public void initialize() {
-		WorldSerializationManager serializationManager;
-		try {
-			serializationManager = world.getSystem(
-				WorldSerializationManager.class
-			);
-		}
-		catch (Exception e) {
+		final WorldSerializationManager serializationManager = world.getSystem(
+			WorldSerializationManager.class
+		);
+		// PR artemis-odb for better javadoc?
+		if (serializationManager == null) {
 			// WorldSerializationManager not added to world
+			logger.error(
+				"A WorldSerializationManager instance has not been" +
+				" added to the world"
+			);
 			return;
 		}
 		if (serializationManager.getSerializer() == null){
@@ -39,6 +47,10 @@ public class WorldDeserializationSystem extends BaseSystem {
 		InputStream inputStream = worldSaveFile.read();
 		final SaveFileFormat saveFileFormat = serializationManager.load(
 			inputStream, SaveFileFormat.class
+		);
+		logger.info(
+			"Finish loading of save file, added {} entities to the world",
+			saveFileFormat.entities.size()
 		);
     }
 

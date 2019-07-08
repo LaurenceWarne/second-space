@@ -14,18 +14,22 @@ import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.UserInterruptException;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.server.component.Command;
 
 @All(Command.class)
 public class TerminalSystem extends BaseEntitySystem {
 
+    private final Logger logger = LoggerFactory.getLogger(TerminalSystem.class);
     private ComponentMapper<Command> mCommand;
 
     private final BlockingQueue<String> commandQueue= new ArrayBlockingQueue<>(16);
 
     @Override
     public void initialize() {
+	logger.info("Starting line reader in new thread");
 	new Thread() {
 	    public void run() {
 		final LineReaderBuilder readerBuilder = LineReaderBuilder.builder();

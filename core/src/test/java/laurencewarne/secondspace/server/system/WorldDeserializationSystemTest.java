@@ -1,12 +1,15 @@
 package laurencewarne.secondspace.server.system;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
+import static org.hamcrest.text.MatchesPattern.matchesPattern;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -17,13 +20,18 @@ import com.artemis.io.SaveFileFormat;
 import com.artemis.managers.WorldSerializationManager;
 import com.badlogic.gdx.files.FileHandle;
 
+import org.hamcrest.text.MatchesPattern;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.slf4j.event.Level;
 
 import laurencewarne.secondspace.server.component.ComponentX;
 import laurencewarne.secondspace.server.component.ComponentY;
+import uk.org.lidalia.slf4jtest.LoggingEvent;
+import uk.org.lidalia.slf4jtest.TestLogger;
+import uk.org.lidalia.slf4jtest.TestLoggerFactory;
 
 public class WorldDeserializationSystemTest {
 
@@ -32,6 +40,9 @@ public class WorldDeserializationSystemTest {
 
     private WorldSerializationManager wsm1, wsm2;
     private World world1, world2;
+    private TestLogger logger = TestLoggerFactory.getTestLogger(
+	WorldDeserializationSystem.class
+    );
 
     @Before
     public void setUp() {
@@ -141,4 +152,20 @@ public class WorldDeserializationSystemTest {
 	    .isEmpty()		   
 	);
     }
+
+    @Test
+    public void testSystemLogsManagerNotFoundWhenManagerNotAdded() {
+	WorldConfiguration setup = new WorldConfigurationBuilder()
+	    .with(new WorldDeserializationSystem())
+	    .build();
+	setup.register("worldSaveFile", worldSaveFile);
+	World world = new World(setup);
+	List<LoggingEvent> events = logger.getAllLoggingEvents();
+	LoggingEvent lastLog = events.get(events.size() - 1);
+	assertThat(
+	    lastLog.getMessage(),
+	    matchesPattern(".*WorldSerializationManager.*not.*added.*")
+	);
+    }
+
 }

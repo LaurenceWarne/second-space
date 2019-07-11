@@ -9,6 +9,6 @@ import lombok.ToString;
 
 @Transient @Getter @Setter @ToString
 public class Command extends Component {
-
     private String commandString;
+    private boolean processed = false;
 }

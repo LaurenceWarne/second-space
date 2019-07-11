@@ -6,9 +6,6 @@ import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.google.common.collect.ImmutableSet;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import laurencewarne.secondspace.server.component.Command;
 import lombok.Getter;
 import lombok.NonNull;
@@ -22,9 +19,6 @@ import net.sourceforge.argparse4j.inf.Namespace;
  */
 public abstract class CommandExecutorSystem extends BaseEntitySystem {
 
-    private final Logger logger = LoggerFactory.getLogger(
-	AddRectangleCommandExecutorSystem.class
-    );
     private ComponentMapper<Command> mCommand;
 
     /** Argument parser object used to parse command arguments.*/
@@ -66,7 +60,8 @@ public abstract class CommandExecutorSystem extends BaseEntitySystem {
 	final Command command = mCommand.get(id);
 	final String commandString = command.getCommandString();
 	final String[] commandArr = commandString.split("\\s+");
-	final boolean isValidCommand = commandArr.length > 0 &&
+	final boolean isValidCommand = !command.isProcessed() &&
+	    commandArr.length > 0 &&
 	    getValidCommands().contains(commandArr[0]);
 	// parseArgs() doesn't want the command string itself
 	final String[] args = Arrays.copyOfRange(
@@ -89,7 +84,7 @@ public abstract class CommandExecutorSystem extends BaseEntitySystem {
 		executeCommand(res);
 	    }
 	    // Remove commmand to prevent further processing
-	    mCommand.remove(id);
+	    command.setProcessed(true);
 	}
     }
 

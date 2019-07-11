@@ -22,7 +22,7 @@ public class PhysicsSystem extends BaseEntitySystem {
 
     @Override
     public void processSystem() {
-	box2DWorld.step(1/60f, 6, 2);
+	box2DWorld.step(1f/60f, 6, 2);
     }
 
     @Override

@@ -44,7 +44,8 @@ public class PhysicsRectangleDataResolverSystem extends BaseEntitySystem {
 		bodyDef.position.set(c.getX(), c.getY());
 		bodyDef.angle = c.getAngle();
 		PolygonShape rect = new PolygonShape();
-		rect.setAsBox(c.getWidth(), c.getHeight());
+		// Sets shapes local origin to the centre of the box
+		rect.setAsBox(c.getWidth() / 2f, c.getHeight() / 2f);
 
 		final Body body = box2DWorld.createBody(bodyDef);
 		final FixtureDef fixtureDef = new FixtureDef();

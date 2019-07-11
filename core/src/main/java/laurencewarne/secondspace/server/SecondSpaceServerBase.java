@@ -20,10 +20,12 @@ import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.server.init.ServerConfig;
 import laurencewarne.secondspace.server.system.AddRectangleCommandExecutorSystem;
+import laurencewarne.secondspace.server.system.AddWeldCommandExecutorSystem;
 import laurencewarne.secondspace.server.system.PhysicsRectangleDataResolverSystem;
 import laurencewarne.secondspace.server.system.PhysicsRectangleSynchronizerSystem;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
 import laurencewarne.secondspace.server.system.TerminalSystem;
+import laurencewarne.secondspace.server.system.WeldJointDataResolverSystem;
 import laurencewarne.secondspace.server.system.WorldDeserializationSystem;
 import laurencewarne.secondspace.server.system.WorldSerializationSystem;
 import lombok.Getter;
@@ -70,7 +72,9 @@ public class SecondSpaceServerBase extends Game {
 		new WorldDeserializationSystem(),
 		new TerminalSystem(),
 		new AddRectangleCommandExecutorSystem(),
+		new AddWeldCommandExecutorSystem(),
 		new PhysicsRectangleDataResolverSystem(),
+		new WeldJointDataResolverSystem(),
 		new PhysicsSystem(),
 		new PhysicsRectangleSynchronizerSystem(10f),
 		new WorldSerializationSystem(10f)

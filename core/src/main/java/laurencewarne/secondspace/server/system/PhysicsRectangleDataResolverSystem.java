@@ -42,6 +42,7 @@ public class PhysicsRectangleDataResolverSystem extends BaseEntitySystem {
 			bodyDef.type = BodyType.DynamicBody;
 		}
 		bodyDef.position.set(c.getX(), c.getY());
+		bodyDef.angle = c.getAngle();
 		PolygonShape rect = new PolygonShape();
 		rect.setAsBox(c.getWidth(), c.getHeight());
 

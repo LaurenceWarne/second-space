@@ -6,6 +6,7 @@ import java.util.Properties;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
+import com.artemis.link.EntityLinkManager;
 import com.artemis.managers.WorldSerializationManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -63,6 +64,7 @@ public class SecondSpaceServerBase extends Game {
 
 	// Init Artemis stuff: register any plugins, setup the world.
 	final WorldConfiguration setup = new WorldConfigurationBuilder()
+	    .dependsOn(EntityLinkManager.class)
 	    .with(
 		new WorldSerializationManager(),
 		new WorldDeserializationSystem(),
@@ -70,7 +72,7 @@ public class SecondSpaceServerBase extends Game {
 		new AddRectangleCommandExecutorSystem(),
 		new PhysicsRectangleDataResolverSystem(),
 		new PhysicsSystem(),
-		new PhysicsRectangleSynchronizerSystem(1f),
+		new PhysicsRectangleSynchronizerSystem(10f),
 		new WorldSerializationSystem(10f)
 	    )
 	    .build();

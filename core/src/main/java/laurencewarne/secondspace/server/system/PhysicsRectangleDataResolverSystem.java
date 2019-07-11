@@ -17,7 +17,7 @@ import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 
 /**
- * A {@link BaseEntitySystem} implementation which creates {@link Physics} components from corresponding {@link PhysicsRectangleData} components.
+ * A {@link BaseEntitySystem} implementation which creates {@link Physics} components for entities which have a  {@link PhysicsRectangleData} component but no {@link Physics} component.
  */
 @All(PhysicsRectangleData.class)
 @Exclude(Physics.class)

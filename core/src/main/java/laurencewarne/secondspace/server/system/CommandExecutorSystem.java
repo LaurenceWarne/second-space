@@ -1,7 +1,6 @@
 package laurencewarne.secondspace.server.system;
 
 import java.util.Arrays;
-import java.util.Set;
 
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
@@ -11,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.server.component.Command;
+import lombok.Getter;
 import lombok.NonNull;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
@@ -28,24 +28,33 @@ public abstract class CommandExecutorSystem extends BaseEntitySystem {
     private ComponentMapper<Command> mCommand;
 
     /** Argument parser object used to parse command arguments.*/
-    @NonNull
-    protected ArgumentParser parser;
-    /** Name of the command - not used for parsing the command, use validCommands instead.*/
-    @NonNull
-    protected String name;
-    /** A set of strings representing commands which this system should recognise and execute. This is a Collection so that you can make use of shorthand aliases.*/
-    @NonNull
-    protected Set<String> validCommands = ImmutableSet.of();
+    @NonNull @Getter
+    private ArgumentParser parser;
 
     @Override
     public void initialize() {
-	parser = ArgumentParsers.newFor(name).build();
+	parser = ArgumentParsers.newFor(getName()).build();
+	addArguments(parser);
     }
 
     /**
      * Add arguments to this object's ArgumentParser instance.
      */
-    public abstract void addArguments();
+    public abstract void addArguments(ArgumentParser parser);
+
+    /** 
+     * Name of the command - not used for parsing the command, use validCommands instead. This is used as the argument for ArgumentParser.newFor.
+     *
+     * @return name of the command
+     */    
+    public abstract String getName();
+
+    /** 
+     * Returns a  set of strings representing commands which this system should recognise and execute. This is a Collection so that you can make use of shorthand aliases.
+     *
+     *  @return a set of strings which are valid names for this command.
+     */
+    public abstract ImmutableSet<String> getValidCommands();
     
     @Override
     public void processSystem() {
@@ -58,22 +67,27 @@ public abstract class CommandExecutorSystem extends BaseEntitySystem {
 	final String commandString = command.getCommandString();
 	final String[] commandArr = commandString.split("\\s+");
 	final boolean isValidCommand = commandArr.length > 0 &&
-	    validCommands.contains(commandArr[0]) &&
-	    // Don't want to do anything on help option except display help
-	    !Arrays.stream(commandArr).anyMatch("-h"::equals);
+	    getValidCommands().contains(commandArr[0]);
+	// parseArgs() doesn't want the command string itself
+	final String[] args = Arrays.copyOfRange(
+	    commandArr, 1, commandArr.length
+	);
 	if (isValidCommand) {
 	    Namespace res;
 	    try {
-		res = parser.parseArgs(commandArr);
+		res = parser.parseArgs(args);
 	    } catch (ArgumentParserException e) {
-		logger.error(
-		    "Error parsing '{}' command: {}",
-		    commandArr[0],
-		    e.getStackTrace().toString()
-		);
+		parser.handleError(e);
 		return;
 	    }
-	    executeCommand(res);
+	    /* 
+	       Don't want to do anything on help option except display help.
+	       We don't add this to isValidCommand as parseArgs() will print out a
+	       help message for us.
+	    */
+	    if (!Arrays.stream(commandArr).anyMatch("-h"::equals)) {
+		executeCommand(res);
+	    }
 	    // Remove commmand to prevent further processing
 	    mCommand.remove(id);
 	}

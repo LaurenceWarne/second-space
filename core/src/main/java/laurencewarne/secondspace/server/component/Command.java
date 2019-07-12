@@ -7,8 +7,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * Encapsulates a command.
+ */
 @Transient @Getter @Setter @ToString
 public class Command extends Component {
-    private String commandString;
+    private String commandString = "nop";
     private boolean processed = false;
 }

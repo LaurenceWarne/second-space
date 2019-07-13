@@ -3,6 +3,9 @@ package laurencewarne.secondspace.server.component.ship;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * A simple implementation of {@link IShipAugmentationHelper}.
+ */
 public class ShipAugmentationHelper implements IShipAugmentationHelper {
 
     @Override

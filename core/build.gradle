@@ -28,7 +28,10 @@ dependencies {
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
 
-    testImplementation 'org.hamcrest:hamcrest:2.1'
+    testImplementation "org.hamcrest:hamcrest:2.1"
+    // https://mvnrepository.com/artifact/com.andrewjamesjohnson/junit-parameterized-test-case
+    testImplementation "com.andrewjamesjohnson:junit-parameterized-test-case:1.0.1"
+
     testImplementation 'org.hamcrest:hamcrest-library:2.1'    
     testImplementation "junit:junit:4.12"        
     testImplementation "org.mockito:mockito-core:2.28.2"

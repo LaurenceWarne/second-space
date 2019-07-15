@@ -1,4 +1,4 @@
-package laurencewarne.secondspace.server.component.ship;
+package laurencewarne.secondspace.server.ship;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;

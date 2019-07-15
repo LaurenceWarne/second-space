@@ -1,4 +1,4 @@
-package laurencewarne.secondspace.server;
+package laurencewarne.secondspace.server.ship;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -17,13 +17,13 @@ public class ShipCoordinateLocaliser {
      * @return coordinateInShipCoordinates in cell local coordinates
      */
     public Vector2 shipToCellCoords(
-	Vector2 coordinateInShipCoords, Vector2 cellInShipCoords,
-	float cellWidth, float cellHeight) {
-	float originX = cellInShipCoords.x + cellWidth / 2f;
-	float originY = cellInShipCoords.y + cellHeight / 2f;
-	return new Vector2(
-	    coordinateInShipCoords.x - originX,
-	    coordinateInShipCoords.y - originY
-	);
+       Vector2 coordinateInShipCoords, Vector2 cellInShipCoords,
+       float cellWidth, float cellHeight) {
+       float originX = cellInShipCoords.x + cellWidth / 2f;
+       float originY = cellInShipCoords.y + cellHeight / 2f;
+       return new Vector2(
+           coordinateInShipCoords.x - originX,
+           coordinateInShipCoords.y - originY
+       );
     }
 }

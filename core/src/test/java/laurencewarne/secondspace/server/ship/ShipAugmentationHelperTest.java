@@ -1,4 +1,4 @@
-package laurencewarne.secondspace.server.component.ship;
+package laurencewarne.secondspace.server.ship;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

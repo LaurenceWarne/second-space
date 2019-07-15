@@ -38,11 +38,4 @@ public class ShipAugmentationHelper implements IShipAugmentationHelper {
 	}
 	return touch;
     }
-
-    @Override
-    public Iterable<Vector2> getAugmentationPoints(
-	Iterable<Rectangle> existingShipParts, Rectangle newPart) {
-	return null;
-    }
-
 }

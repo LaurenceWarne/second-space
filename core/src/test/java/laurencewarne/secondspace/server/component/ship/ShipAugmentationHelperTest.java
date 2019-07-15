@@ -117,4 +117,13 @@ public class ShipAugmentationHelperTest {
 	assertFalse(aug.isAugmentable(existingParts, newPart));	
     }
 
+    @Test
+    public void testNewShipPartNotAugmentableWhenSameAsExistingPart() {
+	List<Rectangle> existingParts = Lists.newArrayList(
+	    new Rectangle(1f, 1f, 1f, 1f)
+	);
+	Rectangle newPart = new Rectangle(1f, 1f, 1f, 1f);
+	assertFalse(aug.isAugmentable(existingParts, newPart));	
+    }
+
 }

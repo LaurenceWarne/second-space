@@ -1,13 +1,12 @@
 package laurencewarne.secondspace.server.ship;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import org.junit.Before;
 import org.junit.Test;
+
 
 public class ShipCoordinateLocaliserTest {
 
@@ -56,10 +55,4 @@ public class ShipCoordinateLocaliserTest {
 	assertEquals(226f, converted.x, 0.0001f);
 	assertEquals(-3f, converted.y, 0.0001f);
     }
-
-    @Test
-    public void test() {
-	assertTrue(new Rectangle(0f, 0f, 1f, 1f).contains(new Vector2(1f, 1f)));
-    }
-
 }

@@ -18,9 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(ParameterizedTestCaseRunner.class)
-public class ShipAugmentationHelperTest {
-
-    private ShipAugmentationHelper aug;
+public class ShipsTest {
 
     public static class RecParameterGenerator
 	implements ParameterGenerator<Tuple1<Rectangle>> {
@@ -38,7 +36,7 @@ public class ShipAugmentationHelperTest {
 
     @Before
     public void setUp() {
-	aug = new ShipAugmentationHelper();
+
     }    
 
     @ParameterizedTest(generator = RecParameterGenerator.class)
@@ -47,7 +45,7 @@ public class ShipAugmentationHelperTest {
 	    param._1
 	);
 	Rectangle newPart = new Rectangle(0f, 0f, 1f, 1f);
-	assertTrue(aug.isAugmentable(existingParts, newPart));
+	assertTrue(Ships.isAugmentable(existingParts, newPart));
     }
 
     @ParameterizedTest(generator = RecParameterGenerator.class)
@@ -56,7 +54,7 @@ public class ShipAugmentationHelperTest {
 	    new Rectangle(0f, 0f, 1f, 1f)
 	);
 	Rectangle newPart = param._1;
-	assertTrue(aug.isAugmentable(existingParts, newPart));
+	assertTrue(Ships.isAugmentable(existingParts, newPart));
     }
 
     @Test
@@ -65,7 +63,7 @@ public class ShipAugmentationHelperTest {
 	    new Rectangle(0f, 0f, 2f, 2f)
 	);
 	Rectangle newPart = new Rectangle(1f, 0f, 1f, 1f);
-	assertFalse(aug.isAugmentable(existingParts, newPart));
+	assertFalse(Ships.isAugmentable(existingParts, newPart));
     }
 
     @Test
@@ -74,7 +72,7 @@ public class ShipAugmentationHelperTest {
 	    new Rectangle(0f, 0f, 2f, 2f)
 	);
 	Rectangle newPart = new Rectangle(-2f, 0f, 1f, 1f);
-	assertFalse(aug.isAugmentable(existingParts, newPart));
+	assertFalse(Ships.isAugmentable(existingParts, newPart));
     }
 
     @Test
@@ -87,14 +85,14 @@ public class ShipAugmentationHelperTest {
 	    new Rectangle(2f, 0f, 1f, 1f)
 	);
 	Rectangle newPart = new Rectangle(1f, 0f, 1f, 1f);
-	assertTrue(aug.isAugmentable(existingParts, newPart));
+	assertTrue(Ships.isAugmentable(existingParts, newPart));
     }
 
     @Test
     public void testNewShipPartNotAugmentableWith0ExistingParts() {
 	List<Rectangle> existingParts = Lists.newArrayList();
 	Rectangle newPart = new Rectangle(1f, 0f, 1f, 1f);
-	assertFalse(aug.isAugmentable(existingParts, newPart));	
+	assertFalse(Ships.isAugmentable(existingParts, newPart));	
     }
 
     @Test
@@ -104,7 +102,7 @@ public class ShipAugmentationHelperTest {
 	    new Rectangle(1f, 2f, 1f, 1f)
 	);
 	Rectangle newPart = new Rectangle(3f, 3f, 1f, 1f);
-	assertFalse(aug.isAugmentable(existingParts, newPart));	
+	assertFalse(Ships.isAugmentable(existingParts, newPart));	
     }
 
     @Test
@@ -114,7 +112,7 @@ public class ShipAugmentationHelperTest {
 	    new Rectangle(1f, 1f, 1f, 1f)
 	);
 	Rectangle newPart = new Rectangle(2f, 1f, 2f, 1f);
-	assertFalse(aug.isAugmentable(existingParts, newPart));	
+	assertFalse(Ships.isAugmentable(existingParts, newPart));	
     }
 
     @Test
@@ -123,7 +121,7 @@ public class ShipAugmentationHelperTest {
 	    new Rectangle(1f, 1f, 1f, 1f)
 	);
 	Rectangle newPart = new Rectangle(1f, 1f, 1f, 1f);
-	assertFalse(aug.isAugmentable(existingParts, newPart));	
+	assertFalse(Ships.isAugmentable(existingParts, newPart));	
     }
 
 }

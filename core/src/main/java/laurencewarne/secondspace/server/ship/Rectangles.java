@@ -2,6 +2,7 @@ package laurencewarne.secondspace.server.ship;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -28,7 +29,7 @@ public final class Rectangles {
 	Collection<Vector2> points = new ArrayList<>();
 	float width = rectangle.width, height = rectangle.height;
 	float recX = rectangle.x, recY = rectangle.y;
-	for (float x = recX + offset; x <= recX + width; x += offset){
+	for (float x = recX + offset; x <= recX + width; x += spacing){
 	    points.addAll(
 		Lists.newArrayList(
 		    new Vector2(x, recY),
@@ -36,7 +37,7 @@ public final class Rectangles {
 		)
 	    );
 	}
-	for (float y = recY + offset; y <= recY + height; y += offset){
+	for (float y = recY + offset; y <= recY + height; y += spacing){
 	    points.addAll(
 		Lists.newArrayList(
 		    new Vector2(recX, y),
@@ -44,6 +45,7 @@ public final class Rectangles {
 		)
 	    );
 	}
-	return points;
+	// Remove duplicates
+	return points.stream().distinct().collect(Collectors.toList());
     }
 }

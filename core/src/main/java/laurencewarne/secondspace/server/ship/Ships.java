@@ -8,6 +8,9 @@ import com.badlogic.gdx.math.Vector2;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.ShipPart;
 
+/**
+ * Utilities for working with ships. Named in the same vain as java stdlib/guava sticking an 's' on the name of the interface/thing you want to provide utilities for.
+ */
 public final class Ships {
 
     private Ships() {

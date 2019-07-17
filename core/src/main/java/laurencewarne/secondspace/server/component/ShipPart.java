@@ -15,7 +15,7 @@ import lombok.ToString;
 public class ShipPart extends Component {
     /** The id of the ship this component belongs to*/
     @EntityId
-    private int shipID = -1;
+    public int shipId = -1;
     /** Whether this ship part is a 'controller'*/
     private boolean isController = false;
     /** Bottom right x coordinate of this part in local ship coordinate axes*/

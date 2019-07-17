@@ -1,23 +1,23 @@
 package laurencewarne.secondspace.server.system;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.utils.IntBag;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.Ship;
 import laurencewarne.secondspace.server.component.ShipPart;
 import laurencewarne.secondspace.server.component.WeldJointData;
+import laurencewarne.secondspace.server.ship.Rectangles;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
 import laurencewarne.secondspace.server.ship.Ships;
 
@@ -60,26 +60,13 @@ public class ShipWeldingSystem extends BaseEntitySystem {
 	// Get possible weld positions //
 	/////////////////////////////////
 	final PhysicsRectangleData recData = mRecData.get(id);
-	final List<Vector2> connections = new ArrayList<>();
-	final int x = newPart.getLocalX(), y = newPart.getLocalY();
-	final int width = (int) recData.getWidth();
-	final int height = (int) recData.getHeight();
-	for (int i = x - 1; i < x + width + 1; i++){
-	    for (int j = y - 1; j < y + height + 1; j++){
-		if (i < x && y <= j && j < y + height){
-		    connections.add(new Vector2(i + 1f, j + 0.5f));
-		}
-		else if (i == x + width && y <= j && j < y + height){
-		    connections.add(new Vector2(i, j + 0.5f));
-		}
-		else if (j < y && x <= i && i< x + width){
-		    connections.add(new Vector2(i + 1f, j + 0.5f));
-		}
-		else if (j == y + height && x <= i && i < x + width){
-		    connections.add(new Vector2(i + 0.5f, j + 1f));
-		}
-	    }
-	}
+	final Rectangle shipRectangle = new Rectangle(
+	    newPart.getLocalX(), newPart.getLocalY(),
+	    recData.getWidth(), recData.getHeight()
+	);
+	final Iterable<Vector2> connections = Rectangles.getPointsOnEdge(
+	    shipRectangle, 0.5f, 1f
+	);
 
 	////////////////////////////////
 	// Add correct weld positions //

@@ -24,6 +24,7 @@ dependencies {
     implementation "org.aeonbits.owner:owner:1.0.8"
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     implementation "org.slf4j:slf4j-api:1.7.26"
+    implementation "net.namekdev.entity_tracker:artemis-entity-tracker-gui:0.4.0-SNAPSHOT"
 
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"

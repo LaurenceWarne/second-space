@@ -43,6 +43,7 @@ public class SecondSpaceServerBase extends Game {
 
     private final Logger logger = LoggerFactory.getLogger(SecondSpaceServerBase.class);
     private com.badlogic.gdx.physics.box2d.World box2dWorld;
+    @Getter
     private World world;
 
     @Override
@@ -70,22 +71,10 @@ public class SecondSpaceServerBase extends Game {
 	);
 
 	// Init Artemis stuff: register any plugins, setup the world.
-	final WorldConfiguration setup = new WorldConfigurationBuilder()
-	    .dependsOn(EntityLinkManager.class)
-	    .with(
-		new WorldSerializationManager(),
-		new WorldDeserializationSystem(),
-		new TerminalSystem(),
-		new AddRectangleCommandExecutorSystem(),
-		new AddWeldCommandExecutorSystem(),
-		new ShipWeldingSystem(),
-		new PhysicsRectangleDataResolverSystem(),
-		new WeldJointDataResolverSystem(),
-		new PhysicsSystem(),
-		new PhysicsRectangleSynchronizerSystem(10f),
-		new WorldSerializationSystem(10f)
-	    )
-	    .build();
+	final WorldConfigurationBuilder setupBuilder =
+	    new WorldConfigurationBuilder();
+	setupWorldConfig(setupBuilder);
+	final WorldConfiguration setup = setupBuilder.build();
 
 	// Inject non-artemis dependencies
 	setup.register(new ShipCoordinateLocaliser());
@@ -131,6 +120,24 @@ public class SecondSpaceServerBase extends Game {
 	ship.parts.add(id1);
 	ship.parts.add(id2);
 	ship.parts.add(id3);
+    }
+
+    protected void setupWorldConfig(WorldConfigurationBuilder configBuilder) {
+	configBuilder
+	    .dependsOn(EntityLinkManager.class)
+	    .with(
+		new WorldSerializationManager(),
+		new WorldDeserializationSystem(),
+		new TerminalSystem(),
+		new AddRectangleCommandExecutorSystem(),
+		new AddWeldCommandExecutorSystem(),
+		new ShipWeldingSystem(),
+		new PhysicsRectangleDataResolverSystem(),
+		new WeldJointDataResolverSystem(),
+		new PhysicsSystem(),
+		new PhysicsRectangleSynchronizerSystem(10f),
+		new WorldSerializationSystem(10f)
+	    );
     }
 
     @Override

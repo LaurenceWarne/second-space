@@ -1,5 +1,6 @@
 package laurencewarne.secondspace.server;
 
+import com.artemis.WorldConfigurationBuilder;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
@@ -7,6 +8,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import lombok.Getter;
+import net.namekdev.entity_tracker.EntityTracker;
+import net.namekdev.entity_tracker.ui.EntityTrackerMainWindow;
 
 /**
  * Renders box2d world with @Link{Box2DDebugRenderer}, Also allows for movement of camera with arrow keys.
@@ -25,8 +28,17 @@ public class SecondSpaceServerUI extends SecondSpaceServerBase {
     public void create() {
 	super.create();
 	debugRenderer = new Box2DDebugRenderer();
-	camera = new OrthographicCamera(100, 100);	
+	camera = new OrthographicCamera(100, 100);
     }
+
+    @Override
+    protected void setupWorldConfig(WorldConfigurationBuilder configBuilder) {
+	super.setupWorldConfig(configBuilder);
+	EntityTrackerMainWindow entityTrackerMainWindow = new EntityTrackerMainWindow(
+	    true, false
+	);
+	configBuilder.with(new EntityTracker(entityTrackerMainWindow));
+    }    
 
     @Override
     public void render() {

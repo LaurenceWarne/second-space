@@ -34,8 +34,9 @@ public class SecondSpaceServerUI extends SecondSpaceServerBase {
     @Override
     protected void setupWorldConfig(WorldConfigurationBuilder configBuilder) {
 	super.setupWorldConfig(configBuilder);
-	EntityTrackerMainWindow entityTrackerMainWindow = new EntityTrackerMainWindow(
-	    true, false
+	EntityTrackerMainWindow entityTrackerMainWindow =
+	    new EntityTrackerMainWindow(
+		true, false
 	);
 	configBuilder.with(new EntityTracker(entityTrackerMainWindow));
     }    

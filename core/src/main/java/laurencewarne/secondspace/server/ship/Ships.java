@@ -1,5 +1,9 @@
 package laurencewarne.secondspace.server.ship;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.artemis.ComponentMapper;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Rectangle;
@@ -29,9 +33,15 @@ public final class Ships {
     public static IntBag getShipPartsOnPoint(
 	IntBag entities, ComponentMapper<ShipPart> mShipPart,
 	ComponentMapper<PhysicsRectangleData> mRecData, Vector2 point) {
-	// Entities which have ship parts lieing on the specified point
+	// Entities which have ship parts lying on the specified point
 	final IntBag entitiesOnPoint = new IntBag();
-	for (int entity : entities.getData()) {
+	// Intbag data adds extra 0s
+	final Set<Integer> entitiesDistinct = Arrays
+	    .stream(entities.getData())
+	    .boxed()
+	    .collect(Collectors.toSet());
+	// Iterate through distinct entities
+	for (int entity : entitiesDistinct) {
 	    final ShipPart shipPart = mShipPart.getSafe(entity, null);
 	    final PhysicsRectangleData recData = mRecData.getSafe(entity, null);
 	    if (shipPart != null && recData != null) {

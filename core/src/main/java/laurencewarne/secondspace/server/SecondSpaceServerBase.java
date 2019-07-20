@@ -99,23 +99,48 @@ public class SecondSpaceServerBase extends Game {
 	int id1 = world.create();
 	int id2 = world.create();
 	int id3 = world.create();
+
 	PhysicsRectangleData r1 = world.edit(id1)
 	    .create(PhysicsRectangleData.class);
-	r1.setWidth(9f); r1.setHeight(9f);
+	r1.setWidth(10f); r1.setHeight(4f);
 	ShipPart s1 = world.edit(id1).create(ShipPart.class);
 	s1.setLocalX(0); s1.setLocalY(0); s1.shipId = shipId;
 
 	PhysicsRectangleData r2 = world.edit(id2)
 	    .create(PhysicsRectangleData.class);
-	r2.setWidth(1f); r2.setHeight(1f);
+	r2.setWidth(2f); r2.setHeight(15f);
 	ShipPart s2 = world.edit(id2).create(ShipPart.class);
-	s2.setLocalX(4); s2.setLocalY(-1); s2.shipId = shipId;
+	s2.setLocalX(-2); s2.setLocalY(0); s2.shipId = shipId;
 
 	PhysicsRectangleData r3 = world.edit(id3)
 	    .create(PhysicsRectangleData.class);
-	r3.setWidth(3f); r3.setHeight(3f);
+	r3.setWidth(2f); r3.setHeight(15f);
 	ShipPart s3 = world.edit(id3).create(ShipPart.class);
-	s3.setLocalX(3); s3.setLocalY(10); s3.shipId = shipId;
+	s3.setLocalX(10); s3.setLocalY(0); s3.shipId = shipId;
+
+	int id4 = world.create();	
+	PhysicsRectangleData r4 = world.edit(id4)
+	    .create(PhysicsRectangleData.class);
+	r4.setWidth(3f); r4.setHeight(7f);
+	ShipPart s4 = world.edit(id4).create(ShipPart.class);
+	s4.setLocalX(2); s4.setLocalY(4); s4.shipId = shipId;
+	ship.parts.add(id4);
+
+	int id5 = world.create();	
+	PhysicsRectangleData r5 = world.edit(id5)
+	    .create(PhysicsRectangleData.class);
+	r5.setWidth(3f); r5.setHeight(7f);
+	ShipPart s5 = world.edit(id5).create(ShipPart.class);
+	s5.setLocalX(5); s5.setLocalY(4); s5.shipId = shipId;
+	ship.parts.add(id5);
+
+	int id6 = world.create();	
+	PhysicsRectangleData r6 = world.edit(id6)
+	    .create(PhysicsRectangleData.class);
+	r6.setWidth(4f); r6.setHeight(2f);
+	ShipPart s6 = world.edit(id6).create(ShipPart.class);
+	s6.setLocalX(3); s6.setLocalY(11); s6.shipId = shipId;
+	ship.parts.add(id6);
 
 	ship.parts.add(id1);
 	ship.parts.add(id2);

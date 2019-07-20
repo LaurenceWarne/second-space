@@ -1,11 +1,5 @@
 package laurencewarne.secondspace.server.system;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
@@ -15,7 +9,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
-import com.google.common.collect.Multimap;
 
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.Ship;
@@ -50,6 +43,7 @@ public class ShipWeldingSystem extends BaseEntitySystem {
     ) {
 	final ShipPart aPart = mShipPart.get(entityAId);
 	final PhysicsRectangleData aRecData = mRecData.get(entityAId);
+	// validation
 	final Vector2 aPartCoord = shipCoordLocaliser.shipToCellCoords(
 	    shipConnectionCoordinate,
 	    new Vector2(aPart.getLocalX(), aPart.getLocalY()),

@@ -1,6 +1,7 @@
 package laurencewarne.secondspace.server.collect;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -11,10 +12,19 @@ import com.badlogic.gdx.utils.IntArray;
 
 import lombok.NonNull;
 
+/**
+ * Utility class for working with {@link IntBag}s.
+ */
 public final class IntBags {
 
     private IntBags() {
 	
+    }
+
+    public static IntBag of(int... integers) {
+	final IntBag bag = new IntBag(integers.length);
+	Arrays.stream(integers).forEach(n -> bag.add(n));
+	return bag;
     }
 
     public static List<Integer> toList(@NonNull IntBag bag) {

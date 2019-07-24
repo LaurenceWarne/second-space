@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
+import com.artemis.utils.IntBag;
 import com.badlogic.gdx.utils.IntArray;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.ShipPart;
 import laurencewarne.secondspace.server.component.ShipPartConnections;
+import laurencewarne.secondspace.server.ship.Ships;
 
 @All({ShipPart.class, Physics.class})
 public class ShipPartRemovalSystem extends BaseEntitySystem {
@@ -40,8 +42,11 @@ public class ShipPartRemovalSystem extends BaseEntitySystem {
 		.toArray();
 	    for (int adjPartId : adjEntities.items) {
 		// Check the entity connected to the ship is in fact still connected
-		IntArray allConnectedEntities = null;
-		boolean isConnectedToShip = Arrays.stream(allConnectedEntities.items)
+		final IntBag allConnectedEntities = Ships.getConnectedParts(
+		    adjPartId, mShipPartConnections
+		);
+		boolean isConnectedToShip = Arrays
+		    .stream(allConnectedEntities.getData())
 		    .boxed()
 		    .map(e -> mShipPart.get(e))
 		    .anyMatch(part -> part.isController());

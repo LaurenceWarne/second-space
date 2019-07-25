@@ -51,7 +51,7 @@ public class ShipPartRemovalSystem extends BaseEntitySystem {
 		    .map(e -> mShipPart.get(e))
 		    .anyMatch(part -> part.isController());
 		if (!isConnectedToShip) {
-		    // destroy 
+		    // destroy ShipPart and ShipPartConnections
 		}
 
 	    }

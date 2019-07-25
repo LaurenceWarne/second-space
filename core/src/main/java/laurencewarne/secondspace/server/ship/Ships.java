@@ -1,8 +1,7 @@
 package laurencewarne.secondspace.server.ship;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,10 +13,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.IntArray;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.google.common.primitives.Ints;
 
+import laurencewarne.secondspace.server.collect.IntBags;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.ShipPart;
 import laurencewarne.secondspace.server.component.ShipPartConnections;
+import lombok.NonNull;
 
 /**
  * Utilities for working with ships. Named in the same vain as java stdlib/guava sticking an 's' on the name of the interface/thing you want to provide utilities for.
@@ -32,7 +34,8 @@ public final class Ships {
     }
 
     public static Rectangle getRectangleInShipSpace(
-		ShipPart shipPart, PhysicsRectangleData rectangleData) {
+		@NonNull ShipPart shipPart,
+		@NonNull PhysicsRectangleData rectangleData) {
 		final int x = shipPart.getLocalX();
 		final int y = shipPart.getLocalY();
 		final float width = rectangleData.getWidth();
@@ -41,8 +44,10 @@ public final class Ships {
     }
 
     public static IntBag getShipPartsOnPoint(
-		IntBag entities, ComponentMapper<ShipPart> mShipPart,
-		ComponentMapper<PhysicsRectangleData> mRecData, Vector2 point) {
+		@NonNull IntBag entities,
+		@NonNull ComponentMapper<ShipPart> mShipPart,
+		@NonNull ComponentMapper<PhysicsRectangleData> mRecData,
+		@NonNull Vector2 point) {
 		// Entities which have ship parts lying on the specified point
 		final IntBag entitiesOnPoint = new IntBag();
 		// Intbag data adds extra 0s
@@ -66,7 +71,8 @@ public final class Ships {
     }    
 
     public static boolean isAugmentable(
-		Iterable<Rectangle> existingShipParts, Rectangle newPart) {
+		@NonNull Iterable<Rectangle> existingShipParts,
+		@NonNull Rectangle newPart) {
 		// If rectangles share a common edge, aka if they "touch"
 		boolean touch = false;
 		final Vector2 originalPosition = newPart.getPosition(new Vector2());
@@ -96,10 +102,10 @@ public final class Ships {
     }
 
     public static IntBag getAdjacentEntities(
-		int id, ComponentMapper<ShipPartConnections> mShipPartConnections,
-		Set<Integer> entitiesToIgnore
+		int id,
+		@NonNull ComponentMapper<ShipPartConnections> mShipPartConnections,
+		@NonNull Set<Integer> entitiesToIgnore
     ) {
-		final IntBag adjacentBag = new IntBag();
 		final ShipPartConnections conns = mShipPartConnections.getSafe(
 			id, NULL_CONNECTION
 		);
@@ -107,33 +113,30 @@ public final class Ships {
 			.getEntityToConnectionLocationMapping()
 			.keys()
 			.toArray();
-		Arrays.stream(adjEntities.items)
-			.filter(e -> !entitiesToIgnore.contains(e))
-			.forEach(e -> adjacentBag.add(e));
+		final IntBag adjacentBag = new IntBag();
+		for (int i = 0; i < adjEntities.size; i++){
+			if (!entitiesToIgnore.contains(adjEntities.get(i))) {
+				adjacentBag.add(adjEntities.get(i));
+			}
+		}
 		return adjacentBag;
     }
 
     public static IntBag getConnectedParts(
-		int id, ComponentMapper<ShipPartConnections> mShipPartConnections
+		int id,
+		@NonNull ComponentMapper<ShipPartConnections> mShipPartConnections
     ) {
 		final Set<Integer> searchedEntities = Sets.newHashSet();
-		final Queue<Integer> entitiesToSearch = Lists.newLinkedList();
-		entitiesToSearch.add(id);
+		final Queue<Integer> entitiesToSearch = new LinkedList<>(Ints.asList(id));
 		while (!entitiesToSearch.isEmpty()){
 			final int entity = entitiesToSearch.poll();
 			final IntBag nextEntities = getAdjacentEntities(
 				entity, mShipPartConnections, searchedEntities
 			);
-			final Collection<Integer> nextEntitiesColl = Arrays
-				.stream(nextEntities.getData())
-				.boxed()
-				.collect(Collectors.toList());
-			entitiesToSearch.addAll(nextEntitiesColl);
+			entitiesToSearch.addAll(IntBags.toList(nextEntities));
 			searchedEntities.add(entity);
 		}
-		final IntBag result = new IntBag();
-		searchedEntities.stream().forEach(e -> result.add(e));
-		return result;
+		return IntBags.fromCollection(searchedEntities);
     }
     
 }

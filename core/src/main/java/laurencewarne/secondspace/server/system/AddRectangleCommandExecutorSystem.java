@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.server.component.Command;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
+import lombok.NonNull;
 import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.Namespace;
@@ -32,6 +33,11 @@ public class AddRectangleCommandExecutorSystem extends CommandExecutorSystem {
     @Override
     public ImmutableSet<String> getValidCommands() {
 	return validCommands;
+    }
+
+    @Override
+    public void handleParsingError(@NonNull String command, @NonNull String errorString) {
+	logger.error("Error parsing command: " + errorString);
     }
 
     @Override

@@ -5,14 +5,21 @@ import com.artemis.annotations.All;
 import com.badlogic.gdx.math.Vector2;
 import com.google.common.collect.ImmutableSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import laurencewarne.secondspace.server.component.Command;
 import laurencewarne.secondspace.server.component.WeldJointData;
+import lombok.NonNull;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.Namespace;
 
 @All(Command.class)
 public class AddWeldCommandExecutorSystem extends CommandExecutorSystem {
 
+    private final Logger logger = LoggerFactory.getLogger(
+	AddWeldCommandExecutorSystem.class
+    );
     private ComponentMapper<WeldJointData> mWeldJointData;
     private final ImmutableSet<String> validCommands = ImmutableSet.of(
 	"addWelds", "add-welds", "aw"
@@ -23,6 +30,11 @@ public class AddWeldCommandExecutorSystem extends CommandExecutorSystem {
     public ImmutableSet<String> getValidCommands() {
 	return validCommands;
     }
+
+    @Override
+    public void handleParsingError(@NonNull String command, @NonNull String errorString) {
+	logger.error("Error parsing command: " + errorString);
+    }    
 
     @Override
     public String getName() {

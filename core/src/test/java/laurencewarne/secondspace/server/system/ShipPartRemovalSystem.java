@@ -1,6 +1,8 @@
 package laurencewarne.secondspace.server.system;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.utils.IntArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import laurencewarne.secondspace.server.collect.IntBags;
 import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.ShipPart;
@@ -35,12 +38,12 @@ public class ShipPartRemovalSystem extends BaseEntitySystem {
     @Override
     public void removed(int id) {
 	if (mShipPartConnections.has(id)){
-	    final ShipPartConnections connections = mShipPartConnections.get(id);
-	    final IntArray adjEntities = connections
-		.getEntityToConnectionLocationMapping()
-		.keys()
-		.toArray();
-	    for (int adjPartId : adjEntities.items) {
+	    final Collection<Integer> adjEntities = IntBags.toList(
+		Ships.getAdjacentEntities(
+		    id, mShipPartConnections, new HashSet<>()
+		)
+	    );
+	    for (int adjPartId : adjEntities) {
 		// Check the entity connected to the ship is in fact still connected
 		final IntBag allConnectedEntities = Ships.getConnectedParts(
 		    adjPartId, mShipPartConnections
@@ -52,6 +55,10 @@ public class ShipPartRemovalSystem extends BaseEntitySystem {
 		    .anyMatch(part -> part.isController());
 		if (!isConnectedToShip) {
 		    // destroy ShipPart and ShipPartConnections
+		    for (int entity : IntBags.toList(allConnectedEntities)) {
+			mShipPartConnections.remove(entity);
+			mShipPart.remove(entity);
+		    }
 		}
 
 	    }

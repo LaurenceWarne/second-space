@@ -91,7 +91,7 @@ public abstract class CommandExecutorSystem extends BaseEntitySystem {
     /**
      * Execute command with the given arguments.
      * 
-     * @param args Namespace object containing the command arguments
+     * @param res {@link Namespace} object containing the command arguments
      */
     public abstract void executeCommand(Namespace res);
 }

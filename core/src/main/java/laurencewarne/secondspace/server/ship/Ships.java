@@ -1,17 +1,14 @@
 package laurencewarne.secondspace.server.ship;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.artemis.ComponentMapper;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.IntArray;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.primitives.Ints;
 
@@ -33,6 +30,13 @@ public final class Ships {
 	
     }
 
+	/**
+	 * Get a {@link Rectangle} representing the entity's body in 'ship space', ie a coordinate system where (0, 0) is the ships origin, and rotation is fixed.
+	 *
+	 * @param shipPart {@link ShipPart} component of the entity
+	 * @param rectangleData {@link PhysicsRectangleData} component of the entity
+	 * @return {@link Rectangle} representing the entity's body in ship space
+	 */
     public static Rectangle getRectangleInShipSpace(
 		@NonNull ShipPart shipPart,
 		@NonNull PhysicsRectangleData rectangleData) {
@@ -43,6 +47,20 @@ public final class Ships {
 		return new Rectangle(x, y, width, height);
     }
 
+	/**
+	 * Get an {@link IntBag} of all entities (which are ship parts) which either:
+	 * <pre>
+	 * 1) Contain the specified point
+	 * 2) Have the specified point lying on an edge of their bodies
+	 * 3) Have the specified point lying on a vertex of their bodies
+	 * </pre>
+	 *
+	 * @param entities {@link IntBag} of entities to search
+	 * @param mShipPart {@link ComponentMapper} of entity {@link ShipPart}s
+	 * @param mPhysicsRectangleData {@link ComponentMapper} of entity {@link PhysicsRectangleData}s
+	 * @param point point to search for
+	 * @return entities on the specified point
+	 */
     public static IntBag getShipPartsOnPoint(
 		@NonNull IntBag entities,
 		@NonNull ComponentMapper<ShipPart> mShipPart,
@@ -50,13 +68,9 @@ public final class Ships {
 		@NonNull Vector2 point) {
 		// Entities which have ship parts lying on the specified point
 		final IntBag entitiesOnPoint = new IntBag();
-		// Intbag data adds extra 0s
-		final Set<Integer> entitiesDistinct = Arrays
-			.stream(entities.getData())
-			.boxed()
-			.collect(Collectors.toSet());
+		final Set<Integer> distinctEntities = IntBags.toSet(entities);
 		// Iterate through distinct entities
-		for (int entity : entitiesDistinct) {
+		for (int entity : distinctEntities) {
 			final ShipPart shipPart = mShipPart.getSafe(entity, null);
 			final PhysicsRectangleData recData = mRecData.getSafe(entity, null);
 			if (shipPart != null && recData != null) {
@@ -70,6 +84,13 @@ public final class Ships {
 		return entitiesOnPoint;
     }    
 
+	/**
+	 * Check if a new ship part can be added to the specified position.
+	 *
+	 * @param existingShipParts {@link Rectangle}s encoding the position and size of existing ship parts in ship space
+	 * @param newPart {@link Rectangle} encoding the position and size of the ship part to be checked
+	 * @return true: if the newPart were to be added, if it would be connected to at least on other ship part (e.g. share an edge), and not overlap with an existing part, else false
+	 */
     public static boolean isAugmentable(
 		@NonNull Iterable<Rectangle> existingShipParts,
 		@NonNull Rectangle newPart) {
@@ -101,6 +122,14 @@ public final class Ships {
 		return touch;
     }
 
+	/**
+	 * Get entities whose {@link ShipPart} has an edge touching an edge of the specified entity's {@link ShipPart}. Vertex to vertex does not count.
+	 *
+	 * @param id the id of the entity
+	 * @param mShipPartConnections {@link ShipPartConnections} {@link ComponentMapper}
+	 * @param entitiesToIgnore entities belonging to this {@link Set} will not be returned even if they are adjacent
+	 * @return {@link IntBag} of entities which are adjacent
+	 */
     public static IntBag getAdjacentEntities(
 		int id,
 		@NonNull ComponentMapper<ShipPartConnections> mShipPartConnections,
@@ -122,6 +151,13 @@ public final class Ships {
 		return adjacentBag;
     }
 
+	/**
+	 * Get an {@link IntBag} of entities whose {@link ShipPart}s are 'connected' to the {@link ShipPart} of entity with the specified id. Part A is said to be connected to part B if, constructing a <a href='https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)'>graph</a> with nodes as ship parts and edges between nodes if the respective ship parts are adjacent, the two nodes {Part A, Part B} are <a href='https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)#Connected_graph'>connected</a>.
+	 *
+	 * @param id id of the entity to get connected parts for
+	 * @param mShipPartConnections {@link ShipPartConnections} {@link ComponentMapper}
+	 * @return {@link IntBag} of connected entities, including the specified entity itself
+	 */
     public static IntBag getConnectedParts(
 		int id,
 		@NonNull ComponentMapper<ShipPartConnections> mShipPartConnections

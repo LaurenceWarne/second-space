@@ -17,5 +17,5 @@ import lombok.ToString;
 public class ShipPartConnections extends Component {
     /** Mapping of entity ids to {@link Array}s of coordinates which denote the location of a connection between the entity this component belongs to and the entity with the id.*/
     private IntMap<Array<Vector2>> entityToConnectionLocationMapping =
-	new IntMap<>();
+	new IntMap<>(4);
 }

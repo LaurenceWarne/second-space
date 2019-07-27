@@ -34,6 +34,7 @@ import laurencewarne.secondspace.server.system.WeldJointDataResolverSystem;
 import laurencewarne.secondspace.server.system.WorldDeserializationSystem;
 import laurencewarne.secondspace.server.system.WorldSerializationSystem;
 import lombok.Getter;
+import net.fbridault.eeel.EEELPlugin;
 
 /**
  * Headless implementation of {@link Game}, ie does no rendering, just updates.
@@ -150,6 +151,7 @@ public class SecondSpaceServerBase extends Game {
     protected void setupWorldConfig(WorldConfigurationBuilder configBuilder) {
 	configBuilder
 	    .dependsOn(EntityLinkManager.class)
+	    .with(new EEELPlugin())
 	    .with(
 		new WorldSerializationManager(),
 		new WorldDeserializationSystem(),

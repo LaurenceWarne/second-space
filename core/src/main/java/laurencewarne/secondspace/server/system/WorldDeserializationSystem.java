@@ -19,11 +19,11 @@ import lombok.NonNull;
  */
 public class WorldDeserializationSystem extends BaseSystem {
 
-	@Wire(name="worldSaveFile") @NonNull
-    private FileHandle worldSaveFile;
 	private final Logger logger = LoggerFactory.getLogger(
 		WorldDeserializationSystem.class
 	);
+	@Wire(name="worldSaveFile") @NonNull
+    private FileHandle worldSaveFile;
 
     @Override
     public void initialize() {

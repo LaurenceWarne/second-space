@@ -1,0 +1,1782 @@
+{
+    "archetypes": {
+        "1": [
+            "Ship"
+        ],
+        "6": [
+            "ShipPart",
+            "PhysicsRectangleData",
+            "ShipPartConnections"
+        ],
+        "7": [
+            "WeldJointData"
+        ]
+    },
+    "componentIdentifiers": {
+        "laurencewarne.secondspace.server.component.PhysicsRectangleData": "PhysicsRectangleData",
+        "laurencewarne.secondspace.server.component.Ship": "Ship",
+        "laurencewarne.secondspace.server.component.ShipPart": "ShipPart",
+        "laurencewarne.secondspace.server.component.ShipPartConnections": "ShipPartConnections",
+        "laurencewarne.secondspace.server.component.WeldJointData": "WeldJointData"
+    },
+    "entities": {
+        "0": {
+            "archetype": 1,
+            "components": {
+                "Ship": {
+                    "parts": [
+                        4,
+                        5,
+                        6,
+                        1,
+                        2,
+                        3
+                    ]
+                }
+            }
+        },
+        "1": {
+            "archetype": 6,
+            "components": {
+                "PhysicsRectangleData": {
+                    "angle": -0.002882026,
+                    "height": 4,
+                    "velocityY": -49.749825,
+                    "width": 10,
+                    "x": -0.012310948,
+                    "y": -252.19415
+                },
+                "ShipPart": {
+                    "shipId": 0
+                },
+                "ShipPartConnections": {
+                    "entityToConnectionLocationMapping": {
+                        "capacity": 8,
+                        "hashShift": 28,
+                        "keyTable": [
+                            0,
+                            0,
+                            2,
+                            3,
+                            4,
+                            5,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        "mask": 7,
+                        "size": 4,
+                        "stashCapacity": 6,
+                        "threshold": 6,
+                        "valueTable": [
+                            null,
+                            null,
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 1
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 1.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 2
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 2.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 3
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 3.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2"
+                                }
+                            ],
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 1
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 1.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 2
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 2.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 3
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 3.5
+                                }
+                            ],
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 2,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 2.5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 3,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 3.5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 4,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 4.5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 4
+                                }
+                            ],
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5.5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 6,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 6.5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 7,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 7.5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 8,
+                                    "y": 4
+                                }
+                            ],
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                        ]
+                    }
+                }
+            }
+        },
+        "10": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": -1.5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "11": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": -1,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": 0.5,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "12": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": -0.5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "13": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "14": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 0.5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "15": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -0.5,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "16": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "17": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 2,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": 0.5,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "18": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 2.5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "19": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 3,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": 1.5,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "2": {
+            "archetype": 6,
+            "components": {
+                "PhysicsRectangleData": {
+                    "angle": -0.002880199,
+                    "height": 15,
+                    "velocityY": -49.749825,
+                    "x": -5.9964457,
+                    "y": -246.6769
+                },
+                "ShipPart": {
+                    "localX": -2,
+                    "shipId": 0
+                },
+                "ShipPartConnections": {
+                    "entityToConnectionLocationMapping": {
+                        "capacity": 8,
+                        "hashShift": 28,
+                        "keyTable": [
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        "mask": 7,
+                        "size": 1,
+                        "stashCapacity": 6,
+                        "threshold": 6,
+                        "valueTable": [
+                            null,
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 1
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 1.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 2
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 2.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 3
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 3.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2"
+                                }
+                            ],
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                        ]
+                    }
+                }
+            }
+        },
+        "20": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 3,
+                    "localAnchorA": {
+                        "x": 5,
+                        "y": -2
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -7.5
+                    }
+                }
+            }
+        },
+        "21": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 3,
+                    "localAnchorA": {
+                        "x": 5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "22": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 2,
+                    "localAnchorA": {
+                        "x": -5,
+                        "y": -1
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -6.5
+                    }
+                }
+            }
+        },
+        "23": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 3,
+                    "localAnchorA": {
+                        "x": 5,
+                        "y": -1
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -6.5
+                    }
+                }
+            }
+        },
+        "24": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 2,
+                    "localAnchorA": {
+                        "x": -5,
+                        "y": -0.5
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -6
+                    }
+                }
+            }
+        },
+        "25": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 3,
+                    "localAnchorA": {
+                        "x": 5,
+                        "y": -0.5
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -6
+                    }
+                }
+            }
+        },
+        "26": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 2,
+                    "localAnchorA": {
+                        "x": -5
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -5.5
+                    }
+                }
+            }
+        },
+        "27": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 3,
+                    "localAnchorA": {
+                        "x": 5
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -5.5
+                    }
+                }
+            }
+        },
+        "28": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 2,
+                    "localAnchorA": {
+                        "x": -5,
+                        "y": 0.5
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -5
+                    }
+                }
+            }
+        },
+        "29": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 3,
+                    "localAnchorA": {
+                        "x": 5,
+                        "y": 0.5
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -5
+                    }
+                }
+            }
+        },
+        "3": {
+            "archetype": 6,
+            "components": {
+                "PhysicsRectangleData": {
+                    "angle": -0.0028797686,
+                    "height": 15,
+                    "velocityY": -49.749825,
+                    "x": 6.003502,
+                    "y": -246.71146
+                },
+                "ShipPart": {
+                    "localX": 10,
+                    "shipId": 0
+                },
+                "ShipPartConnections": {
+                    "entityToConnectionLocationMapping": {
+                        "capacity": 8,
+                        "hashShift": 28,
+                        "keyTable": [
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        "mask": 7,
+                        "size": 1,
+                        "stashCapacity": 6,
+                        "threshold": 6,
+                        "valueTable": [
+                            null,
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 1
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 1.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 2
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 2.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 3
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 3.5
+                                }
+                            ],
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                        ]
+                    }
+                }
+            }
+        },
+        "30": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 2,
+                    "localAnchorA": {
+                        "x": -5,
+                        "y": 1
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -4.5
+                    }
+                }
+            }
+        },
+        "31": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 3,
+                    "localAnchorA": {
+                        "x": 5,
+                        "y": 1
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -4.5
+                    }
+                }
+            }
+        },
+        "32": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 2,
+                    "localAnchorA": {
+                        "x": -5,
+                        "y": 1.5
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -4
+                    }
+                }
+            }
+        },
+        "33": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 3,
+                    "localAnchorA": {
+                        "x": 5,
+                        "y": 1.5
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -4
+                    }
+                }
+            }
+        },
+        "34": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 2,
+                    "localAnchorA": {
+                        "x": -5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "35": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 1,
+                    "localAnchorA": {
+                        "x": 1,
+                        "y": -7.5
+                    },
+                    "localAnchorB": {
+                        "x": -5,
+                        "y": -2
+                    }
+                }
+            }
+        },
+        "36": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": -0.5,
+                        "y": 3.5
+                    },
+                    "localAnchorB": {
+                        "x": -2,
+                        "y": -1
+                    }
+                }
+            }
+        },
+        "37": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "y": 3.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -1
+                    }
+                }
+            }
+        },
+        "38": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 0.5,
+                        "y": 3.5
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -1
+                    }
+                }
+            }
+        },
+        "39": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1,
+                        "y": 3.5
+                    },
+                    "localAnchorB": {
+                        "x": -0.5,
+                        "y": -1
+                    }
+                }
+            }
+        },
+        "4": {
+            "archetype": 6,
+            "components": {
+                "PhysicsRectangleData": {
+                    "angle": -0.0028823856,
+                    "height": 7,
+                    "velocityY": -49.749825,
+                    "width": 3,
+                    "x": -1.4964521,
+                    "y": -246.68985
+                },
+                "ShipPart": {
+                    "localX": 2,
+                    "localY": 4,
+                    "shipId": 0
+                },
+                "ShipPartConnections": {
+                    "entityToConnectionLocationMapping": {
+                        "capacity": 8,
+                        "hashShift": 28,
+                        "keyTable": [
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            5,
+                            6,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        "mask": 7,
+                        "size": 3,
+                        "stashCapacity": 6,
+                        "threshold": 6,
+                        "valueTable": [
+                            null,
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 2,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 2.5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 3,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 3.5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 4,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 4.5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 4
+                                }
+                            ],
+                            null,
+                            null,
+                            null,
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 5.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 6
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 6.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 7
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 7.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 8
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 8.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 9
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 9.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 10
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 10.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 11
+                                }
+                            ],
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 3,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 3.5,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 4,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 4.5,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 11
+                                }
+                            ],
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                        ]
+                    }
+                }
+            }
+        },
+        "40": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 1,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": -3.5
+                    },
+                    "localAnchorB": {
+                        "y": 2
+                    }
+                }
+            }
+        },
+        "41": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 3.5
+                    },
+                    "localAnchorB": {
+                        "y": -1
+                    }
+                }
+            }
+        },
+        "42": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": -2.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -2.5
+                    }
+                }
+            }
+        },
+        "43": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": -2
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -2
+                    }
+                }
+            }
+        },
+        "44": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": -1.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -1.5
+                    }
+                }
+            }
+        },
+        "45": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": -1
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -1
+                    }
+                }
+            }
+        },
+        "46": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": -0.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -0.5
+                    }
+                }
+            }
+        },
+        "47": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5
+                    }
+                }
+            }
+        },
+        "48": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 0.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": 0.5
+                    }
+                }
+            }
+        },
+        "49": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 1
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": 1
+                    }
+                }
+            }
+        },
+        "5": {
+            "archetype": 6,
+            "components": {
+                "PhysicsRectangleData": {
+                    "angle": -0.002882026,
+                    "height": 7,
+                    "velocityY": -49.749825,
+                    "width": 3,
+                    "x": 1.503534,
+                    "y": -246.6985
+                },
+                "ShipPart": {
+                    "localX": 5,
+                    "localY": 4,
+                    "shipId": 0
+                },
+                "ShipPartConnections": {
+                    "entityToConnectionLocationMapping": {
+                        "capacity": 8,
+                        "hashShift": 28,
+                        "keyTable": [
+                            0,
+                            1,
+                            0,
+                            0,
+                            4,
+                            0,
+                            6,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        "mask": 7,
+                        "size": 3,
+                        "stashCapacity": 6,
+                        "threshold": 6,
+                        "valueTable": [
+                            null,
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5.5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 6,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 6.5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 7,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 7.5,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 8,
+                                    "y": 4
+                                }
+                            ],
+                            null,
+                            null,
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 5.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 6
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 6.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 7
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 7.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 8
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 8.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 9
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 9.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 10
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 10.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 11
+                                }
+                            ],
+                            null,
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 6,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 6.5,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 7,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5.5,
+                                    "y": 11
+                                }
+                            ],
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                        ]
+                    }
+                }
+            }
+        },
+        "50": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 1.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": 1.5
+                    }
+                }
+            }
+        },
+        "51": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": 2
+                    }
+                }
+            }
+        },
+        "52": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 2.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": 2.5
+                    }
+                }
+            }
+        },
+        "53": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 4,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 3
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": 3
+                    }
+                }
+            }
+        },
+        "54": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": -0.5,
+                        "y": 3.5
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -1
+                    }
+                }
+            }
+        },
+        "55": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "y": 3.5
+                    },
+                    "localAnchorB": {
+                        "x": 1.5,
+                        "y": -1
+                    }
+                }
+            }
+        },
+        "56": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 0.5,
+                        "y": 3.5
+                    },
+                    "localAnchorB": {
+                        "x": 2,
+                        "y": -1
+                    }
+                }
+            }
+        },
+        "57": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": -1.5,
+                        "y": 3.5
+                    },
+                    "localAnchorB": {
+                        "x": 1.5,
+                        "y": 3.5
+                    }
+                }
+            }
+        },
+        "58": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 6,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": 0.5,
+                        "y": -1
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": 3.5
+                    }
+                }
+            }
+        },
+        "6": {
+            "archetype": 6,
+            "components": {
+                "PhysicsRectangleData": {
+                    "angle": -0.002882534,
+                    "velocityY": -49.749825,
+                    "width": 4,
+                    "x": 0.016511714,
+                    "y": -242.1942
+                },
+                "ShipPart": {
+                    "localX": 3,
+                    "localY": 11,
+                    "shipId": 0
+                },
+                "ShipPartConnections": {
+                    "entityToConnectionLocationMapping": {
+                        "capacity": 8,
+                        "hashShift": 28,
+                        "keyTable": [
+                            0,
+                            0,
+                            0,
+                            0,
+                            4,
+                            5,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        "mask": 7,
+                        "size": 2,
+                        "stashCapacity": 6,
+                        "threshold": 6,
+                        "valueTable": [
+                            null,
+                            null,
+                            null,
+                            null,
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 3,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 3.5,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 4,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 4.5,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5,
+                                    "y": 11
+                                }
+                            ],
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 6,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 6.5,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 7,
+                                    "y": 11
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 5.5,
+                                    "y": 11
+                                }
+                            ],
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                        ]
+                    }
+                }
+            }
+        },
+        "7": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": -3,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "8": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": -2.5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "9": {
+            "archetype": 7,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 1,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": -2,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -0.5,
+                        "y": -3.5
+                    }
+                }
+            }
+        }
+    },
+    "metadata": {
+        "version": 1
+    }
+}

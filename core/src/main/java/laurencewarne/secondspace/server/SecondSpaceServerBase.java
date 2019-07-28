@@ -38,7 +38,8 @@ import lombok.Getter;
 import net.fbridault.eeel.EEELPlugin;
 
 /**
- * Headless implementation of {@link Game}, ie does no rendering, just updates.
+ * Headless implementation of {@link Game}, ie does no rendering and creates no
+ * windows, just updates the world.
  */
 @Getter
 public class SecondSpaceServerBase extends Game {
@@ -50,7 +51,9 @@ public class SecondSpaceServerBase extends Game {
 
     @Override
     public void create() {
-	// Load config
+	////////////////////////
+	// Load server config //
+	////////////////////////
 	FileHandle serverConfigFile = Gdx.files.local("server.properties");
 	final Properties serverProperties = new Properties();
 	try {
@@ -72,13 +75,17 @@ public class SecondSpaceServerBase extends Game {
 	    ServerConfig.class, serverProperties
 	);
 
-	// Init Artemis stuff: register any plugins, setup the world.
+	//////////////////////////////////////////////////////////////////
+	// Create world configuration, add plugins and systems to world //
+	//////////////////////////////////////////////////////////////////
 	final WorldConfigurationBuilder setupBuilder =
 	    new WorldConfigurationBuilder();
 	setupWorldConfig(setupBuilder);
 	final WorldConfiguration setup = setupBuilder.build();
 
-	// Inject non-artemis dependencies
+	/////////////////////////////////////
+	// Inject non-artemis dependencies //
+	/////////////////////////////////////
 	setup.register(new ShipCoordinateLocaliser());
 	box2dWorld = new com.badlogic.gdx.physics.box2d.World(
 	    new Vector2(0, -5), true
@@ -100,10 +107,18 @@ public class SecondSpaceServerBase extends Game {
 	    "templateFiles",
 	    Arrays.stream(templateFiles).collect(Collectors.toList())
 	);
-	// Create Artermis World obj
+
+	///////////////////////////////
+	// Create Artermis World obj //
+	///////////////////////////////
 	world = new World(setup);
     }
 
+    /**
+     * Add systems and plugins to the artemis {@link WorldConfigurationBuilder} here.
+     * 
+     * @param configBuilder {@link WorldConfigurationBuilder} obj to use
+     */
     protected void setupWorldConfig(WorldConfigurationBuilder configBuilder) {
 	configBuilder
 	    .dependsOn(EntityLinkManager.class)

@@ -1,7 +1,9 @@
 package laurencewarne.secondspace.server;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
@@ -18,9 +20,6 @@ import org.aeonbits.owner.ConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import laurencewarne.secondspace.server.component.PhysicsRectangleData;
-import laurencewarne.secondspace.server.component.Ship;
-import laurencewarne.secondspace.server.component.ShipPart;
 import laurencewarne.secondspace.server.init.ServerConfig;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
 import laurencewarne.secondspace.server.system.AddRectangleCommandExecutorSystem;
@@ -29,6 +28,8 @@ import laurencewarne.secondspace.server.system.PhysicsRectangleDataResolverSyste
 import laurencewarne.secondspace.server.system.PhysicsRectangleSynchronizerSystem;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
 import laurencewarne.secondspace.server.system.ShipWeldingSystem;
+import laurencewarne.secondspace.server.system.SpawnCommandExecutorSystem;
+import laurencewarne.secondspace.server.system.TemplateSystem;
 import laurencewarne.secondspace.server.system.TerminalSystem;
 import laurencewarne.secondspace.server.system.WeldJointDataResolverSystem;
 import laurencewarne.secondspace.server.system.WorldDeserializationSystem;
@@ -83,7 +84,7 @@ public class SecondSpaceServerBase extends Game {
 	    new Vector2(0, -5), true
 	);
 	setup.register(box2dWorld);
-	FileHandle worldSaveFile = Gdx.files.local(
+	final FileHandle worldSaveFile = Gdx.files.local(
 	    serverConfig.worldSaveFileLocation()
 	);
 	if (!worldSaveFile.exists()) {
@@ -92,60 +93,15 @@ public class SecondSpaceServerBase extends Game {
 	    worldSaveFile.writeString("{}", false);
 	}
 	setup.register("worldSaveFile", worldSaveFile);
-	// Create Artermis World
+	final FileHandle[] templateFiles = Gdx.files.local(
+	    serverConfig.templatesDirectory()
+	).list();
+	setup.register(
+	    "templateFiles",
+	    Arrays.stream(templateFiles).collect(Collectors.toList())
+	);
+	// Create Artermis World obj
 	world = new World(setup);
-
-	int shipId = world.create();
-	Ship ship = world.edit(shipId).create(Ship.class);
-	int id1 = world.create();
-	int id2 = world.create();
-	int id3 = world.create();
-
-	PhysicsRectangleData r1 = world.edit(id1)
-	    .create(PhysicsRectangleData.class);
-	r1.setWidth(10f); r1.setHeight(4f);
-	ShipPart s1 = world.edit(id1).create(ShipPart.class);
-	s1.setLocalX(0); s1.setLocalY(0); s1.shipId = shipId;
-
-	PhysicsRectangleData r2 = world.edit(id2)
-	    .create(PhysicsRectangleData.class);
-	r2.setWidth(2f); r2.setHeight(15f);
-	ShipPart s2 = world.edit(id2).create(ShipPart.class);
-	s2.setLocalX(-2); s2.setLocalY(0); s2.shipId = shipId;
-
-	PhysicsRectangleData r3 = world.edit(id3)
-	    .create(PhysicsRectangleData.class);
-	r3.setWidth(2f); r3.setHeight(15f);
-	ShipPart s3 = world.edit(id3).create(ShipPart.class);
-	s3.setLocalX(10); s3.setLocalY(0); s3.shipId = shipId;
-
-	int id4 = world.create();	
-	PhysicsRectangleData r4 = world.edit(id4)
-	    .create(PhysicsRectangleData.class);
-	r4.setWidth(3f); r4.setHeight(7f);
-	ShipPart s4 = world.edit(id4).create(ShipPart.class);
-	s4.setLocalX(2); s4.setLocalY(4); s4.shipId = shipId;
-	ship.parts.add(id4);
-
-	int id5 = world.create();	
-	PhysicsRectangleData r5 = world.edit(id5)
-	    .create(PhysicsRectangleData.class);
-	r5.setWidth(3f); r5.setHeight(7f);
-	ShipPart s5 = world.edit(id5).create(ShipPart.class);
-	s5.setLocalX(5); s5.setLocalY(4); s5.shipId = shipId;
-	ship.parts.add(id5);
-
-	int id6 = world.create();	
-	PhysicsRectangleData r6 = world.edit(id6)
-	    .create(PhysicsRectangleData.class);
-	r6.setWidth(4f); r6.setHeight(2f);
-	ShipPart s6 = world.edit(id6).create(ShipPart.class);
-	s6.setLocalX(3); s6.setLocalY(11); s6.shipId = shipId;
-	ship.parts.add(id6);
-
-	ship.parts.add(id1);
-	ship.parts.add(id2);
-	ship.parts.add(id3);
     }
 
     protected void setupWorldConfig(WorldConfigurationBuilder configBuilder) {
@@ -158,6 +114,8 @@ public class SecondSpaceServerBase extends Game {
 		new TerminalSystem(),
 		new AddRectangleCommandExecutorSystem(),
 		new AddWeldCommandExecutorSystem(),
+		new SpawnCommandExecutorSystem(),
+		new TemplateSystem(),
 		new ShipWeldingSystem(),
 		new PhysicsRectangleDataResolverSystem(),
 		new WeldJointDataResolverSystem(),

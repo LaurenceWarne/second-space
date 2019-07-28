@@ -1,14 +1,15 @@
 {
     "archetypes": {
-        "1": [
+        "1": [],
+        "2": [
             "Ship"
         ],
-        "6": [
+        "7": [
             "ShipPart",
             "PhysicsRectangleData",
             "ShipPartConnections"
         ],
-        "7": [
+        "8": [
             "WeldJointData"
         ]
     },
@@ -22,24 +23,195 @@
     "entities": {
         "0": {
             "archetype": 1,
+            "components": {}
+        },
+        "1": {
+            "archetype": 2,
             "components": {
                 "Ship": {
                     "parts": [
-                        4,
                         5,
                         6,
-                        1,
+                        7,
                         2,
-                        3
+                        3,
+                        4
                     ]
                 }
             }
         },
-        "1": {
-            "archetype": 6,
+        "10": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": -2,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -0.5,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "11": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": -1.5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "12": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": -1,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": 0.5,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "13": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 5,
+                    "localAnchorA": {
+                        "x": -0.5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "14": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "15": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 0.5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "16": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -0.5,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "17": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "18": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 2,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": 0.5,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "19": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 2.5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "2": {
+            "archetype": 7,
             "components": {
                 "PhysicsRectangleData": {
-                    "angle": -0.002882026,
+                    "angle": 0,
                     "height": 4,
                     "velocityY": -49.749825,
                     "width": 10,
@@ -47,7 +219,7 @@
                     "y": -252.19415
                 },
                 "ShipPart": {
-                    "shipId": 0
+                    "shipId": 1
                 },
                 "ShipPartConnections": {
                     "entityToConnectionLocationMapping": {
@@ -56,11 +228,11 @@
                         "keyTable": [
                             0,
                             0,
-                            2,
+                            0,
                             3,
                             4,
                             5,
-                            0,
+                            6,
                             0,
                             0,
                             0,
@@ -74,6 +246,7 @@
                         "stashCapacity": 6,
                         "threshold": 6,
                         "valueTable": [
+                            null,
                             null,
                             null,
                             [
@@ -230,169 +403,18 @@
                             null,
                             null,
                             null,
-                            null,
                             null
                         ]
                     }
                 }
             }
         },
-        "10": {
-            "archetype": 7,
+        "20": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 4,
-                    "localAnchorA": {
-                        "x": -1.5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "11": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 4,
-                    "localAnchorA": {
-                        "x": -1,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": 0.5,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "12": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 4,
-                    "localAnchorA": {
-                        "x": -0.5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "13": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "14": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": 0.5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "15": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": 1,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -0.5,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "16": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "17": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": 2,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": 0.5,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "18": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": 2.5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "19": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 5,
+                    "cellAID": 2,
+                    "cellBID": 6,
                     "localAnchorA": {
                         "x": 3,
                         "y": 2
@@ -404,11 +426,162 @@
                 }
             }
         },
-        "2": {
-            "archetype": 6,
+        "21": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": 5,
+                        "y": -2
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -7.5
+                    }
+                }
+            }
+        },
+        "22": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": 5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -3.5
+                    }
+                }
+            }
+        },
+        "23": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 3,
+                    "localAnchorA": {
+                        "x": -5,
+                        "y": -1
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -6.5
+                    }
+                }
+            }
+        },
+        "24": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": 5,
+                        "y": -1
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -6.5
+                    }
+                }
+            }
+        },
+        "25": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 3,
+                    "localAnchorA": {
+                        "x": -5,
+                        "y": -0.5
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -6
+                    }
+                }
+            }
+        },
+        "26": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": 5,
+                        "y": -0.5
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -6
+                    }
+                }
+            }
+        },
+        "27": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 3,
+                    "localAnchorA": {
+                        "x": -5
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -5.5
+                    }
+                }
+            }
+        },
+        "28": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": 5
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -5.5
+                    }
+                }
+            }
+        },
+        "29": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 3,
+                    "localAnchorA": {
+                        "x": -5,
+                        "y": 0.5
+                    },
+                    "localAnchorB": {
+                        "x": 1,
+                        "y": -5
+                    }
+                }
+            }
+        },
+        "3": {
+            "archetype": 7,
             "components": {
                 "PhysicsRectangleData": {
-                    "angle": -0.002880199,
+                    "angle": 0,
                     "height": 15,
                     "velocityY": -49.749825,
                     "x": -5.9964457,
@@ -416,7 +589,7 @@
                 },
                 "ShipPart": {
                     "localX": -2,
-                    "shipId": 0
+                    "shipId": 1
                 },
                 "ShipPartConnections": {
                     "entityToConnectionLocationMapping": {
@@ -424,8 +597,8 @@
                         "hashShift": 28,
                         "keyTable": [
                             0,
-                            1,
                             0,
+                            2,
                             0,
                             0,
                             0,
@@ -443,6 +616,7 @@
                         "stashCapacity": 6,
                         "threshold": 6,
                         "valueTable": [
+                            null,
                             null,
                             [
                                 {
@@ -477,273 +651,6 @@
                                     "class": "com.badlogic.gdx.math.Vector2"
                                 }
                             ],
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null
-                        ]
-                    }
-                }
-            }
-        },
-        "20": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": 5,
-                        "y": -2
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -7.5
-                    }
-                }
-            }
-        },
-        "21": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": 5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "22": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 2,
-                    "localAnchorA": {
-                        "x": -5,
-                        "y": -1
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -6.5
-                    }
-                }
-            }
-        },
-        "23": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": 5,
-                        "y": -1
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -6.5
-                    }
-                }
-            }
-        },
-        "24": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 2,
-                    "localAnchorA": {
-                        "x": -5,
-                        "y": -0.5
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -6
-                    }
-                }
-            }
-        },
-        "25": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": 5,
-                        "y": -0.5
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -6
-                    }
-                }
-            }
-        },
-        "26": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 2,
-                    "localAnchorA": {
-                        "x": -5
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -5.5
-                    }
-                }
-            }
-        },
-        "27": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": 5
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -5.5
-                    }
-                }
-            }
-        },
-        "28": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 2,
-                    "localAnchorA": {
-                        "x": -5,
-                        "y": 0.5
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -5
-                    }
-                }
-            }
-        },
-        "29": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": 5,
-                        "y": 0.5
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -5
-                    }
-                }
-            }
-        },
-        "3": {
-            "archetype": 6,
-            "components": {
-                "PhysicsRectangleData": {
-                    "angle": -0.0028797686,
-                    "height": 15,
-                    "velocityY": -49.749825,
-                    "x": 6.003502,
-                    "y": -246.71146
-                },
-                "ShipPart": {
-                    "localX": 10,
-                    "shipId": 0
-                },
-                "ShipPartConnections": {
-                    "entityToConnectionLocationMapping": {
-                        "capacity": 8,
-                        "hashShift": 28,
-                        "keyTable": [
-                            0,
-                            1,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0
-                        ],
-                        "mask": 7,
-                        "size": 1,
-                        "stashCapacity": 6,
-                        "threshold": 6,
-                        "valueTable": [
-                            null,
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 1
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 1.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 2
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 2.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 3
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 3.5
-                                }
-                            ],
-                            null,
                             null,
                             null,
                             null,
@@ -761,45 +668,62 @@
             }
         },
         "30": {
-            "archetype": 7,
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 2,
+                    "cellAID": 2,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": 5,
+                        "y": 0.5
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -5
+                    }
+                }
+            }
+        },
+        "31": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 3,
                     "localAnchorA": {
                         "x": -5,
                         "y": 1
                     },
                     "localAnchorB": {
                         "x": 1,
-                        "y": -4.5
-                    }
-                }
-            }
-        },
-        "31": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": 5,
-                        "y": 1
-                    },
-                    "localAnchorB": {
-                        "x": -1,
                         "y": -4.5
                     }
                 }
             }
         },
         "32": {
-            "archetype": 7,
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 2,
+                    "cellAID": 2,
+                    "cellBID": 4,
+                    "localAnchorA": {
+                        "x": 5,
+                        "y": 1
+                    },
+                    "localAnchorB": {
+                        "x": -1,
+                        "y": -4.5
+                    }
+                }
+            }
+        },
+        "33": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 2,
+                    "cellBID": 3,
                     "localAnchorA": {
                         "x": -5,
                         "y": 1.5
@@ -811,12 +735,12 @@
                 }
             }
         },
-        "33": {
-            "archetype": 7,
+        "34": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 3,
+                    "cellAID": 2,
+                    "cellBID": 4,
                     "localAnchorA": {
                         "x": 5,
                         "y": 1.5
@@ -828,12 +752,12 @@
                 }
             }
         },
-        "34": {
-            "archetype": 7,
+        "35": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 2,
+                    "cellAID": 2,
+                    "cellBID": 3,
                     "localAnchorA": {
                         "x": -5,
                         "y": 2
@@ -845,12 +769,12 @@
                 }
             }
         },
-        "35": {
-            "archetype": 7,
+        "36": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 1,
+                    "cellAID": 3,
+                    "cellBID": 2,
                     "localAnchorA": {
                         "x": 1,
                         "y": -7.5
@@ -862,12 +786,12 @@
                 }
             }
         },
-        "36": {
-            "archetype": 7,
+        "37": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 6,
+                    "cellAID": 5,
+                    "cellBID": 7,
                     "localAnchorA": {
                         "x": -0.5,
                         "y": 3.5
@@ -879,12 +803,12 @@
                 }
             }
         },
-        "37": {
-            "archetype": 7,
+        "38": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 6,
+                    "cellAID": 5,
+                    "cellBID": 7,
                     "localAnchorA": {
                         "y": 3.5
                     },
@@ -895,12 +819,12 @@
                 }
             }
         },
-        "38": {
-            "archetype": 7,
+        "39": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 6,
+                    "cellAID": 5,
+                    "cellBID": 7,
                     "localAnchorA": {
                         "x": 0.5,
                         "y": 3.5
@@ -912,12 +836,110 @@
                 }
             }
         },
-        "39": {
+        "4": {
             "archetype": 7,
             "components": {
+                "PhysicsRectangleData": {
+                    "angle": 0,
+                    "height": 15,
+                    "velocityY": -49.749825,
+                    "x": 6.003502,
+                    "y": -246.71146
+                },
+                "ShipPart": {
+                    "localX": 10,
+                    "shipId": 1
+                },
+                "ShipPartConnections": {
+                    "entityToConnectionLocationMapping": {
+                        "capacity": 8,
+                        "hashShift": 28,
+                        "keyTable": [
+                            0,
+                            0,
+                            2,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        "mask": 7,
+                        "size": 1,
+                        "stashCapacity": 6,
+                        "threshold": 6,
+                        "valueTable": [
+                            null,
+                            null,
+                            [
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 4
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 1
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 1.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 2
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 2.5
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 3
+                                },
+                                {
+                                    "class": "com.badlogic.gdx.math.Vector2",
+                                    "x": 10,
+                                    "y": 3.5
+                                }
+                            ],
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                        ]
+                    }
+                }
+            }
+        },
+        "40": {
+            "archetype": 8,
+            "components": {
                 "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 6,
+                    "cellAID": 5,
+                    "cellBID": 7,
                     "localAnchorA": {
                         "x": 1,
                         "y": 3.5
@@ -929,11 +951,160 @@
                 }
             }
         },
-        "4": {
-            "archetype": 6,
+        "41": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 2,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": -3.5
+                    },
+                    "localAnchorB": {
+                        "y": 2
+                    }
+                }
+            }
+        },
+        "42": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 7,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 3.5
+                    },
+                    "localAnchorB": {
+                        "y": -1
+                    }
+                }
+            }
+        },
+        "43": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": -2.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -2.5
+                    }
+                }
+            }
+        },
+        "44": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": -2
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -2
+                    }
+                }
+            }
+        },
+        "45": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": -1.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -1.5
+                    }
+                }
+            }
+        },
+        "46": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": -1
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -1
+                    }
+                }
+            }
+        },
+        "47": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": -0.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": -0.5
+                    }
+                }
+            }
+        },
+        "48": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5
+                    }
+                }
+            }
+        },
+        "49": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 0.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": 0.5
+                    }
+                }
+            }
+        },
+        "5": {
+            "archetype": 7,
             "components": {
                 "PhysicsRectangleData": {
-                    "angle": -0.0028823856,
+                    "angle": 0,
                     "height": 7,
                     "velocityY": -49.749825,
                     "width": 3,
@@ -943,7 +1114,7 @@
                 "ShipPart": {
                     "localX": 2,
                     "localY": 4,
-                    "shipId": 0
+                    "shipId": 1
                 },
                 "ShipPartConnections": {
                     "entityToConnectionLocationMapping": {
@@ -951,13 +1122,13 @@
                         "hashShift": 28,
                         "keyTable": [
                             0,
-                            1,
+                            0,
+                            2,
                             0,
                             0,
                             0,
-                            5,
                             6,
-                            0,
+                            7,
                             0,
                             0,
                             0,
@@ -970,6 +1141,7 @@
                         "stashCapacity": 6,
                         "threshold": 6,
                         "valueTable": [
+                            null,
                             null,
                             [
                                 {
@@ -1110,184 +1282,186 @@
                             null,
                             null,
                             null,
-                            null,
                             null
                         ]
                     }
                 }
             }
         },
-        "40": {
-            "archetype": 7,
+        "50": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 1,
+                    "cellAID": 5,
+                    "cellBID": 6,
                     "localAnchorA": {
                         "x": 1.5,
-                        "y": -3.5
+                        "y": 1
                     },
                     "localAnchorB": {
+                        "x": -1.5,
+                        "y": 1
+                    }
+                }
+            }
+        },
+        "51": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 1.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": 1.5
+                    }
+                }
+            }
+        },
+        "52": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 2
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
                         "y": 2
                     }
                 }
             }
         },
-        "41": {
-            "archetype": 7,
+        "53": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 4,
+                    "cellAID": 5,
                     "cellBID": 6,
                     "localAnchorA": {
                         "x": 1.5,
+                        "y": 2.5
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": 2.5
+                    }
+                }
+            }
+        },
+        "54": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 5,
+                    "cellBID": 6,
+                    "localAnchorA": {
+                        "x": 1.5,
+                        "y": 3
+                    },
+                    "localAnchorB": {
+                        "x": -1.5,
+                        "y": 3
+                    }
+                }
+            }
+        },
+        "55": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 6,
+                    "cellBID": 7,
+                    "localAnchorA": {
+                        "x": -0.5,
                         "y": 3.5
                     },
                     "localAnchorB": {
+                        "x": 1,
                         "y": -1
                     }
                 }
             }
         },
-        "42": {
-            "archetype": 7,
+        "56": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 5,
+                    "cellAID": 6,
+                    "cellBID": 7,
                     "localAnchorA": {
-                        "x": 1.5,
-                        "y": -2.5
+                        "y": 3.5
                     },
                     "localAnchorB": {
-                        "x": -1.5,
-                        "y": -2.5
-                    }
-                }
-            }
-        },
-        "43": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": -2
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": -2
-                    }
-                }
-            }
-        },
-        "44": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": -1.5
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": -1.5
-                    }
-                }
-            }
-        },
-        "45": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 5,
-                    "localAnchorA": {
                         "x": 1.5,
                         "y": -1
+                    }
+                }
+            }
+        },
+        "57": {
+            "archetype": 8,
+            "components": {
+                "WeldJointData": {
+                    "cellAID": 6,
+                    "cellBID": 7,
+                    "localAnchorA": {
+                        "x": 0.5,
+                        "y": 3.5
                     },
                     "localAnchorB": {
-                        "x": -1.5,
+                        "x": 2,
                         "y": -1
                     }
                 }
             }
         },
-        "46": {
-            "archetype": 7,
+        "58": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 4,
+                    "cellAID": 6,
                     "cellBID": 5,
                     "localAnchorA": {
-                        "x": 1.5,
-                        "y": -0.5
-                    },
-                    "localAnchorB": {
                         "x": -1.5,
-                        "y": -0.5
-                    }
-                }
-            }
-        },
-        "47": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": 1.5
+                        "y": 3.5
                     },
                     "localAnchorB": {
-                        "x": -1.5
-                    }
-                }
-            }
-        },
-        "48": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 5,
-                    "localAnchorA": {
                         "x": 1.5,
-                        "y": 0.5
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": 0.5
+                        "y": 3.5
                     }
                 }
             }
         },
-        "49": {
-            "archetype": 7,
+        "59": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 5,
+                    "cellAID": 7,
+                    "cellBID": 6,
                     "localAnchorA": {
-                        "x": 1.5,
-                        "y": 1
+                        "x": 0.5,
+                        "y": -1
                     },
                     "localAnchorB": {
-                        "x": -1.5,
-                        "y": 1
+                        "x": -1,
+                        "y": 3.5
                     }
                 }
             }
         },
-        "5": {
-            "archetype": 6,
+        "6": {
+            "archetype": 7,
             "components": {
                 "PhysicsRectangleData": {
-                    "angle": -0.002882026,
+                    "angle": 0,
                     "height": 7,
                     "velocityY": -49.749825,
                     "width": 3,
@@ -1297,7 +1471,7 @@
                 "ShipPart": {
                     "localX": 5,
                     "localY": 4,
-                    "shipId": 0
+                    "shipId": 1
                 },
                 "ShipPartConnections": {
                     "entityToConnectionLocationMapping": {
@@ -1305,13 +1479,13 @@
                         "hashShift": 28,
                         "keyTable": [
                             0,
-                            1,
+                            0,
+                            2,
                             0,
                             0,
-                            4,
+                            5,
                             0,
-                            6,
-                            0,
+                            7,
                             0,
                             0,
                             0,
@@ -1324,6 +1498,7 @@
                         "stashCapacity": 6,
                         "threshold": 6,
                         "valueTable": [
+                            null,
                             null,
                             [
                                 {
@@ -1459,170 +1634,17 @@
                             null,
                             null,
                             null,
-                            null,
                             null
                         ]
                     }
                 }
             }
         },
-        "50": {
+        "7": {
             "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": 1.5
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": 1.5
-                    }
-                }
-            }
-        },
-        "51": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": 2
-                    }
-                }
-            }
-        },
-        "52": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": 2.5
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": 2.5
-                    }
-                }
-            }
-        },
-        "53": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 4,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": 3
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": 3
-                    }
-                }
-            }
-        },
-        "54": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": -0.5,
-                        "y": 3.5
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -1
-                    }
-                }
-            }
-        },
-        "55": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "y": 3.5
-                    },
-                    "localAnchorB": {
-                        "x": 1.5,
-                        "y": -1
-                    }
-                }
-            }
-        },
-        "56": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 0.5,
-                        "y": 3.5
-                    },
-                    "localAnchorB": {
-                        "x": 2,
-                        "y": -1
-                    }
-                }
-            }
-        },
-        "57": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 4,
-                    "localAnchorA": {
-                        "x": -1.5,
-                        "y": 3.5
-                    },
-                    "localAnchorB": {
-                        "x": 1.5,
-                        "y": 3.5
-                    }
-                }
-            }
-        },
-        "58": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 6,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": 0.5,
-                        "y": -1
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": 3.5
-                    }
-                }
-            }
-        },
-        "6": {
-            "archetype": 6,
             "components": {
                 "PhysicsRectangleData": {
-                    "angle": -0.002882534,
+                    "angle": 0,
                     "velocityY": -49.749825,
                     "width": 4,
                     "x": 0.016511714,
@@ -1631,7 +1653,7 @@
                 "ShipPart": {
                     "localX": 3,
                     "localY": 11,
-                    "shipId": 0
+                    "shipId": 1
                 },
                 "ShipPartConnections": {
                     "entityToConnectionLocationMapping": {
@@ -1642,9 +1664,9 @@
                             0,
                             0,
                             0,
-                            4,
-                            5,
                             0,
+                            5,
+                            6,
                             0,
                             0,
                             0,
@@ -1658,6 +1680,7 @@
                         "stashCapacity": 6,
                         "threshold": 6,
                         "valueTable": [
+                            null,
                             null,
                             null,
                             null,
@@ -1717,19 +1740,18 @@
                             null,
                             null,
                             null,
-                            null,
                             null
                         ]
                     }
                 }
             }
         },
-        "7": {
-            "archetype": 7,
+        "8": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 4,
+                    "cellAID": 2,
+                    "cellBID": 5,
                     "localAnchorA": {
                         "x": -3,
                         "y": 2
@@ -1741,35 +1763,18 @@
                 }
             }
         },
-        "8": {
-            "archetype": 7,
+        "9": {
+            "archetype": 8,
             "components": {
                 "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 4,
+                    "cellAID": 2,
+                    "cellBID": 5,
                     "localAnchorA": {
                         "x": -2.5,
                         "y": 2
                     },
                     "localAnchorB": {
                         "x": -1,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "9": {
-            "archetype": 7,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 1,
-                    "cellBID": 4,
-                    "localAnchorA": {
-                        "x": -2,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -0.5,
                         "y": -3.5
                     }
                 }

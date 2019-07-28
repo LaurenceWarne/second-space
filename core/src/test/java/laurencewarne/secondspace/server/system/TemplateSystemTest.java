@@ -68,7 +68,6 @@ public class TemplateSystemTest {
 	    .build();
 	setup.register("templateFiles", templateFiles);
 	world = new World(setup);
-	System.out.println(world.getSystem(WorldSerializationManager.class));
 	m = world.getMapper(EntityTemplate.class);
 	ms = world.getMapper(SpawnRequest.class);
 	world.process();

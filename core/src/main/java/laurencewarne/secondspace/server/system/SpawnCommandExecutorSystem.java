@@ -17,13 +17,33 @@ import net.sourceforge.argparse4j.inf.Namespace;
 public class SpawnCommandExecutorSystem extends CommandExecutorSystem {
 
     private final Logger logger = LoggerFactory.getLogger(
-	AddWeldCommandExecutorSystem.class
+	SpawnCommandExecutorSystem.class
     );
     private ComponentMapper<SpawnRequest> mSpawnRequest;
+    @NonNull
     private final ImmutableSet<String> validCommands = ImmutableSet.of(
 	"spawn", "spwn", "spn"
     );
+    @NonNull
     private final String name = "spawn";
+    @NonNull
+    private ITemplateExistenceChecker templateExistenceChecker;
+
+    public interface ITemplateExistenceChecker {
+	boolean exists(String templateName);
+    }
+
+    public SpawnCommandExecutorSystem(
+	@NonNull ITemplateExistenceChecker templateExistenceChecker) {
+	super();
+	this.templateExistenceChecker = templateExistenceChecker;
+    }
+
+    public SpawnCommandExecutorSystem() {
+	super();
+	this.templateExistenceChecker =
+	    name -> world.getSystem(TemplateSystem.class).templateExists(name);
+    }
 
     @Override
     public ImmutableSet<String> getValidCommands() {
@@ -59,7 +79,7 @@ public class SpawnCommandExecutorSystem extends CommandExecutorSystem {
     @Override
     public void executeCommand(Namespace res) {
 	final String templateName = res.get("template");
-	if (world.getSystem(TemplateSystem.class).templateExists(templateName)) {
+	if (templateExistenceChecker.exists(templateName)) {
 	    final SpawnRequest request = mSpawnRequest.create(world.create());
 	    request.setTemplateName(templateName);
 	    request.setX(res.getFloat("x"));

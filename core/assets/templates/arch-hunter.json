@@ -7,7 +7,7 @@
         "7": [
             "ShipPart",
             "PhysicsRectangleData",
-            "ShipPartConnections"
+            "Connections"
         ],
         "8": [
             "WeldJointData"
@@ -17,7 +17,7 @@
         "laurencewarne.secondspace.server.component.PhysicsRectangleData": "PhysicsRectangleData",
         "laurencewarne.secondspace.server.component.Ship": "Ship",
         "laurencewarne.secondspace.server.component.ShipPart": "ShipPart",
-        "laurencewarne.secondspace.server.component.ShipPartConnections": "ShipPartConnections",
+        "laurencewarne.secondspace.server.component.Connections": "Connections",
         "laurencewarne.secondspace.server.component.WeldJointData": "WeldJointData"
     },
     "entities": {
@@ -221,7 +221,7 @@
                 "ShipPart": {
                     "shipId": 1
                 },
-                "ShipPartConnections": {
+                "Connections": {
                     "entityToConnectionLocationMapping": {
                         "capacity": 8,
                         "hashShift": 28,
@@ -591,7 +591,7 @@
                     "localX": -2,
                     "shipId": 1
                 },
-                "ShipPartConnections": {
+                "Connections": {
                     "entityToConnectionLocationMapping": {
                         "capacity": 8,
                         "hashShift": 28,
@@ -850,7 +850,7 @@
                     "localX": 10,
                     "shipId": 1
                 },
-                "ShipPartConnections": {
+                "Connections": {
                     "entityToConnectionLocationMapping": {
                         "capacity": 8,
                         "hashShift": 28,
@@ -1116,7 +1116,7 @@
                     "localY": 4,
                     "shipId": 1
                 },
-                "ShipPartConnections": {
+                "Connections": {
                     "entityToConnectionLocationMapping": {
                         "capacity": 8,
                         "hashShift": 28,
@@ -1473,7 +1473,7 @@
                     "localY": 4,
                     "shipId": 1
                 },
-                "ShipPartConnections": {
+                "Connections": {
                     "entityToConnectionLocationMapping": {
                         "capacity": 8,
                         "hashShift": 28,
@@ -1655,7 +1655,7 @@
                     "localY": 11,
                     "shipId": 1
                 },
-                "ShipPartConnections": {
+                "Connections": {
                     "entityToConnectionLocationMapping": {
                         "capacity": 8,
                         "hashShift": 28,

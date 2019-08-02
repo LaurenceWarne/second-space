@@ -7,13 +7,11 @@ import com.artemis.annotations.Wire;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntMap;
 
+import laurencewarne.secondspace.server.component.Connections;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.Ship;
 import laurencewarne.secondspace.server.component.ShipPart;
-import laurencewarne.secondspace.server.component.Connections;
 import laurencewarne.secondspace.server.component.WeldJointData;
 import laurencewarne.secondspace.server.ship.Rectangles;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
@@ -86,9 +84,6 @@ public class ShipWeldingSystem extends BaseEntitySystem {
 	if (!mConnections.has(id)){
 	    mConnections.create(id);
 	}
-	final IntMap<Array<Vector2>> allConnections = mConnections
-	    .get(id)
-	    .getEntityToConnectionLocationMap();
 	final Iterable<Vector2> connectionPoints = Rectangles.getPointsOnEdge(
 	    shipRectangle, 0.5f, 1f
 	);
@@ -104,35 +99,31 @@ public class ShipWeldingSystem extends BaseEntitySystem {
 	    );
 	    // Just to make sure, there should be max 2 values in the bag
 	    entitiesOnConnection.removeValue(id);
-	    // We check a adjacent part exists
+	    // We check an adjacent part exists
 	    if (!entitiesOnConnection.isEmpty()){
 		final int adjEntityId = entitiesOnConnection.get(0);
-		// Don't want to make the connection if it already exists
-		final Array<Vector2> existingConnsWithAdj =
-		    allConnections.get(adjEntityId, new Array<>());
-		if (!existingConnsWithAdj.contains(connectionCoordinate, false)){
-		    // TODO add try/catches here
-		    // Here we add the PHYSICAL connection
-		    createConnection(connectionCoordinate, id, adjEntityId);
-		    // Add connection to conn component of entity with the new part
-		    final Array<Vector2> connectionsArr = allConnections
-			.get(adjEntityId, new Array<>());
-		    connectionsArr.add(connectionCoordinate);
-		    allConnections.put(adjEntityId, connectionsArr);
-		    // Add connection to conn component of adj entityu
-		    if (!mConnections.has(adjEntityId)) {
-			mConnections.create(adjEntityId);
-		    }		    
-		    final IntMap<Array<Vector2>> adjConnectionsMap =
-			mConnections
-			.get(adjEntityId)
-			.getEntityToConnectionLocationMap();
-		    final Array<Vector2> adjConnectionsArr = adjConnectionsMap
-			.get(id, new Array<>());
-		    adjConnectionsArr.add(connectionCoordinate);
-		    adjConnectionsMap.put(id, adjConnectionsArr);
-		}
+		createWeldBetween(id, adjEntityId, connectionCoordinate);
 	    }
 	}
-    }    
+    }
+
+    public void createWeldBetween(
+	int entityAId, int entityBId, @NonNull Vector2 location
+    ) {
+	if (!mConnections.has(entityAId)) {
+	    mConnections.create(entityAId);
+	}
+	final Connections entityAConns = mConnections.get(entityAId);
+	// Check connection doesn't already exist
+	if (!entityAConns.connectionWith(entityBId, location)){
+	    createConnection(location, entityAId, entityBId);
+	    // Add connection to conn component of entity with the new part
+	    entityAConns.put(entityBId, location);
+	    // Add connection to conn component of adj entity
+	    if (!mConnections.has(entityBId)) {
+		mConnections.create(entityBId);
+	    }
+	    mConnections.get(entityBId).put(entityAId, location);
+	}	
+    }
 }

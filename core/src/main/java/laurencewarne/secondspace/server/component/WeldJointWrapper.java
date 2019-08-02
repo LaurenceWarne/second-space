@@ -1,4 +1,4 @@
-package laurencewarne.secondspace.server.system;
+package laurencewarne.secondspace.server.component;
 
 import com.artemis.Component;
 import com.artemis.annotations.Transient;

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.WeldJointData;
+import laurencewarne.secondspace.server.component.WeldJointWrapper;
 
 /**
  * A {@link BaseEntitySystem} implementation which creates {@link WeldJointWrapper} components for entities which have a {@link PhysicsRectangleData} component but no {@link WeldJointWrapper} component.
@@ -63,5 +64,4 @@ public class WeldJointDataResolverSystem extends BaseEntitySystem {
 	final WeldJoint weldJoint = (WeldJoint) box2DWorld.createJoint(weldJointDef);
 	mWeldJointWrapper.create(id).setWeldJoint(weldJoint);
     }
-    
 }

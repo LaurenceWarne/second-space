@@ -89,6 +89,9 @@ public class TemplateSystem extends IteratingSystem {
 		    final ShipPart part = mShipPart.get(entityId);
 		    x = x + part.getLocalX();
 		    y = y + part.getLocalY();
+		    if (request.getShipOwner() != -1) {
+			part.shipId = request.getShipOwner();
+		    }
 		}
 		if (mRecData.has(entityId)){
 		    final PhysicsRectangleData rect = mRecData.get(entityId);

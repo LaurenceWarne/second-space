@@ -60,7 +60,7 @@ public class SpawnCommandExecutorSystemTest {
     public void testSystemLogsErrorOnCommandWithTooManyArgs() {
 	int id = world.create();
 	Command c = m.create(id);
-	c.setCommandString("spawn monstro 1 2 extra-arg");
+	c.setCommandString("spawn monstro 1 2 4 extra-arg");
 	world.process();
 	List<LoggingEvent> events = logger.getAllLoggingEvents();
 	LoggingEvent lastLog = events.get(events.size() - 1);

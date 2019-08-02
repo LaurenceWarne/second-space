@@ -74,6 +74,10 @@ public class SpawnCommandExecutorSystem extends CommandExecutorSystem {
 	    .type(Float.class)
 	    .nargs("?")
 	    .setDefault(0f);
+	parser.addArgument("ship")
+	    .type(Integer.class)
+	    .nargs("?")
+	    .setDefault(-1);
     }
 
     @Override
@@ -84,6 +88,7 @@ public class SpawnCommandExecutorSystem extends CommandExecutorSystem {
 	    request.setTemplateName(templateName);
 	    request.setX(res.getFloat("x"));
 	    request.setY(res.getFloat("y"));
+	    request.setShipOwner(res.getInt("ship"));
 	}
 	else {
 	    logger.error("No template exists named {}", templateName);

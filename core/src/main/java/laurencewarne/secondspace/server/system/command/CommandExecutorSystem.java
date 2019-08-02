@@ -1,4 +1,4 @@
-package laurencewarne.secondspace.server.system;
+package laurencewarne.secondspace.server.system.command;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

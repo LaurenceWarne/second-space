@@ -1,4 +1,4 @@
-package laurencewarne.secondspace.server.system;
+package laurencewarne.secondspace.server.system.command;
 
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.server.component.Command;
 import laurencewarne.secondspace.server.component.SpawnRequest;
+import laurencewarne.secondspace.server.system.TemplateSystem;
 import lombok.NonNull;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.Namespace;
@@ -94,5 +95,4 @@ public class SpawnCommandExecutorSystem extends CommandExecutorSystem {
 	    logger.error("No template exists named {}", templateName);
 	}
     }
-    
 }

@@ -1,4 +1,4 @@
-package laurencewarne.secondspace.server.system;
+package laurencewarne.secondspace.server.system.command;
 
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;

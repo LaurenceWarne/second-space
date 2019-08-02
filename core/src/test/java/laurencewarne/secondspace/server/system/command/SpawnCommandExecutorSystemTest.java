@@ -1,4 +1,4 @@
-package laurencewarne.secondspace.server.system;
+package laurencewarne.secondspace.server.system.command;
 
 import static org.hamcrest.text.MatchesPattern.matchesPattern;
 import static org.junit.Assert.assertFalse;

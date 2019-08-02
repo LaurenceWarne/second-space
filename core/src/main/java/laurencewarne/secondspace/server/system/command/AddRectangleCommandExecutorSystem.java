@@ -1,4 +1,4 @@
-package laurencewarne.secondspace.server.system;
+package laurencewarne.secondspace.server.system.command;
 
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;

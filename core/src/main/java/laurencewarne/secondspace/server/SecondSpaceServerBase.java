@@ -22,19 +22,19 @@ import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.server.init.ServerConfig;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
-import laurencewarne.secondspace.server.system.PhysicsRectangleDataResolverSystem;
 import laurencewarne.secondspace.server.system.PhysicsRectangleSynchronizerSystem;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
 import laurencewarne.secondspace.server.system.ShipWeldingSystem;
 import laurencewarne.secondspace.server.system.TemplateSystem;
 import laurencewarne.secondspace.server.system.TerminalSystem;
-import laurencewarne.secondspace.server.system.WeldJointDataResolverSystem;
 import laurencewarne.secondspace.server.system.WorldDeserializationSystem;
 import laurencewarne.secondspace.server.system.WorldSerializationSystem;
 import laurencewarne.secondspace.server.system.command.AddRectangleCommandExecutorSystem;
 import laurencewarne.secondspace.server.system.command.AddWeldCommandExecutorSystem;
 import laurencewarne.secondspace.server.system.command.EntityRemovalCommandExecutorSystem;
 import laurencewarne.secondspace.server.system.command.SpawnCommandExecutorSystem;
+import laurencewarne.secondspace.server.system.resolvers.PhysicsRectangleDataResolverSystem;
+import laurencewarne.secondspace.server.system.resolvers.WeldJointDataResolverSystem;
 import lombok.Getter;
 import net.fbridault.eeel.EEELPlugin;
 

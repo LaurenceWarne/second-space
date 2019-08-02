@@ -5,6 +5,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Exclude;
 import com.artemis.annotations.Wire;
+import com.artemis.systems.IteratingSystem;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.WeldJoint;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
@@ -22,7 +23,7 @@ import laurencewarne.secondspace.server.component.WeldJointWrapper;
  */
 @All(WeldJointData.class)
 @Exclude(WeldJointWrapper.class)
-public class WeldJointDataResolverSystem extends BaseEntitySystem {
+public class WeldJointDataResolverSystem extends IteratingSystem {
 
     private final Logger logger = LoggerFactory.getLogger(
 	WeldJointDataResolverSystem.class
@@ -33,14 +34,9 @@ public class WeldJointDataResolverSystem extends BaseEntitySystem {
 
     @Wire
     private World box2DWorld;
-
-    @Override
-    public void processSystem() {
-	
-    }    
     
     @Override
-    public void inserted(int id) {
+    public void process(int id) {
 	////////////////////////////////////////////////////////////////////////////
 	// Create a weld joint in the box2d world using a WeldJointData component //
 	////////////////////////////////////////////////////////////////////////////
@@ -55,6 +51,7 @@ public class WeldJointDataResolverSystem extends BaseEntitySystem {
 		"Could not create weld joint, error getting physics" +
 		" bodies from supplied ids."
 	    );
+	    mWeldJointData.remove(id);
 	    return;
 	}
 	weldJointDef.localAnchorA.set(weldJointData.getLocalAnchorA());

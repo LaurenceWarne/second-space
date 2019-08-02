@@ -15,7 +15,7 @@ import com.google.common.primitives.Ints;
 import laurencewarne.secondspace.server.collect.IntBags;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.ShipPart;
-import laurencewarne.secondspace.server.component.ShipPartConnections;
+import laurencewarne.secondspace.server.component.Connections;
 import lombok.NonNull;
 
 /**
@@ -23,8 +23,8 @@ import lombok.NonNull;
  */
 public final class Ships {
 
-	public static final ShipPartConnections NULL_CONNECTION =
-		new ShipPartConnections();
+	public static final Connections NULL_CONNECTION =
+		new Connections();
 
     private Ships() {
 	
@@ -126,20 +126,20 @@ public final class Ships {
 	 * Get entities whose {@link ShipPart} has an edge touching an edge of the specified entity's {@link ShipPart}. Vertex to vertex does not count.
 	 *
 	 * @param id the id of the entity
-	 * @param mShipPartConnections {@link ShipPartConnections} {@link ComponentMapper}
+	 * @param mConnections {@link Connections} {@link ComponentMapper}
 	 * @param entitiesToIgnore entities belonging to this {@link Set} will not be returned even if they are adjacent
 	 * @return {@link IntBag} of entities which are adjacent
 	 */
     public static IntBag getAdjacentEntities(
 		int id,
-		@NonNull ComponentMapper<ShipPartConnections> mShipPartConnections,
+		@NonNull ComponentMapper<Connections> mConnections,
 		@NonNull Set<Integer> entitiesToIgnore
     ) {
-		final ShipPartConnections conns = mShipPartConnections.getSafe(
+		final Connections conns = mConnections.getSafe(
 			id, NULL_CONNECTION
 		);
 		final IntArray adjEntities = conns
-			.getEntityToConnectionLocationMapping()
+			.getEntityToConnectionLocationMap()
 			.keys()
 			.toArray();
 		final IntBag adjacentBag = new IntBag();
@@ -155,19 +155,19 @@ public final class Ships {
 	 * Get an {@link IntBag} of entities whose {@link ShipPart}s are 'connected' to the {@link ShipPart} of entity with the specified id. Part A is said to be connected to part B if, constructing a <a href='https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)'>graph</a> with nodes as ship parts and edges between nodes if the respective ship parts are adjacent, the two nodes {Part A, Part B} are <a href='https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)#Connected_graph'>connected</a>.
 	 *
 	 * @param id id of the entity to get connected parts for
-	 * @param mShipPartConnections {@link ShipPartConnections} {@link ComponentMapper}
+	 * @param mConnections {@link Connections} {@link ComponentMapper}
 	 * @return {@link IntBag} of connected entities, including the specified entity itself
 	 */
     public static IntBag getConnectedParts(
 		int id,
-		@NonNull ComponentMapper<ShipPartConnections> mShipPartConnections
+		@NonNull ComponentMapper<Connections> mConnections
     ) {
 		final Set<Integer> searchedEntities = Sets.newHashSet();
 		final Queue<Integer> entitiesToSearch = new LinkedList<>(Ints.asList(id));
 		while (!entitiesToSearch.isEmpty()){
 			final int entity = entitiesToSearch.poll();
 			final IntBag nextEntities = getAdjacentEntities(
-				entity, mShipPartConnections, searchedEntities
+				entity, mConnections, searchedEntities
 			);
 			entitiesToSearch.addAll(IntBags.toList(nextEntities));
 			searchedEntities.add(entity);

@@ -30,14 +30,14 @@ import org.mockito.Mockito;
 
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.ShipPart;
-import laurencewarne.secondspace.server.component.ShipPartConnections;
+import laurencewarne.secondspace.server.component.Connections;
 
 @RunWith(ParameterizedTestCaseRunner.class)
 public class ShipsTest {
 
     private ComponentMapper<ShipPart> mShipPart;
     private ComponentMapper<PhysicsRectangleData> mData;
-    private ComponentMapper<ShipPartConnections> mConns;
+    private ComponentMapper<Connections> mConns;
 
     public static class RecParameterGenerator
 	implements ParameterGenerator<Tuple1<Rectangle>> {
@@ -207,7 +207,7 @@ public class ShipsTest {
 
     @Test
     public void testGetAdjacentEntitiesReturnsNothingOnShipWithOneEntity() {
-	ShipPartConnections conns = new ShipPartConnections();
+	Connections conns = new Connections();
 	when(mConns.get(0)).thenReturn(conns);
 	when(mConns.getSafe(eq(0), any())).thenReturn(conns);
 	IntBag b = Ships.getAdjacentEntities(0, mConns, new HashSet<>());
@@ -216,9 +216,9 @@ public class ShipsTest {
 
     @Test
     public void testGetAdjacentEntitiesWithAdjacentEntities() {
-	ShipPartConnections conns = new ShipPartConnections();
-	conns.getEntityToConnectionLocationMapping().put(1, new Array<>());
-	conns.getEntityToConnectionLocationMapping().put(2, new Array<>());
+	Connections conns = new Connections();
+	conns.getEntityToConnectionLocationMap().put(1, new Array<>());
+	conns.getEntityToConnectionLocationMap().put(2, new Array<>());
 	when(mConns.get(0)).thenReturn(conns);
 	when(mConns.getSafe(eq(0), any())).thenReturn(conns);
 	IntBag b = Ships.getAdjacentEntities(0, mConns, new HashSet<>());
@@ -229,9 +229,9 @@ public class ShipsTest {
  
     @Test
     public void testGetAdjacentEntitiesWithAdjacentEntitiesWithIgnores() {
-	ShipPartConnections conns = new ShipPartConnections();
-	conns.getEntityToConnectionLocationMapping().put(1, new Array<>());
-	conns.getEntityToConnectionLocationMapping().put(2, new Array<>());
+	Connections conns = new Connections();
+	conns.getEntityToConnectionLocationMap().put(1, new Array<>());
+	conns.getEntityToConnectionLocationMap().put(2, new Array<>());
 	when(mConns.get(0)).thenReturn(conns);
 	when(mConns.getSafe(eq(0), any())).thenReturn(conns);
 	Set<Integer> ignores = new HashSet<>(Lists.newArrayList(1));
@@ -242,9 +242,9 @@ public class ShipsTest {
  
     @Test
     public void testGetAdjacentEntitiesWithAdjacentEntitiesWithAllIgnores() {
-	ShipPartConnections conns = new ShipPartConnections();
-	conns.getEntityToConnectionLocationMapping().put(1, new Array<>());
-	conns.getEntityToConnectionLocationMapping().put(2, new Array<>());
+	Connections conns = new Connections();
+	conns.getEntityToConnectionLocationMap().put(1, new Array<>());
+	conns.getEntityToConnectionLocationMap().put(2, new Array<>());
 	when(mConns.get(0)).thenReturn(conns);
 	when(mConns.getSafe(eq(0), any())).thenReturn(conns);
 	Set<Integer> ignores = new HashSet<>(Lists.newArrayList(1, 2));
@@ -254,7 +254,7 @@ public class ShipsTest {
  
     @Test
     public void testGetConnectedPartsWithNoConnections() {
-	ShipPartConnections conns = new ShipPartConnections();
+	Connections conns = new Connections();
 	when(mConns.get(0)).thenReturn(conns);
 	when(mConns.getSafe(eq(0), any())).thenReturn(conns);
 	IntBag b = Ships.getConnectedParts(0, mConns);
@@ -264,17 +264,17 @@ public class ShipsTest {
 
     @Test
     public void testGetConnectedPartsWithOnlyAdjacentConnections() {
-	ShipPartConnections conns = new ShipPartConnections();
-	conns.getEntityToConnectionLocationMapping().put(1, new Array<>());
-	conns.getEntityToConnectionLocationMapping().put(2, new Array<>());
+	Connections conns = new Connections();
+	conns.getEntityToConnectionLocationMap().put(1, new Array<>());
+	conns.getEntityToConnectionLocationMap().put(2, new Array<>());
 	when(mConns.get(0)).thenReturn(conns);
 	when(mConns.getSafe(eq(0), any())).thenReturn(conns);
 	
-	ShipPartConnections conns1 = new ShipPartConnections();	
+	Connections conns1 = new Connections();	
 	when(mConns.get(1)).thenReturn(conns1);
 	when(mConns.getSafe(eq(1), any())).thenReturn(conns1);
 	
-	ShipPartConnections conns2 = new ShipPartConnections();	
+	Connections conns2 = new Connections();	
 	when(mConns.get(2)).thenReturn(conns2);
 	when(mConns.getSafe(eq(2), any())).thenReturn(conns2);
 
@@ -287,22 +287,22 @@ public class ShipsTest {
 
     @Test
     public void testGetConnectedPartsWithAdjacentAndFurtherConnections() {
-	ShipPartConnections conns = new ShipPartConnections();
-	conns.getEntityToConnectionLocationMapping().put(1, new Array<>());
-	conns.getEntityToConnectionLocationMapping().put(2, new Array<>());
+	Connections conns = new Connections();
+	conns.getEntityToConnectionLocationMap().put(1, new Array<>());
+	conns.getEntityToConnectionLocationMap().put(2, new Array<>());
 	when(mConns.get(0)).thenReturn(conns);
 	when(mConns.getSafe(eq(0), any())).thenReturn(conns);
 	
-	ShipPartConnections conns1 = new ShipPartConnections();	
+	Connections conns1 = new Connections();	
 	when(mConns.get(1)).thenReturn(conns1);
 	when(mConns.getSafe(eq(1), any())).thenReturn(conns1);
 	
-	ShipPartConnections conns2 = new ShipPartConnections();	
-	conns2.getEntityToConnectionLocationMapping().put(3, new Array<>());
+	Connections conns2 = new Connections();	
+	conns2.getEntityToConnectionLocationMap().put(3, new Array<>());
 	when(mConns.get(2)).thenReturn(conns2);
 	when(mConns.getSafe(eq(2), any())).thenReturn(conns2);
 	
-	ShipPartConnections conns3 = new ShipPartConnections();	
+	Connections conns3 = new Connections();	
 	when(mConns.get(3)).thenReturn(conns3);
 	when(mConns.getSafe(eq(3), any())).thenReturn(conns3);
 
@@ -316,22 +316,22 @@ public class ShipsTest {
 
     @Test
     public void testGetConnectedPartsWithAdjacentAndFarConnections() {
-	ShipPartConnections conns = new ShipPartConnections();
-	conns.getEntityToConnectionLocationMapping().put(1, new Array<>());
+	Connections conns = new Connections();
+	conns.getEntityToConnectionLocationMap().put(1, new Array<>());
 	when(mConns.get(0)).thenReturn(conns);
 	when(mConns.getSafe(eq(0), any())).thenReturn(conns);
 	
-	ShipPartConnections conns1 = new ShipPartConnections();
-	conns1.getEntityToConnectionLocationMapping().put(2, new Array<>());
+	Connections conns1 = new Connections();
+	conns1.getEntityToConnectionLocationMap().put(2, new Array<>());
 	when(mConns.get(1)).thenReturn(conns1);
 	when(mConns.getSafe(eq(1), any())).thenReturn(conns1);
 	
-	ShipPartConnections conns2 = new ShipPartConnections();	
-	conns2.getEntityToConnectionLocationMapping().put(3, new Array<>());
+	Connections conns2 = new Connections();	
+	conns2.getEntityToConnectionLocationMap().put(3, new Array<>());
 	when(mConns.get(2)).thenReturn(conns2);
 	when(mConns.getSafe(eq(2), any())).thenReturn(conns2);
 	
-	ShipPartConnections conns3 = new ShipPartConnections();	
+	Connections conns3 = new Connections();	
 	when(mConns.get(3)).thenReturn(conns3);
 	when(mConns.getSafe(eq(3), any())).thenReturn(conns3);
 
@@ -346,21 +346,21 @@ public class ShipsTest {
 
     @Test
     public void testGetConnectedPartsWithUnonnectedParts() {
-	ShipPartConnections conns = new ShipPartConnections();
-	conns.getEntityToConnectionLocationMapping().put(1, new Array<>());
+	Connections conns = new Connections();
+	conns.getEntityToConnectionLocationMap().put(1, new Array<>());
 	when(mConns.get(0)).thenReturn(conns);
 	when(mConns.getSafe(eq(0), any())).thenReturn(conns);
 	
-	ShipPartConnections conns1 = new ShipPartConnections();	
+	Connections conns1 = new Connections();	
 	when(mConns.get(1)).thenReturn(conns1);
 	when(mConns.getSafe(eq(1), any())).thenReturn(conns1);
 
-	ShipPartConnections conns2 = new ShipPartConnections();	
-	conns2.getEntityToConnectionLocationMapping().put(3, new Array<>());
+	Connections conns2 = new Connections();	
+	conns2.getEntityToConnectionLocationMap().put(3, new Array<>());
 	when(mConns.get(2)).thenReturn(conns2);
 	when(mConns.getSafe(eq(2), any())).thenReturn(conns2);
 	
-	ShipPartConnections conns3 = new ShipPartConnections();	
+	Connections conns3 = new Connections();	
 	when(mConns.get(3)).thenReturn(conns3);
 	when(mConns.getSafe(eq(3), any())).thenReturn(conns3);
 

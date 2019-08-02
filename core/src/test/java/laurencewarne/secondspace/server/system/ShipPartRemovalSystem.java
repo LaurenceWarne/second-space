@@ -17,7 +17,7 @@ import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.Ship;
 import laurencewarne.secondspace.server.component.ShipPart;
-import laurencewarne.secondspace.server.component.ShipPartConnections;
+import laurencewarne.secondspace.server.component.Connections;
 import laurencewarne.secondspace.server.ship.Ships;
 
 @All({ShipPart.class, Physics.class})
@@ -26,7 +26,7 @@ public class ShipPartRemovalSystem extends BaseEntitySystem {
     private ComponentMapper<Ship> mShip;
     private ComponentMapper<ShipPart> mShipPart;
     private ComponentMapper<PhysicsRectangleData> mRecData;
-    private ComponentMapper<ShipPartConnections> mShipPartConnections;
+    private ComponentMapper<Connections> mConnections;
     private final Logger logger = LoggerFactory.getLogger(
 	ShipPartRemovalSystem.class
     );
@@ -39,16 +39,16 @@ public class ShipPartRemovalSystem extends BaseEntitySystem {
     @Override
     public void removed(int id) {
 	mShip.get(mShipPart.get(id).shipId).parts.removeValue(id);
-	if (mShipPartConnections.has(id)){
+	if (mConnections.has(id)){
 	    final Collection<Integer> adjEntities = IntBags.toList(
 		Ships.getAdjacentEntities(
-		    id, mShipPartConnections, new HashSet<>()
+		    id, mConnections, new HashSet<>()
 		)
 	    );
 	    for (int adjPartId : adjEntities) {
 		// Check the entity connected to the ship is in fact still connected
 		final IntBag allConnectedEntities = Ships.getConnectedParts(
-		    adjPartId, mShipPartConnections
+		    adjPartId, mConnections
 		);
 		boolean isConnectedToShip = Arrays
 		    .stream(allConnectedEntities.getData())
@@ -56,14 +56,14 @@ public class ShipPartRemovalSystem extends BaseEntitySystem {
 		    .map(e -> mShipPart.get(e))
 		    .anyMatch(part -> part.isController());
 		if (isConnectedToShip) {
-		    mShipPartConnections.get(adjPartId)
-			.getEntityToConnectionLocationMapping()
+		    mConnections.get(adjPartId)
+			.getEntityToConnectionLocationMap()
 			.remove(id);
 		}
 		else {
-		    // destroy ShipPart and ShipPartConnections
+		    // destroy ShipPart and Connections
 		    for (int entity : IntBags.toList(allConnectedEntities)) {
-			mShipPartConnections.remove(entity);
+			mConnections.remove(entity);
 			// Calls this method again in turn
 			mShipPart.remove(entity);
 		    }

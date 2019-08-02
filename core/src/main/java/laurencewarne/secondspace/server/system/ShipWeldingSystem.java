@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.IntMap;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.Ship;
 import laurencewarne.secondspace.server.component.ShipPart;
-import laurencewarne.secondspace.server.component.ShipPartConnections;
+import laurencewarne.secondspace.server.component.Connections;
 import laurencewarne.secondspace.server.component.WeldJointData;
 import laurencewarne.secondspace.server.ship.Rectangles;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
@@ -27,7 +27,7 @@ public class ShipWeldingSystem extends BaseEntitySystem {
     private ComponentMapper<WeldJointData> mWeldJointData;
     private ComponentMapper<PhysicsRectangleData> mRecData;
     private ComponentMapper<Ship> mShip;
-    private ComponentMapper<ShipPartConnections> mShipPartConnections;
+    private ComponentMapper<Connections> mConnections;
 
     @Wire
     private ShipCoordinateLocaliser shipCoordLocaliser;
@@ -83,12 +83,12 @@ public class ShipWeldingSystem extends BaseEntitySystem {
 	    newPart.getLocalX(), newPart.getLocalY(),
 	    recData.getWidth(), recData.getHeight()
 	);
-	if (!mShipPartConnections.has(id)){
-	    mShipPartConnections.create(id);
+	if (!mConnections.has(id)){
+	    mConnections.create(id);
 	}
-	final IntMap<Array<Vector2>> allConnections = mShipPartConnections
+	final IntMap<Array<Vector2>> allConnections = mConnections
 	    .get(id)
-	    .getEntityToConnectionLocationMapping();
+	    .getEntityToConnectionLocationMap();
 	final Iterable<Vector2> connectionPoints = Rectangles.getPointsOnEdge(
 	    shipRectangle, 0.5f, 1f
 	);
@@ -120,13 +120,13 @@ public class ShipWeldingSystem extends BaseEntitySystem {
 		    connectionsArr.add(connectionCoordinate);
 		    allConnections.put(adjEntityId, connectionsArr);
 		    // Add connection to conn component of adj entityu
-		    if (!mShipPartConnections.has(adjEntityId)) {
-			mShipPartConnections.create(adjEntityId);
+		    if (!mConnections.has(adjEntityId)) {
+			mConnections.create(adjEntityId);
 		    }		    
 		    final IntMap<Array<Vector2>> adjConnectionsMap =
-			mShipPartConnections
+			mConnections
 			.get(adjEntityId)
-			.getEntityToConnectionLocationMapping();
+			.getEntityToConnectionLocationMap();
 		    final Array<Vector2> adjConnectionsArr = adjConnectionsMap
 			.get(id, new Array<>());
 		    adjConnectionsArr.add(connectionCoordinate);

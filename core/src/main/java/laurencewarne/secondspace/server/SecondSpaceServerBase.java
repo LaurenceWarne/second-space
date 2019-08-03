@@ -37,6 +37,7 @@ import laurencewarne.secondspace.server.system.resolvers.PhysicsRectangleDataRes
 import laurencewarne.secondspace.server.system.resolvers.WeldJointDataResolverSystem;
 import lombok.Getter;
 import net.fbridault.eeel.EEELPlugin;
+import net.mostlyoriginal.api.event.common.EventSystem;
 
 /**
  * Headless implementation of {@link Game}, ie does no rendering and creates no
@@ -137,6 +138,7 @@ public class SecondSpaceServerBase extends Game {
 		new PhysicsRectangleDataResolverSystem(),
 		new WeldJointDataResolverSystem(),
 		new PhysicsSystem(),
+		new EventSystem(),
 		new PhysicsRectangleSynchronizerSystem(10f),
 		new WorldSerializationSystem(10f)
 	    );

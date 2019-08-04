@@ -41,7 +41,12 @@ public class ConnectionManager extends BaseSystem {
 	    final Connection conn = mConnection.getSafe(
 		connectionA.links.get(index), EMPTY_CON
 	    );
-	    return conn.getLocalACoords().contains(position, false);
+	    if (entityA == conn.entityAId) {
+		return conn.getLocalACoords().contains(position, false);
+	    }
+	    else {
+		return conn.getLocalBCoords().contains(position, false);
+	    }
 	}
 	catch (ArrayIndexOutOfBoundsException e) {
 	    return false;

@@ -1,4 +1,4 @@
-package laurencewarne.secondspace.server.component;
+package laurencewarne.secondspace.server.component.connection;
 
 import com.artemis.Component;
 import com.artemis.annotations.EntityId;

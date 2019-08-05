@@ -21,10 +21,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.server.init.ServerConfig;
+import laurencewarne.secondspace.server.manager.ConnectionManager;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
 import laurencewarne.secondspace.server.system.PhysicsRectangleSynchronizerSystem;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
-import laurencewarne.secondspace.server.system.ShipWeldingSystem;
+import laurencewarne.secondspace.server.system.ShipConnectionSystem;
 import laurencewarne.secondspace.server.system.TemplateSystem;
 import laurencewarne.secondspace.server.system.TerminalSystem;
 import laurencewarne.secondspace.server.system.WorldDeserializationSystem;
@@ -129,13 +130,14 @@ public class SecondSpaceServerBase extends Game {
 		new EventSystem(),
 		new WorldSerializationManager(),
 		new WorldDeserializationSystem(),
+		new ConnectionManager(),
 		new TerminalSystem(),
 		new AddRectangleCommandExecutorSystem(),
 		new AddWeldCommandExecutorSystem(),
 		new SpawnCommandExecutorSystem(),
 		new EntityRemovalCommandExecutorSystem(),
 		new TemplateSystem(),
-		new ShipWeldingSystem(),
+		new ShipConnectionSystem(),
 		new PhysicsRectangleDataResolverSystem(),
 		new WeldJointDataResolverSystem(),
 		new PhysicsSystem(),

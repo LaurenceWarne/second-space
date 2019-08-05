@@ -1,6 +1,5 @@
 package laurencewarne.secondspace.server.system;
 
-import com.artemis.ComponentMapper;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
@@ -8,35 +7,32 @@ import com.badlogic.gdx.math.Vector2;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.ShipPart;
-import laurencewarne.secondspace.server.component.WeldJointData;
+import laurencewarne.secondspace.server.manager.ConnectionManager;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
+import net.mostlyoriginal.api.event.common.EventSystem;
 
-public class ShipWeldingSystemTest {
+public class ShipConnectionSystemTest {
 
     private World world;
-    private ShipWeldingSystem sys;
-    private ComponentMapper<WeldJointData> mWeldJointData;
+    private ShipConnectionSystem sys;
     private int entityAId, entityBId;
 
     @Before
     public void setUp() {
 	WorldConfiguration setup = new WorldConfigurationBuilder()
+	    .with(new EventSystem())
 	    .with(
-		sys = new ShipWeldingSystem()
+		new ConnectionManager(),
+		sys = new ShipConnectionSystem()
 	    )
 	    .build();
 	setup.register(new ShipCoordinateLocaliser());
 	world = new World(setup);
 	entityAId = world.create();
 	entityBId = world.create();
-	ComponentMapper<WeldJointData> m = world.getMapper(
-	    WeldJointData.class
-	);
-	mWeldJointData = Mockito.spy(m);
 
 	ShipPart partA = world.edit(entityAId).create(ShipPart.class);
 	PhysicsRectangleData dataA =
@@ -54,9 +50,7 @@ public class ShipWeldingSystemTest {
     @Test
     public void testCanCreateValidConnectionWherePartsTouch() {
 	Vector2 coordinate = new Vector2(1f, 0.5f);
-	sys.createConnection(coordinate, entityAId, entityBId);
-
-	//Mockito.verify(mWeldJointData).create(anyInt());
+	sys.connectParts(entityAId, entityBId, coordinate);
     }
 
 }

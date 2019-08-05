@@ -3,6 +3,7 @@ package laurencewarne.secondspace.server.manager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 
 import com.artemis.ComponentMapper;
 import com.artemis.World;
@@ -12,9 +13,13 @@ import com.badlogic.gdx.math.Vector2;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InOrder;
+import org.mockito.Mockito;
 
 import laurencewarne.secondspace.server.component.connection.Connection;
 import laurencewarne.secondspace.server.component.connection.ConnectionReference;
+import laurencewarne.secondspace.server.manager.ConnectionManager.ConnectionAddedEvent;
+import laurencewarne.secondspace.server.manager.ConnectionManager.ConnectionsRemovedEvent;
 import lombok.NonNull;
 import net.fbridault.eeel.EEELPlugin;
 import net.mostlyoriginal.api.event.common.EventSystem;
@@ -25,12 +30,13 @@ public class ConnectionManagerTest {
     private ConnectionManager cm;
     private ComponentMapper<ConnectionReference> mConnRef;
     private ComponentMapper<Connection> mConn;
+    private EventSystem es;
 
     @Before
     public void setUp() {
 	WorldConfiguration setup = new WorldConfigurationBuilder()
 	    .with(new EEELPlugin())
-	    .with(new EventSystem())
+	    .with(es = Mockito.spy(new EventSystem()))
 	    .with(cm = new ConnectionManager())
 	    .build();
 	world = new World(setup);
@@ -213,6 +219,46 @@ public class ConnectionManagerTest {
 	cm.removeConnections(id1, id2);
 	ConnectionReference ref1 = mConnRef.get(id1);
 	assertEquals(id3, ref1.connectedEntities.get(0));
+    }
+
+    @Test
+    public void testManagerDispatchesEventOnConnectionCreation() {
+	int id1 = world.create(), id2 = world.create();
+	cm.createConnection(id1, id2, new Vector2(1f, 0f), new Vector2(0f, 10f));
+	world.process();
+	ConnectionAddedEvent desiredEvent = new ConnectionAddedEvent(
+	    id1, id2, new Vector2(1f, 0f), new Vector2(0f, 10f)
+	);
+	Mockito.verify(es).dispatch(eq(desiredEvent));
+    }
+
+    @Test
+    public void testManagerDispatchesEventOnMultipleConnectionCreation() {
+	int id1 = world.create(), id2 = world.create();
+	InOrder inOrder = Mockito.inOrder(es);
+	for (int i = 0; i < 10; i++){
+	    cm.createConnection(
+		id1, id2, new Vector2(i, 0f), new Vector2(0f, i)
+	    );
+	}
+	world.process();
+	for (int i = 0; i < 10; i++){
+	    ConnectionAddedEvent desiredEvent = new ConnectionAddedEvent(
+		id1, id2, new Vector2(i, 0f), new Vector2(0f, i)
+	    );
+	    inOrder.verify(es).dispatch(eq(desiredEvent));
+	}
+    }
+
+    @Test
+    public void testManagerDispatchesRemovedEventOnEntityDeletion() {
+	int id1 = world.create(), id2 = world.create();
+	cm.createConnection(id1, id2, new Vector2(), new Vector2());
+	world.process();
+	world.delete(id1);
+	world.process();
+	ConnectionsRemovedEvent evt = new ConnectionsRemovedEvent(id1, id2);
+	Mockito.verify(es).dispatch(eq(evt));
     }
 
 }

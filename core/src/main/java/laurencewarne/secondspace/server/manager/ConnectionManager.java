@@ -11,6 +11,7 @@ import laurencewarne.secondspace.server.component.connection.ConnectionReference
 import lombok.NonNull;
 import lombok.Value;
 import net.fbridault.eeel.annotation.All;
+import net.fbridault.eeel.annotation.Inserted;
 import net.fbridault.eeel.annotation.Removed;
 import net.mostlyoriginal.api.event.common.Event;
 import net.mostlyoriginal.api.event.common.EventSystem;
@@ -75,6 +76,7 @@ public class ConnectionManager extends BaseSystem {
 	    mConnectionReference.create(entityB);
 	}
 	final ConnectionReference refB = mConnectionReference.get(entityB);	
+	boolean dispatch = true;
 	if (!refA.connectedEntities.contains(entityB)) {
 	    refA.connectedEntities.add(entityB);
 	    refB.connectedEntities.add(entityA);
@@ -84,6 +86,7 @@ public class ConnectionManager extends BaseSystem {
 	    conn.entityBId = entityB;
 	    refA.links.add(connId);
 	    refB.links.add(connId);
+	    dispatch = false;  // Our onConnectionAdded() will take care of things
 	}
 	final Connection conn = mConnection.get(
 	    refA.links.get(refA.connectedEntities.indexOf(entityB))
@@ -91,12 +94,15 @@ public class ConnectionManager extends BaseSystem {
 	if (!conn.getLocalACoords().contains(localPositionA, false)){
 	    conn.getLocalACoords().add(localPositionA);
 	    conn.getLocalBCoords().add(localPositionB);
-	    es.dispatch(new ConnectionAddedEvent(entityA, entityB, localPositionA, localPositionB));
+	    if (dispatch) {
+		es.dispatch(new ConnectionAddedEvent(entityA, entityB, localPositionA, localPositionB));		
+	    }
 	}
     } 
 
     /**
      * Remove connections between the specified entity and all other entities, in addition to removing the entity's {@link ConnectionReference} component.
+     *
      * @param entity entity to remove connections from
      */
     public void removeAllConnectivity(int entity) {
@@ -148,6 +154,19 @@ public class ConnectionManager extends BaseSystem {
     @All(ConnectionReference.class)
     public void onRemoved(int id) {
 	removeConnections(id);
+    }
+
+    @Inserted
+    @All(Connection.class)
+    public void onConnectionAdded(int id) {
+	final Connection conn = mConnection.get(id);
+	for (int i = 0; i < conn.getLocalACoords().size; i++){
+	    final ConnectionAddedEvent evt = new ConnectionAddedEvent(
+		conn.entityAId, conn.entityBId,
+		conn.getLocalACoords().get(i), conn.getLocalBCoords().get(i)
+	    );
+	    es.dispatch(evt);
+	}
     }
 
     /**

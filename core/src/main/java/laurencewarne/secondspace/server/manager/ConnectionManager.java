@@ -1,18 +1,19 @@
 package laurencewarne.secondspace.server.manager;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
+import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Vector2;
 
 import laurencewarne.secondspace.server.collect.IntBags;
 import laurencewarne.secondspace.server.component.connection.Connection;
 import laurencewarne.secondspace.server.component.connection.ConnectionReference;
 import lombok.NonNull;
+import lombok.Value;
 import net.fbridault.eeel.annotation.All;
 import net.fbridault.eeel.annotation.Removed;
+import net.mostlyoriginal.api.event.common.Event;
+import net.mostlyoriginal.api.event.common.EventSystem;
 
 /**
  * Provides a simplified interface to the components involved in entity connections, which are complex owing to the need to have them serializable.
@@ -24,11 +25,20 @@ public class ConnectionManager extends BaseSystem {
 
     private ComponentMapper<ConnectionReference> mConnectionReference;
     private ComponentMapper<Connection> mConnection;
-    @NonNull
-    private List<IConnectionListener> listeners = new LinkedList<>();
+    private EventSystem es;
 
     public void processSystem() {
 	
+    }
+
+    public IntBag getConnectedEntities(int entity) {
+	if (mConnectionReference.has(entity)) {
+	    final ConnectionReference ref = mConnectionReference.get(entity);
+	    return IntBags.copyOf(ref.connectedEntities);
+	}
+	else {
+	    return new IntBag();
+	}
     }
 
     public boolean existsConnection(
@@ -68,9 +78,12 @@ public class ConnectionManager extends BaseSystem {
 	if (!refA.connectedEntities.contains(entityB)) {
 	    refA.connectedEntities.add(entityB);
 	    refB.connectedEntities.add(entityA);
-	    final Connection conn = mConnection.create(world.create());
+	    final int connId = world.create();
+	    final Connection conn = mConnection.create(connId);
 	    conn.entityAId = entityA;
 	    conn.entityBId = entityB;
+	    refA.links.add(connId);
+	    refB.links.add(connId);
 	}
 	final Connection conn = mConnection.get(
 	    refA.links.get(refA.connectedEntities.indexOf(entityB))
@@ -78,16 +91,24 @@ public class ConnectionManager extends BaseSystem {
 	if (!conn.getLocalACoords().contains(localPositionA, false)){
 	    conn.getLocalACoords().add(localPositionA);
 	    conn.getLocalBCoords().add(localPositionB);
-	    // alert listeners
-	    listeners.forEach(l -> l.onConnectionAdded(entityA, entityB, localPositionA, localPositionB));
+	    es.dispatch(new ConnectionAddedEvent(entityA, entityB, localPositionA, localPositionB));
 	}
     } 
 
+    /**
+     * Remove connections between the specified entity and all other entities, in addition to removing the entity's {@link ConnectionReference} component.
+     * @param entity entity to remove connections from
+     */
     public void removeAllConnectivity(int entity) {
 	// Calls our onRemoved() method below
-	mConnection.remove(entity);
+	mConnectionReference.remove(entity);
     }
 
+    /**
+     * Remove connections between the specified entity and all other entities. The specified entity will still have a {@link ConnectionReference} component.
+     *
+     * @param entity entity to remove connections from
+     */
     public void removeConnections(int entity) {
 	final ConnectionReference ref = mConnectionReference.getSafe(
 	    entity, EMPTY_REF
@@ -97,6 +118,12 @@ public class ConnectionManager extends BaseSystem {
 	}
     }
 
+    /**
+     * Remove all forms of connection between two entities. Does not affect connectedness with the specified entities and other entities.
+     *
+     * @param entityA
+     * @param entityB
+     */
     public void removeConnections(int entityA, int entityB) {
 	final ConnectionReference refA = mConnectionReference.getSafe(
 	    entityA, EMPTY_REF
@@ -112,16 +139,8 @@ public class ConnectionManager extends BaseSystem {
 	    );
 	    refB.connectedEntities.removeValue(entityA);
 	    refB.links.removeValue(connId);
-	    listeners.forEach(l -> l.onConnectionsRemoved(entityA, entityB));
+	    es.dispatch(new ConnectionsRemovedEvent(entityA, entityB));
 	}
-    }
-
-    public void addConnectionListener(@NonNull IConnectionListener listener) {
-	listeners.add(listener);
-    }
-
-    public void removeConnectionListener(@NonNull IConnectionListener listener) {
-	listeners.remove(listener);
     }
 
     // When an entity is straight up destroyed, we need to clean up.
@@ -131,14 +150,23 @@ public class ConnectionManager extends BaseSystem {
 	removeConnections(id);
     }
 
-    public interface IConnectionListener {
-	void onConnectionAdded(
-	    int entityA, int entityB,
-	    Vector2 localPositionA, Vector2 localPositionB
-	);
+    /**
+     * Signifies all connections between two entities have been removed.
+     */
+    @Value
+    public static class ConnectionsRemovedEvent implements Event {
+	private final int entityA;
+	private final int entityB;
+    }
 
-	void onConnectionsRemoved(
-	    int entityA, int entityB
-	);
+    /**
+     * Signifies a connection between two entities has been added.
+     */
+    @Value
+    public static class ConnectionAddedEvent implements Event {
+	private final int entityA;
+	private final int entityB;
+	private final Vector2 localPositionA;
+	private final Vector2 localPositionB;
     }
 }

@@ -27,6 +27,14 @@ public final class IntBags {
 	return bag;
     }
 
+    public static IntBag copyOf(@NonNull IntBag bag) {
+	final IntBag newBag = new IntBag(bag.size());
+	for (int i = 0; i < bag.size(); i++){
+	    newBag.add(bag.get(i));
+	}
+	return newBag;
+    }
+
     public static List<Integer> toList(@NonNull IntBag bag) {
 	final List<Integer> list = new ArrayList<>();
 	for (int i = 0; i < bag.size(); i++){

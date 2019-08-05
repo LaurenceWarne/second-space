@@ -126,6 +126,7 @@ public class SecondSpaceServerBase extends Game {
 	    .dependsOn(EntityLinkManager.class)
 	    .with(new EEELPlugin())
 	    .with(
+		new EventSystem(),
 		new WorldSerializationManager(),
 		new WorldDeserializationSystem(),
 		new TerminalSystem(),
@@ -138,7 +139,6 @@ public class SecondSpaceServerBase extends Game {
 		new PhysicsRectangleDataResolverSystem(),
 		new WeldJointDataResolverSystem(),
 		new PhysicsSystem(),
-		new EventSystem(),
 		new PhysicsRectangleSynchronizerSystem(10f),
 		new WorldSerializationSystem(10f)
 	    );

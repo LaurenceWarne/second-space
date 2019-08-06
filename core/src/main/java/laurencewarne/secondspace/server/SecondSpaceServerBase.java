@@ -33,6 +33,7 @@ import laurencewarne.secondspace.server.system.WorldSerializationSystem;
 import laurencewarne.secondspace.server.system.command.AddRectangleCommandExecutorSystem;
 import laurencewarne.secondspace.server.system.command.AddWeldCommandExecutorSystem;
 import laurencewarne.secondspace.server.system.command.EntityRemovalCommandExecutorSystem;
+import laurencewarne.secondspace.server.system.command.SaveCommandExecutorSystem;
 import laurencewarne.secondspace.server.system.command.SpawnCommandExecutorSystem;
 import laurencewarne.secondspace.server.system.resolvers.ConnectionToWeldSystem;
 import laurencewarne.secondspace.server.system.resolvers.PhysicsRectangleDataResolverSystem;
@@ -136,13 +137,14 @@ public class SecondSpaceServerBase extends Game {
 		new AddWeldCommandExecutorSystem(),
 		new SpawnCommandExecutorSystem(),
 		new EntityRemovalCommandExecutorSystem(),
+		new SaveCommandExecutorSystem(),
 		new TemplateSystem(),
 		new ShipConnectionSystem(),
 		new PhysicsRectangleDataResolverSystem(),
 		new ConnectionToWeldSystem(),
 		new PhysicsSystem(),
 		new PhysicsRectangleSynchronizerSystem(10f),
-		new WorldSerializationSystem(10f)
+		new WorldSerializationSystem()
 	    );
     }
 

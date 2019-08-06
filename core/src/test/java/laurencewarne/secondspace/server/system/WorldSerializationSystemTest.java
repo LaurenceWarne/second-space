@@ -35,6 +35,7 @@ import org.mockito.stubbing.Answer;
 
 import laurencewarne.secondspace.server.component.ComponentX;
 import laurencewarne.secondspace.server.component.ComponentY;
+import net.mostlyoriginal.api.event.common.EventSystem;
 import uk.org.lidalia.slf4jtest.LoggingEvent;
 import uk.org.lidalia.slf4jtest.TestLogger;
 import uk.org.lidalia.slf4jtest.TestLoggerFactory;
@@ -61,8 +62,9 @@ public class WorldSerializationSystemTest {
 		MockitoAnnotations.initMocks(this);
 		WorldConfiguration setup = new WorldConfigurationBuilder()
 			.with(
+				new EventSystem(),
 				wsm = new WorldSerializationManager(),
-				sys = new WorldSerializationSystem(1f)
+				sys = new WorldSerializationSystem()
 			)
 			.build();
 		setup.register("worldSaveFile", worldSaveFile);
@@ -137,8 +139,9 @@ public class WorldSerializationSystemTest {
     public void testErrorLoggedWithInvalidFile() {
 		WorldConfiguration setup = new WorldConfigurationBuilder()
 			.with(
+				new EventSystem(),
 				wsm = new WorldSerializationManager(),
-				sys = new WorldSerializationSystem(1f)
+				sys = new WorldSerializationSystem()
 			)
 			.build();
 		setup.register("worldSaveFile", worldSaveFile);

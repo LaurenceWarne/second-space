@@ -3,6 +3,7 @@ package laurencewarne.secondspace.server.system;
 import java.io.OutputStream;
 
 import com.artemis.Aspect;
+import com.artemis.BaseSystem;
 import com.artemis.annotations.Wire;
 import com.artemis.io.JsonArtemisSerializer;
 import com.artemis.io.SaveFileFormat;
@@ -15,25 +16,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import lombok.NonNull;
+import lombok.Value;
+import net.mostlyoriginal.api.event.common.Event;
+import net.mostlyoriginal.api.event.common.EventSystem;
 
 /**
- * A system which writes the world to an injected file at specified intervals.
+ * A system which writes the world to an injected file.
  */
-public class WorldSerializationSystem extends BaseIntervalSystem {
+public class WorldSerializationSystem extends BaseSystem {
 
     @Wire(name="worldSaveFile") @NonNull
     private FileHandle worldSaveFile;
     private final Logger logger = LoggerFactory.getLogger(
 	WorldSerializationSystem.class
     );
-
-    public WorldSerializationSystem(float interval) {
-	super(interval);
-    }
+    private EventSystem es;
 
     @Override
     public void processSystem() {
-	serialize();
+
     }
 
     /**
@@ -60,6 +61,7 @@ public class WorldSerializationSystem extends BaseIntervalSystem {
 		new JsonArtemisSerializer(world)
 	    );
 	}
+	es.dispatch(new WorldSerializationEvent());
 
 	/////////////////////////////////////////////////////////////////
 	// Attempt to write world to file using serialization manager. //
@@ -70,8 +72,8 @@ public class WorldSerializationSystem extends BaseIntervalSystem {
 	} catch (GdxRuntimeException e) {
 	    // File is a directory or could just not be written to
 	    logger.error(
-		"The specified save file is either a directory or" +
-		" could not be written to"
+		"The specified save file '{}' is either a directory or" +
+		" could not be written to", worldSaveFile.name()
 	    );
 	    return;
 	}
@@ -80,7 +82,12 @@ public class WorldSerializationSystem extends BaseIntervalSystem {
 	    .get(Aspect.all())
 	    .getEntities();
 	serializationManager.save(os, new SaveFileFormat(allEntities));
-	logger.info("Completed auto save");
+	logger.info("Completed world serialization successfully");
 	logger.debug("Saved {} entities to file", allEntities.size());
+    }
+
+    @Value
+    public static class WorldSerializationEvent implements Event {
+	
     }
 }

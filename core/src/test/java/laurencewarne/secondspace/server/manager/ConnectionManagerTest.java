@@ -262,14 +262,4 @@ public class ConnectionManagerTest {
 	Mockito.verify(es).dispatch(eq(evt));
     }
 
-    @Test
-    public void test() {
-	int id1 = world.create(), id2 = world.create();
-	cm.createConnection(id1, id2, new Vector2(), new Vector2());
-	int idc = mConnRef.get(id1).links.get(0);
-	world.delete(id1);
-	world.process();
-	System.out.println(mConn.get(idc));
-    }
-
 }

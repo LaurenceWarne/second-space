@@ -4,21 +4,22 @@
         "2": [
             "Ship"
         ],
-        "7": [
-            "ShipPart",
+        "6": [
             "PhysicsRectangleData",
-            "Connections"
+            "ShipPart",
+            "ConnectionReference"
         ],
-        "8": [
-            "WeldJointData"
-        ]
+        "7": [
+            "Connection"
+        ],
+        "9": []
     },
     "componentIdentifiers": {
         "laurencewarne.secondspace.server.component.PhysicsRectangleData": "PhysicsRectangleData",
         "laurencewarne.secondspace.server.component.Ship": "Ship",
         "laurencewarne.secondspace.server.component.ShipPart": "ShipPart",
-        "laurencewarne.secondspace.server.component.Connections": "Connections",
-        "laurencewarne.secondspace.server.component.WeldJointData": "WeldJointData"
+        "laurencewarne.secondspace.server.component.connection.Connection": "Connection",
+        "laurencewarne.secondspace.server.component.connection.ConnectionReference": "ConnectionReference"
     },
     "entities": {
         "0": {
@@ -40,1745 +41,615 @@
                 }
             }
         },
-        "10": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": -2,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -0.5,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "11": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": -1.5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "12": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": -1,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": 0.5,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "13": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": -0.5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
         "14": {
-            "archetype": 8,
+            "archetype": 7,
             "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "15": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 0.5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "16": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -0.5,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "17": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "18": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 2,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": 0.5,
-                        "y": -3.5
-                    }
-                }
-            }
-        },
-        "19": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 2.5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -3.5
-                    }
+                "Connection": {
+                    "entityAId": 2,
+                    "entityBId": 6,
+                    "localACoords": [
+                        {
+                            "y": 2
+                        },
+                        {
+                            "x": 0.5,
+                            "y": 2
+                        },
+                        {
+                            "x": 1,
+                            "y": 2
+                        },
+                        {
+                            "x": 1.5,
+                            "y": 2
+                        },
+                        {
+                            "x": 2,
+                            "y": 2
+                        },
+                        {
+                            "x": 2.5,
+                            "y": 2
+                        },
+                        {
+                            "x": 3,
+                            "y": 2
+                        }
+                    ],
+                    "localBCoords": [
+                        {
+                            "x": -1.5,
+                            "y": -3.5
+                        },
+                        {
+                            "x": -1,
+                            "y": -3.5
+                        },
+                        {
+                            "x": -0.5,
+                            "y": -3.5
+                        },
+                        {
+                            "y": -3.5
+                        },
+                        {
+                            "x": 0.5,
+                            "y": -3.5
+                        },
+                        {
+                            "x": 1,
+                            "y": -3.5
+                        },
+                        {
+                            "x": 1.5,
+                            "y": -3.5
+                        }
+                    ]
                 }
             }
         },
         "2": {
-            "archetype": 7,
+            "archetype": 6,
             "components": {
+                "ConnectionReference": {
+                    "connectedEntities": [
+                        5,
+                        6,
+                        4,
+                        3
+                    ],
+                    "links": [
+                        8,
+                        14,
+                        21,
+                        23
+                    ]
+                },
                 "PhysicsRectangleData": {
-                    "angle": 0,
                     "height": 4,
-                    "velocityY": -49.749825,
-                    "width": 10,
-                    "x": -0.012310948,
-                    "y": -252.19415
+                    "width": 10
                 },
                 "ShipPart": {
                     "shipId": 1
-                },
-                "Connections": {
-                    "entityToConnectionLocationMapping": {
-                        "capacity": 8,
-                        "hashShift": 28,
-                        "keyTable": [
-                            0,
-                            0,
-                            0,
-                            3,
-                            4,
-                            5,
-                            6,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0
-                        ],
-                        "mask": 7,
-                        "size": 4,
-                        "stashCapacity": 6,
-                        "threshold": 6,
-                        "valueTable": [
-                            null,
-                            null,
-                            null,
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 1
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 1.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 2
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 2.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 3
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 3.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2"
-                                }
-                            ],
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 1
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 1.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 2
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 2.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 3
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 3.5
-                                }
-                            ],
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 2,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 2.5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 3,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 3.5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 4,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 4.5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 4
-                                }
-                            ],
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5.5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 6,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 6.5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 7,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 7.5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 8,
-                                    "y": 4
-                                }
-                            ],
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null
-                        ]
-                    }
-                }
-            }
-        },
-        "20": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 3,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": 1.5,
-                        "y": -3.5
-                    }
                 }
             }
         },
         "21": {
-            "archetype": 8,
+            "archetype": 7,
             "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 4,
-                    "localAnchorA": {
-                        "x": 5,
-                        "y": -2
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -7.5
-                    }
-                }
-            }
-        },
-        "22": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 4,
-                    "localAnchorA": {
-                        "x": 5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -3.5
-                    }
+                "Connection": {
+                    "entityAId": 2,
+                    "entityBId": 4,
+                    "localACoords": [
+                        {
+                            "x": 5,
+                            "y": -2
+                        },
+                        {
+                            "x": 5,
+                            "y": 2
+                        },
+                        {
+                            "x": 5,
+                            "y": -1
+                        },
+                        {
+                            "x": 5,
+                            "y": -0.5
+                        },
+                        {
+                            "x": 5
+                        },
+                        {
+                            "x": 5,
+                            "y": 0.5
+                        },
+                        {
+                            "x": 5,
+                            "y": 1
+                        },
+                        {
+                            "x": 5,
+                            "y": 1.5
+                        }
+                    ],
+                    "localBCoords": [
+                        {
+                            "x": -1,
+                            "y": -7.5
+                        },
+                        {
+                            "x": -1,
+                            "y": -3.5
+                        },
+                        {
+                            "x": -1,
+                            "y": -6.5
+                        },
+                        {
+                            "x": -1,
+                            "y": -6
+                        },
+                        {
+                            "x": -1,
+                            "y": -5.5
+                        },
+                        {
+                            "x": -1,
+                            "y": -5
+                        },
+                        {
+                            "x": -1,
+                            "y": -4.5
+                        },
+                        {
+                            "x": -1,
+                            "y": -4
+                        }
+                    ]
                 }
             }
         },
         "23": {
-            "archetype": 8,
+            "archetype": 7,
             "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": -5,
-                        "y": -1
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -6.5
-                    }
-                }
-            }
-        },
-        "24": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 4,
-                    "localAnchorA": {
-                        "x": 5,
-                        "y": -1
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -6.5
-                    }
-                }
-            }
-        },
-        "25": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": -5,
-                        "y": -0.5
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -6
-                    }
-                }
-            }
-        },
-        "26": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 4,
-                    "localAnchorA": {
-                        "x": 5,
-                        "y": -0.5
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -6
-                    }
-                }
-            }
-        },
-        "27": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": -5
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -5.5
-                    }
-                }
-            }
-        },
-        "28": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 4,
-                    "localAnchorA": {
-                        "x": 5
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -5.5
-                    }
-                }
-            }
-        },
-        "29": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": -5,
-                        "y": 0.5
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -5
-                    }
+                "Connection": {
+                    "entityAId": 2,
+                    "entityBId": 3,
+                    "localACoords": [
+                        {
+                            "x": -5,
+                            "y": -1
+                        },
+                        {
+                            "x": -5,
+                            "y": -0.5
+                        },
+                        {
+                            "x": -5
+                        },
+                        {
+                            "x": -5,
+                            "y": 0.5
+                        },
+                        {
+                            "x": -5,
+                            "y": 1
+                        },
+                        {
+                            "x": -5,
+                            "y": 1.5
+                        },
+                        {
+                            "x": -5,
+                            "y": 2
+                        }
+                    ],
+                    "localBCoords": [
+                        {
+                            "x": 1,
+                            "y": -6.5
+                        },
+                        {
+                            "x": 1,
+                            "y": -6
+                        },
+                        {
+                            "x": 1,
+                            "y": -5.5
+                        },
+                        {
+                            "x": 1,
+                            "y": -5
+                        },
+                        {
+                            "x": 1,
+                            "y": -4.5
+                        },
+                        {
+                            "x": 1,
+                            "y": -4
+                        },
+                        {
+                            "x": 1,
+                            "y": -3.5
+                        }
+                    ]
                 }
             }
         },
         "3": {
-            "archetype": 7,
+            "archetype": 6,
             "components": {
+                "ConnectionReference": {
+                    "connectedEntities": [
+                        2
+                    ],
+                    "links": [
+                        23
+                    ]
+                },
                 "PhysicsRectangleData": {
-                    "angle": 0,
-                    "height": 15,
-                    "velocityY": -49.749825,
-                    "x": -5.9964457,
-                    "y": -246.6769
+                    "height": 15
                 },
                 "ShipPart": {
                     "localX": -2,
                     "shipId": 1
-                },
-                "Connections": {
-                    "entityToConnectionLocationMapping": {
-                        "capacity": 8,
-                        "hashShift": 28,
-                        "keyTable": [
-                            0,
-                            0,
-                            2,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0
-                        ],
-                        "mask": 7,
-                        "size": 1,
-                        "stashCapacity": 6,
-                        "threshold": 6,
-                        "valueTable": [
-                            null,
-                            null,
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 1
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 1.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 2
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 2.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 3
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 3.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2"
-                                }
-                            ],
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null
-                        ]
-                    }
-                }
-            }
-        },
-        "30": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 4,
-                    "localAnchorA": {
-                        "x": 5,
-                        "y": 0.5
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -5
-                    }
-                }
-            }
-        },
-        "31": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": -5,
-                        "y": 1
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -4.5
-                    }
-                }
-            }
-        },
-        "32": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 4,
-                    "localAnchorA": {
-                        "x": 5,
-                        "y": 1
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -4.5
-                    }
-                }
-            }
-        },
-        "33": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": -5,
-                        "y": 1.5
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -4
-                    }
-                }
-            }
-        },
-        "34": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 4,
-                    "localAnchorA": {
-                        "x": 5,
-                        "y": 1.5
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -4
-                    }
-                }
-            }
-        },
-        "35": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 3,
-                    "localAnchorA": {
-                        "x": -5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -3.5
-                    }
                 }
             }
         },
         "36": {
-            "archetype": 8,
+            "archetype": 7,
             "components": {
-                "WeldJointData": {
-                    "cellAID": 3,
-                    "cellBID": 2,
-                    "localAnchorA": {
-                        "x": 1,
-                        "y": -7.5
-                    },
-                    "localAnchorB": {
-                        "x": -5,
-                        "y": -2
-                    }
-                }
-            }
-        },
-        "37": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 7,
-                    "localAnchorA": {
-                        "x": -0.5,
-                        "y": 3.5
-                    },
-                    "localAnchorB": {
-                        "x": -2,
-                        "y": -1
-                    }
-                }
-            }
-        },
-        "38": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 7,
-                    "localAnchorA": {
-                        "y": 3.5
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": -1
-                    }
-                }
-            }
-        },
-        "39": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 7,
-                    "localAnchorA": {
-                        "x": 0.5,
-                        "y": 3.5
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -1
-                    }
+                "Connection": {
+                    "entityAId": 5,
+                    "entityBId": 7,
+                    "localACoords": [
+                        {
+                            "x": -0.5,
+                            "y": 3.5
+                        },
+                        {
+                            "y": 3.5
+                        },
+                        {
+                            "x": 0.5,
+                            "y": 3.5
+                        },
+                        {
+                            "x": 1,
+                            "y": 3.5
+                        },
+                        {
+                            "x": 1.5,
+                            "y": 3.5
+                        }
+                    ],
+                    "localBCoords": [
+                        {
+                            "x": -2,
+                            "y": -1
+                        },
+                        {
+                            "x": -1.5,
+                            "y": -1
+                        },
+                        {
+                            "x": -1,
+                            "y": -1
+                        },
+                        {
+                            "x": -0.5,
+                            "y": -1
+                        },
+                        {
+                            "y": -1
+                        }
+                    ]
                 }
             }
         },
         "4": {
-            "archetype": 7,
+            "archetype": 6,
             "components": {
+                "ConnectionReference": {
+                    "connectedEntities": [
+                        2
+                    ],
+                    "links": [
+                        21
+                    ]
+                },
                 "PhysicsRectangleData": {
-                    "angle": 0,
-                    "height": 15,
-                    "velocityY": -49.749825,
-                    "x": 6.003502,
-                    "y": -246.71146
+                    "height": 15
                 },
                 "ShipPart": {
                     "localX": 10,
                     "shipId": 1
-                },
-                "Connections": {
-                    "entityToConnectionLocationMapping": {
-                        "capacity": 8,
-                        "hashShift": 28,
-                        "keyTable": [
-                            0,
-                            0,
-                            2,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0
-                        ],
-                        "mask": 7,
-                        "size": 1,
-                        "stashCapacity": 6,
-                        "threshold": 6,
-                        "valueTable": [
-                            null,
-                            null,
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 1
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 1.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 2
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 2.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 3
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 10,
-                                    "y": 3.5
-                                }
-                            ],
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null
-                        ]
-                    }
-                }
-            }
-        },
-        "40": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 7,
-                    "localAnchorA": {
-                        "x": 1,
-                        "y": 3.5
-                    },
-                    "localAnchorB": {
-                        "x": -0.5,
-                        "y": -1
-                    }
                 }
             }
         },
         "41": {
-            "archetype": 8,
+            "archetype": 7,
             "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 2,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": -3.5
-                    },
-                    "localAnchorB": {
-                        "y": 2
-                    }
-                }
-            }
-        },
-        "42": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 7,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": 3.5
-                    },
-                    "localAnchorB": {
-                        "y": -1
-                    }
-                }
-            }
-        },
-        "43": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": -2.5
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": -2.5
-                    }
-                }
-            }
-        },
-        "44": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": -2
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": -2
-                    }
-                }
-            }
-        },
-        "45": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": -1.5
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": -1.5
-                    }
-                }
-            }
-        },
-        "46": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": -1
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": -1
-                    }
-                }
-            }
-        },
-        "47": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": -0.5
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": -0.5
-                    }
-                }
-            }
-        },
-        "48": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1.5
-                    },
-                    "localAnchorB": {
-                        "x": -1.5
-                    }
-                }
-            }
-        },
-        "49": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": 0.5
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": 0.5
-                    }
+                "Connection": {
+                    "entityAId": 5,
+                    "entityBId": 6,
+                    "localACoords": [
+                        {
+                            "x": 1.5,
+                            "y": -2.5
+                        },
+                        {
+                            "x": 1.5,
+                            "y": -2
+                        },
+                        {
+                            "x": 1.5,
+                            "y": -1.5
+                        },
+                        {
+                            "x": 1.5,
+                            "y": -1
+                        },
+                        {
+                            "x": 1.5,
+                            "y": -0.5
+                        },
+                        {
+                            "x": 1.5
+                        },
+                        {
+                            "x": 1.5,
+                            "y": 0.5
+                        },
+                        {
+                            "x": 1.5,
+                            "y": 1
+                        },
+                        {
+                            "x": 1.5,
+                            "y": 1.5
+                        },
+                        {
+                            "x": 1.5,
+                            "y": 2
+                        },
+                        {
+                            "x": 1.5,
+                            "y": 2.5
+                        },
+                        {
+                            "x": 1.5,
+                            "y": 3
+                        }
+                    ],
+                    "localBCoords": [
+                        {
+                            "x": -1.5,
+                            "y": -2.5
+                        },
+                        {
+                            "x": -1.5,
+                            "y": -2
+                        },
+                        {
+                            "x": -1.5,
+                            "y": -1.5
+                        },
+                        {
+                            "x": -1.5,
+                            "y": -1
+                        },
+                        {
+                            "x": -1.5,
+                            "y": -0.5
+                        },
+                        {
+                            "x": -1.5
+                        },
+                        {
+                            "x": -1.5,
+                            "y": 0.5
+                        },
+                        {
+                            "x": -1.5,
+                            "y": 1
+                        },
+                        {
+                            "x": -1.5,
+                            "y": 1.5
+                        },
+                        {
+                            "x": -1.5,
+                            "y": 2
+                        },
+                        {
+                            "x": -1.5,
+                            "y": 2.5
+                        },
+                        {
+                            "x": -1.5,
+                            "y": 3
+                        }
+                    ]
                 }
             }
         },
         "5": {
-            "archetype": 7,
+            "archetype": 6,
             "components": {
+                "ConnectionReference": {
+                    "connectedEntities": [
+                        2,
+                        7,
+                        6
+                    ],
+                    "links": [
+                        8,
+                        36,
+                        41
+                    ]
+                },
                 "PhysicsRectangleData": {
-                    "angle": 0,
                     "height": 7,
-                    "velocityY": -49.749825,
-                    "width": 3,
-                    "x": -1.4964521,
-                    "y": -246.68985
+                    "width": 3
                 },
                 "ShipPart": {
                     "localX": 2,
                     "localY": 4,
                     "shipId": 1
-                },
-                "Connections": {
-                    "entityToConnectionLocationMapping": {
-                        "capacity": 8,
-                        "hashShift": 28,
-                        "keyTable": [
-                            0,
-                            0,
-                            2,
-                            0,
-                            0,
-                            0,
-                            6,
-                            7,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0
-                        ],
-                        "mask": 7,
-                        "size": 3,
-                        "stashCapacity": 6,
-                        "threshold": 6,
-                        "valueTable": [
-                            null,
-                            null,
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 2,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 2.5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 3,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 3.5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 4,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 4.5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 4
-                                }
-                            ],
-                            null,
-                            null,
-                            null,
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 5.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 6
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 6.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 7
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 7.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 8
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 8.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 9
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 9.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 10
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 10.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 11
-                                }
-                            ],
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 3,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 3.5,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 4,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 4.5,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 11
-                                }
-                            ],
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null
-                        ]
-                    }
-                }
-            }
-        },
-        "50": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": 1
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": 1
-                    }
-                }
-            }
-        },
-        "51": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": 1.5
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": 1.5
-                    }
-                }
-            }
-        },
-        "52": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": 2
-                    }
                 }
             }
         },
         "53": {
-            "archetype": 8,
+            "archetype": 7,
             "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": 2.5
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": 2.5
-                    }
-                }
-            }
-        },
-        "54": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 5,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 1.5,
-                        "y": 3
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": 3
-                    }
-                }
-            }
-        },
-        "55": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 6,
-                    "cellBID": 7,
-                    "localAnchorA": {
-                        "x": -0.5,
-                        "y": 3.5
-                    },
-                    "localAnchorB": {
-                        "x": 1,
-                        "y": -1
-                    }
-                }
-            }
-        },
-        "56": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 6,
-                    "cellBID": 7,
-                    "localAnchorA": {
-                        "y": 3.5
-                    },
-                    "localAnchorB": {
-                        "x": 1.5,
-                        "y": -1
-                    }
-                }
-            }
-        },
-        "57": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 6,
-                    "cellBID": 7,
-                    "localAnchorA": {
-                        "x": 0.5,
-                        "y": 3.5
-                    },
-                    "localAnchorB": {
-                        "x": 2,
-                        "y": -1
-                    }
-                }
-            }
-        },
-        "58": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 6,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": -1.5,
-                        "y": 3.5
-                    },
-                    "localAnchorB": {
-                        "x": 1.5,
-                        "y": 3.5
-                    }
-                }
-            }
-        },
-        "59": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 7,
-                    "cellBID": 6,
-                    "localAnchorA": {
-                        "x": 0.5,
-                        "y": -1
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": 3.5
-                    }
+                "Connection": {
+                    "entityAId": 6,
+                    "entityBId": 7,
+                    "localACoords": [
+                        {
+                            "x": -0.5,
+                            "y": 3.5
+                        },
+                        {
+                            "y": 3.5
+                        },
+                        {
+                            "x": 0.5,
+                            "y": 3.5
+                        }
+                    ],
+                    "localBCoords": [
+                        {
+                            "x": 1,
+                            "y": -1
+                        },
+                        {
+                            "x": 1.5,
+                            "y": -1
+                        },
+                        {
+                            "x": 2,
+                            "y": -1
+                        }
+                    ]
                 }
             }
         },
         "6": {
-            "archetype": 7,
+            "archetype": 6,
             "components": {
+                "ConnectionReference": {
+                    "connectedEntities": [
+                        2,
+                        5,
+                        7
+                    ],
+                    "links": [
+                        14,
+                        41,
+                        53
+                    ]
+                },
                 "PhysicsRectangleData": {
-                    "angle": 0,
                     "height": 7,
-                    "velocityY": -49.749825,
-                    "width": 3,
-                    "x": 1.503534,
-                    "y": -246.6985
+                    "width": 3
                 },
                 "ShipPart": {
                     "localX": 5,
                     "localY": 4,
                     "shipId": 1
-                },
-                "Connections": {
-                    "entityToConnectionLocationMapping": {
-                        "capacity": 8,
-                        "hashShift": 28,
-                        "keyTable": [
-                            0,
-                            0,
-                            2,
-                            0,
-                            0,
-                            5,
-                            0,
-                            7,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0
-                        ],
-                        "mask": 7,
-                        "size": 3,
-                        "stashCapacity": 6,
-                        "threshold": 6,
-                        "valueTable": [
-                            null,
-                            null,
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5.5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 6,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 6.5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 7,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 7.5,
-                                    "y": 4
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 8,
-                                    "y": 4
-                                }
-                            ],
-                            null,
-                            null,
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 5.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 6
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 6.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 7
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 7.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 8
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 8.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 9
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 9.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 10
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 10.5
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 11
-                                }
-                            ],
-                            null,
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 6,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 6.5,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 7,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5.5,
-                                    "y": 11
-                                }
-                            ],
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null
-                        ]
-                    }
                 }
             }
         },
         "7": {
-            "archetype": 7,
+            "archetype": 6,
             "components": {
+                "ConnectionReference": {
+                    "connectedEntities": [
+                        5,
+                        6
+                    ],
+                    "links": [
+                        36,
+                        53
+                    ]
+                },
                 "PhysicsRectangleData": {
-                    "angle": 0,
-                    "velocityY": -49.749825,
-                    "width": 4,
-                    "x": 0.016511714,
-                    "y": -242.1942
+                    "width": 4
                 },
                 "ShipPart": {
                     "localX": 3,
                     "localY": 11,
                     "shipId": 1
-                },
-                "Connections": {
-                    "entityToConnectionLocationMapping": {
-                        "capacity": 8,
-                        "hashShift": 28,
-                        "keyTable": [
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            5,
-                            6,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0,
-                            0
-                        ],
-                        "mask": 7,
-                        "size": 2,
-                        "stashCapacity": 6,
-                        "threshold": 6,
-                        "valueTable": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 3,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 3.5,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 4,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 4.5,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5,
-                                    "y": 11
-                                }
-                            ],
-                            [
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 6,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 6.5,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 7,
-                                    "y": 11
-                                },
-                                {
-                                    "class": "com.badlogic.gdx.math.Vector2",
-                                    "x": 5.5,
-                                    "y": 11
-                                }
-                            ],
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null
-                        ]
-                    }
                 }
             }
         },
         "8": {
-            "archetype": 8,
+            "archetype": 7,
             "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": -3,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -1.5,
-                        "y": -3.5
-                    }
+                "Connection": {
+                    "entityAId": 2,
+                    "entityBId": 5,
+                    "localACoords": [
+                        {
+                            "x": -3,
+                            "y": 2
+                        },
+                        {
+                            "x": -2.5,
+                            "y": 2
+                        },
+                        {
+                            "x": -2,
+                            "y": 2
+                        },
+                        {
+                            "x": -1.5,
+                            "y": 2
+                        },
+                        {
+                            "x": -1,
+                            "y": 2
+                        },
+                        {
+                            "x": -0.5,
+                            "y": 2
+                        }
+                    ],
+                    "localBCoords": [
+                        {
+                            "x": -1.5,
+                            "y": -3.5
+                        },
+                        {
+                            "x": -1,
+                            "y": -3.5
+                        },
+                        {
+                            "x": -0.5,
+                            "y": -3.5
+                        },
+                        {
+                            "y": -3.5
+                        },
+                        {
+                            "x": 0.5,
+                            "y": -3.5
+                        },
+                        {
+                            "x": 1,
+                            "y": -3.5
+                        }
+                    ]
                 }
             }
         },
         "9": {
-            "archetype": 8,
-            "components": {
-                "WeldJointData": {
-                    "cellAID": 2,
-                    "cellBID": 5,
-                    "localAnchorA": {
-                        "x": -2.5,
-                        "y": 2
-                    },
-                    "localAnchorB": {
-                        "x": -1,
-                        "y": -3.5
-                    }
-                }
-            }
+            "archetype": 9,
+            "components": {}
         }
     },
     "metadata": {

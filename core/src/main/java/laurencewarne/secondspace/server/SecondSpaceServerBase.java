@@ -28,6 +28,7 @@ import laurencewarne.secondspace.server.system.PhysicsSystem;
 import laurencewarne.secondspace.server.system.ShipConnectionSystem;
 import laurencewarne.secondspace.server.system.TemplateSystem;
 import laurencewarne.secondspace.server.system.TerminalSystem;
+import laurencewarne.secondspace.server.system.WeldControllerSystem;
 import laurencewarne.secondspace.server.system.WorldDeserializationSystem;
 import laurencewarne.secondspace.server.system.WorldSerializationSystem;
 import laurencewarne.secondspace.server.system.command.AddRectangleCommandExecutorSystem;
@@ -92,7 +93,7 @@ public class SecondSpaceServerBase extends Game {
 	/////////////////////////////////////
 	setup.register(new ShipCoordinateLocaliser());
 	box2dWorld = new com.badlogic.gdx.physics.box2d.World(
-	    new Vector2(0f, 0f), true
+	    new Vector2(0f, -4f), true
 	);
 	setup.register(box2dWorld);
 	final FileHandle worldSaveFile = Gdx.files.local(
@@ -139,8 +140,9 @@ public class SecondSpaceServerBase extends Game {
 		new EntityRemovalCommandExecutorSystem(),
 		new SaveCommandExecutorSystem(),
 		new TemplateSystem(),
-		new ShipConnectionSystem(),
 		new PhysicsRectangleDataResolverSystem(),
+		new WeldControllerSystem(),
+		new ShipConnectionSystem(),
 		new ConnectionToWeldSystem(),
 		new PhysicsSystem(),
 		new PhysicsRectangleSynchronizerSystem(10f),

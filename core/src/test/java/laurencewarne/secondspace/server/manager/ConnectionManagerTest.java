@@ -9,6 +9,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
+import com.artemis.link.EntityLinkManager;
 import com.badlogic.gdx.math.Vector2;
 
 import org.junit.Before;
@@ -35,6 +36,7 @@ public class ConnectionManagerTest {
     @Before
     public void setUp() {
 	WorldConfiguration setup = new WorldConfigurationBuilder()
+	    .dependsOn(EntityLinkManager.class)
 	    .with(new EEELPlugin())
 	    .with(es = Mockito.spy(new EventSystem()))
 	    .with(cm = new ConnectionManager())
@@ -60,7 +62,6 @@ public class ConnectionManagerTest {
 	    mConnRef.get(entityB).links.add(connEntity);
 	}
 	if (!mConn.has(connEntity)){
-	    System.out.println("Creating new");
 	    mConn.create(connEntity);	    
 	}
 	Connection conn = mConn.get(connEntity);
@@ -259,6 +260,16 @@ public class ConnectionManagerTest {
 	world.process();
 	ConnectionsRemovedEvent evt = new ConnectionsRemovedEvent(id1, id2);
 	Mockito.verify(es).dispatch(eq(evt));
+    }
+
+    @Test
+    public void test() {
+	int id1 = world.create(), id2 = world.create();
+	cm.createConnection(id1, id2, new Vector2(), new Vector2());
+	int idc = mConnRef.get(id1).links.get(0);
+	world.delete(id1);
+	world.process();
+	System.out.println(mConn.get(idc));
     }
 
 }

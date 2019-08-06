@@ -12,7 +12,6 @@ import com.google.common.collect.Sets;
 import com.google.common.primitives.Ints;
 
 import laurencewarne.secondspace.server.collect.IntBags;
-import laurencewarne.secondspace.server.component.Connections;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.ShipPart;
 import laurencewarne.secondspace.server.manager.ConnectionManager;
@@ -22,9 +21,6 @@ import lombok.NonNull;
  * Utilities for working with ships. Named in the same vain as java stdlib/guava sticking an 's' on the name of the interface/thing you want to provide utilities for.
  */
 public final class Ships {
-
-	public static final Connections NULL_CONNECTION =
-		new Connections();
 
     private Ships() {
 	

@@ -8,11 +8,9 @@ import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-import laurencewarne.secondspace.server.component.Connections;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.Ship;
 import laurencewarne.secondspace.server.component.ShipPart;
-import laurencewarne.secondspace.server.component.WeldJointData;
 import laurencewarne.secondspace.server.manager.ConnectionManager;
 import laurencewarne.secondspace.server.ship.Rectangles;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
@@ -26,10 +24,8 @@ import lombok.NonNull;
 public class ShipConnectionSystem extends BaseEntitySystem {
 
     private ComponentMapper<ShipPart> mShipPart;
-    private ComponentMapper<WeldJointData> mWeldJointData;
     private ComponentMapper<PhysicsRectangleData> mRecData;
     private ComponentMapper<Ship> mShip;
-    private ComponentMapper<Connections> mConnections;
     private ConnectionManager connectionManager;
 
     @Wire

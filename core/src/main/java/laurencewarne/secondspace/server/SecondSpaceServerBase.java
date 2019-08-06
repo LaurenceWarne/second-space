@@ -34,8 +34,8 @@ import laurencewarne.secondspace.server.system.command.AddRectangleCommandExecut
 import laurencewarne.secondspace.server.system.command.AddWeldCommandExecutorSystem;
 import laurencewarne.secondspace.server.system.command.EntityRemovalCommandExecutorSystem;
 import laurencewarne.secondspace.server.system.command.SpawnCommandExecutorSystem;
+import laurencewarne.secondspace.server.system.resolvers.ConnectionToWeldSystem;
 import laurencewarne.secondspace.server.system.resolvers.PhysicsRectangleDataResolverSystem;
-import laurencewarne.secondspace.server.system.resolvers.WeldJointDataResolverSystem;
 import lombok.Getter;
 import net.fbridault.eeel.EEELPlugin;
 import net.mostlyoriginal.api.event.common.EventSystem;
@@ -139,7 +139,7 @@ public class SecondSpaceServerBase extends Game {
 		new TemplateSystem(),
 		new ShipConnectionSystem(),
 		new PhysicsRectangleDataResolverSystem(),
-		new WeldJointDataResolverSystem(),
+		new ConnectionToWeldSystem(),
 		new PhysicsSystem(),
 		new PhysicsRectangleSynchronizerSystem(10f),
 		new WorldSerializationSystem(10f)

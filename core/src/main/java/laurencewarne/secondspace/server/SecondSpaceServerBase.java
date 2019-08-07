@@ -145,7 +145,7 @@ public class SecondSpaceServerBase extends Game {
 		new ShipConnectionSystem(),
 		new ConnectionToWeldSystem(),
 		new PhysicsSystem(),
-		new PhysicsRectangleSynchronizerSystem(10f),
+		new PhysicsRectangleSynchronizerSystem(),
 		new WorldSerializationSystem()
 	    );
     }

@@ -1,5 +1,7 @@
 package laurencewarne.secondspace.server.ship;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
@@ -8,7 +10,6 @@ import com.artemis.ComponentMapper;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.google.common.collect.Sets;
 import com.google.common.primitives.Ints;
 
 import laurencewarne.secondspace.server.collect.IntBags;
@@ -146,13 +147,15 @@ public final class Ships {
 	 *
 	 * @param id id of the entity to get connected parts for
 	 * @param connectionManager
+	 * @param entitiesToIgnore ignore these entities (and thus possibly other entities)
 	 * @return {@link IntBag} of connected entities, including the specified entity itself
 	 */
     public static IntBag getConnectedParts(
 		int id,
-		@NonNull ConnectionManager connectionManager
+		@NonNull ConnectionManager connectionManager,
+		@NonNull Collection<Integer> entitiesToIgnore
     ) {
-		final Set<Integer> searchedEntities = Sets.newHashSet();
+		final Set<Integer> searchedEntities = new HashSet<>(entitiesToIgnore);
 		final Queue<Integer> entitiesToSearch = new LinkedList<>(Ints.asList(id));
 		while (!entitiesToSearch.isEmpty()){
 			final int entity = entitiesToSearch.poll();
@@ -162,6 +165,7 @@ public final class Ships {
 			entitiesToSearch.addAll(IntBags.toList(nextEntities));
 			searchedEntities.add(entity);
 		}
+		searchedEntities.removeAll(entitiesToIgnore);
 		return IntBags.fromCollection(searchedEntities);
     }
     

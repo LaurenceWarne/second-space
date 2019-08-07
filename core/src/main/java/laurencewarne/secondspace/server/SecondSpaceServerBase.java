@@ -26,6 +26,7 @@ import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
 import laurencewarne.secondspace.server.system.PhysicsRectangleSynchronizerSystem;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
 import laurencewarne.secondspace.server.system.ShipConnectionSystem;
+import laurencewarne.secondspace.server.system.ShipPartRemovalSystem;
 import laurencewarne.secondspace.server.system.TemplateSystem;
 import laurencewarne.secondspace.server.system.TerminalSystem;
 import laurencewarne.secondspace.server.system.WeldControllerSystem;
@@ -144,6 +145,7 @@ public class SecondSpaceServerBase extends Game {
 		new WeldControllerSystem(),
 		new ShipConnectionSystem(),
 		new ConnectionToWeldSystem(),
+		new ShipPartRemovalSystem(),
 		new PhysicsSystem(),
 		new PhysicsRectangleSynchronizerSystem(),
 		new WorldSerializationSystem()

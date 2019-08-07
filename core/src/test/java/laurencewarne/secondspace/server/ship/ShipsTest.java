@@ -21,6 +21,7 @@ import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -241,7 +242,7 @@ public class ShipsTest {
     @Test
     public void testGetConnectedPartsWithNoConnections() {
 	when(cm.getConnectedEntities(0)).thenReturn(new IntBag());
-	IntBag b = Ships.getConnectedParts(0, cm);
+	IntBag b = Ships.getConnectedParts(0, cm, new HashSet<>());
 	assertEquals(1, b.size());
 	assertTrue(b.contains(0));
     }
@@ -252,7 +253,7 @@ public class ShipsTest {
 	when(cm.getConnectedEntities(1)).thenReturn(IntBags.of(0));
 	when(cm.getConnectedEntities(2)).thenReturn(IntBags.of(0));
 
-	IntBag b = Ships.getConnectedParts(0, cm);
+	IntBag b = Ships.getConnectedParts(0, cm, new HashSet<>());
 	assertEquals(3, b.size());
 	assertTrue(b.contains(0));
 	assertTrue(b.contains(1));
@@ -266,7 +267,7 @@ public class ShipsTest {
 	when(cm.getConnectedEntities(2)).thenReturn(IntBags.of(0, 3));
 	when(cm.getConnectedEntities(3)).thenReturn(IntBags.of(2));
 
-	IntBag b = Ships.getConnectedParts(0, cm);
+	IntBag b = Ships.getConnectedParts(0, cm, new HashSet<>());
 	assertEquals(4, b.size());
 	assertTrue(b.contains(0));
 	assertTrue(b.contains(1));
@@ -281,7 +282,7 @@ public class ShipsTest {
 	when(cm.getConnectedEntities(2)).thenReturn(IntBags.of(1, 3));
 	when(cm.getConnectedEntities(3)).thenReturn(IntBags.of(2));
 
-	IntBag b = Ships.getConnectedParts(0, cm);
+	IntBag b = Ships.getConnectedParts(0, cm, new HashSet<>());
 	assertEquals(4, b.size());
 	assertTrue(b.contains(0));
 	assertTrue(b.contains(1));
@@ -296,10 +297,26 @@ public class ShipsTest {
 	when(cm.getConnectedEntities(2)).thenReturn(IntBags.of(3));
 	when(cm.getConnectedEntities(3)).thenReturn(IntBags.of(2));
 
-	IntBag b = Ships.getConnectedParts(0, cm);
+	IntBag b = Ships.getConnectedParts(0, cm, new HashSet<>());
 	assertEquals(2, b.size());
 	assertTrue(b.contains(0));
 	assertTrue(b.contains(1));
+    }
+
+
+    @Test
+    public void testGetConnectedPartsWithIgnoredAndAdjacentAndFarConnections() {
+	when(cm.getConnectedEntities(0)).thenReturn(IntBags.of(1));
+	when(cm.getConnectedEntities(1)).thenReturn(IntBags.of(0, 2));
+	when(cm.getConnectedEntities(2)).thenReturn(IntBags.of(1, 3));
+	when(cm.getConnectedEntities(3)).thenReturn(IntBags.of(2));
+
+	IntBag b = Ships.getConnectedParts(0, cm, Sets.newHashSet(2));
+	assertEquals(2, b.size());
+	assertTrue(b.contains(0));
+	assertTrue(b.contains(1));
+	assertFalse(b.contains(2));
+	assertFalse(b.contains(3));
     }
     
 }

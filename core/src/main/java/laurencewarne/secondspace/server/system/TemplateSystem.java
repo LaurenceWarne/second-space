@@ -2,6 +2,7 @@ package laurencewarne.secondspace.server.system;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +47,21 @@ public class TemplateSystem extends IteratingSystem {
     @Override
     public void initialize() {
 	for (FileHandle file : templateFiles) {
+	    loadTemplate(file);
+	}
+    }
+
+    /**
+     * Load a template from a file or if the file is a directory, load all files
+     * in the directory.
+     *
+     * @param file file to load
+     */
+    public void loadTemplate(@NonNull FileHandle file) {
+	if (file.isDirectory()) {
+	    Arrays.stream(file.list()).forEach(f -> loadTemplate(f));;
+	}
+	else if (file.exists()) {
 	    EntityTemplate template = mEntityTemplate.create(world.create());
 	    template.setName(file.nameWithoutExtension());
 	    template.setBytes(file.readBytes());
@@ -84,22 +100,29 @@ public class TemplateSystem extends IteratingSystem {
 	    );
 	    for (int entityId : IntBags.toSet(saveFileFormat.entities)) {
 		// Set positions of entities if appropriate
-		float x = request.getX(), y = request.getY();
-		if (mShipPart.has(entityId)){
-		    final ShipPart part = mShipPart.get(entityId);
-		    x = x + part.getLocalX();
-		    y = y + part.getLocalY();
-		    if (request.getShipOwner() != -1) {
-			part.shipId = request.getShipOwner();
-		    }
-		}
-		if (mRecData.has(entityId)){
-		    final PhysicsRectangleData rect = mRecData.get(entityId);
-		    rect.setX(x);
-		    rect.setY(y);
-		}
+		initializeEntity(request, id);
 	    }
 	}
 	mSpawnRequest.remove(id);
+    }	
+
+    private void initializeEntity(@NonNull SpawnRequest request, int id) {
+	float x = request.getX(), y = request.getY();
+	if (mShipPart.has(id)){
+	    final ShipPart part = mShipPart.get(id);
+	    x = x + part.getLocalX();
+	    y = y + part.getLocalY();
+	    if (request.getShipOwner() != -1) {
+		part.shipId = request.getShipOwner();
+		part.setLocalX((int)x);
+		part.setLocalY((int)y);
+		System.out.println(part);
+	    }
+	}
+	if (mRecData.has(id)){
+	    final PhysicsRectangleData rect = mRecData.get(id);
+	    rect.setX(x);
+	    rect.setY(y);
+	}
     }
 }

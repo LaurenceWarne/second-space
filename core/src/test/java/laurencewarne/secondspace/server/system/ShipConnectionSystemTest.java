@@ -69,4 +69,9 @@ public class ShipConnectionSystemTest {
 	r2.setWidth(2f); r2.setHeight(2f);
     }
 
+    @Test
+    public void noConnectionsCreatedOnPartWithNoShip() {
+	ShipPart p = new ShipPart();
+	world.process();
+    }
 }

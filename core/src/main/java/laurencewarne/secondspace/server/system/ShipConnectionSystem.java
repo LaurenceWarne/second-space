@@ -50,7 +50,8 @@ public class ShipConnectionSystem extends BaseEntitySystem {
 	////////////////////////////////////////////////////////
 	// Get ship parts from ship the new part was added to //
 	////////////////////////////////////////////////////////
-	final IntBag otherShipParts = mShip.get(newPart.shipId).parts;
+	final IntBag otherShipParts = (mShip.has(id))? mShip.get(id).parts :
+	    new IntBag();
 
 	/////////////////////////////////
 	// Get possible weld positions //

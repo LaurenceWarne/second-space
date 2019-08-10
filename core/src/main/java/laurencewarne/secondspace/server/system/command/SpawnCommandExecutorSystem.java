@@ -92,7 +92,7 @@ public class SpawnCommandExecutorSystem extends CommandExecutorSystem {
 	    request.setShipOwner(res.getInt("ship"));
 	}
 	else {
-	    logger.error("No template exists named {}", templateName);
+	    logger.error("No template exists named '{}'", templateName);
 	}
     }
 }

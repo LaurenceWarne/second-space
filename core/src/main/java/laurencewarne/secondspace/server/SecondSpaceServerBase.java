@@ -40,6 +40,7 @@ import laurencewarne.secondspace.server.system.command.SpawnCommandExecutorSyste
 import laurencewarne.secondspace.server.system.resolvers.ConnectionToWeldSystem;
 import laurencewarne.secondspace.server.system.resolvers.PhysicsRectangleDataResolverSystem;
 import lombok.Getter;
+import lombok.NonNull;
 import net.fbridault.eeel.EEELPlugin;
 import net.mostlyoriginal.api.event.common.EventSystem;
 
@@ -92,27 +93,7 @@ public class SecondSpaceServerBase extends Game {
 	/////////////////////////////////////
 	// Inject non-artemis dependencies //
 	/////////////////////////////////////
-	setup.register(new ShipCoordinateLocaliser());
-	box2dWorld = new com.badlogic.gdx.physics.box2d.World(
-	    new Vector2(0f, -4f), true
-	);
-	setup.register(box2dWorld);
-	final FileHandle worldSaveFile = Gdx.files.local(
-	    serverConfig.worldSaveFileLocation()
-	);
-	if (!worldSaveFile.exists()) {
-	    logger.info("Creating empty world save file: {}", worldSaveFile.path());
-	    // Minimum acceptable JSON file
-	    worldSaveFile.writeString("{}", false);
-	}
-	setup.register("worldSaveFile", worldSaveFile);
-	final FileHandle[] templateFiles = Gdx.files.local(
-	    serverConfig.templatesDirectory()
-	).list();
-	setup.register(
-	    "templateFiles",
-	    Arrays.stream(templateFiles).collect(Collectors.toList())
-	);
+	injectDependencies(setup, serverConfig);
 
 	///////////////////////////////
 	// Create Artermis World obj //
@@ -150,6 +131,38 @@ public class SecondSpaceServerBase extends Game {
 		new PhysicsRectangleSynchronizerSystem(),
 		new WorldSerializationSystem()
 	    );
+    }
+
+    /**
+     * Inject system dependencies or perform any other config on the {@link WorldConfiguration} object prior to {@link World} creation.
+     *
+     * @param setup 
+     * @param serverConfig loaded server configuration file
+     */
+    protected void injectDependencies(
+	@NonNull WorldConfiguration setup, @NonNull ServerConfig serverConfig
+    ) {
+	setup.register(new ShipCoordinateLocaliser());
+	box2dWorld = new com.badlogic.gdx.physics.box2d.World(
+	    new Vector2(0f, -4f), true
+	);
+	setup.register(box2dWorld);
+	final FileHandle worldSaveFile = Gdx.files.local(
+	    serverConfig.worldSaveFileLocation()
+	);
+	if (!worldSaveFile.exists()) {
+	    logger.info("Creating empty world save file: {}", worldSaveFile.path());
+	    // Minimum acceptable JSON file
+	    worldSaveFile.writeString("{}", false);
+	}
+	setup.register("worldSaveFile", worldSaveFile);
+	final FileHandle[] templateFiles = Gdx.files.local(
+	    serverConfig.templatesDirectory()
+	).list();
+	setup.register(
+	    "templateFiles",
+	    Arrays.stream(templateFiles).collect(Collectors.toList())
+	);	
     }
 
     @Override

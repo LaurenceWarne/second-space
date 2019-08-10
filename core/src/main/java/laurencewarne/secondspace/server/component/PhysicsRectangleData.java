@@ -2,6 +2,7 @@ package laurencewarne.secondspace.server.component;
 
 import com.artemis.Component;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,9 +11,8 @@ import lombok.ToString;
  * Encapsulates data corresponding to a physics component so that it can be saved to a file.
  * For this to make sense the physics component must reference a box2D rectangle.
  */
-@Getter @Setter @ToString
+@Getter @Setter @ToString @EqualsAndHashCode(callSuper=false)
 public class PhysicsRectangleData extends Component {
-
     // A POJO so fine to serialize
     private float width = 2f;
     private float height = 2f;

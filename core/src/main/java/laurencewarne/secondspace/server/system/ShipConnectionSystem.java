@@ -3,14 +3,19 @@ package laurencewarne.secondspace.server.system;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
+import com.artemis.annotations.Exclude;
 import com.artemis.annotations.Wire;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.Ship;
 import laurencewarne.secondspace.server.component.ShipPart;
+import laurencewarne.secondspace.server.component.SpawnNotice;
 import laurencewarne.secondspace.server.manager.ConnectionManager;
 import laurencewarne.secondspace.server.ship.Rectangles;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
@@ -21,8 +26,10 @@ import lombok.NonNull;
  * This system connects entities which have {@link ShipPart} components to other components on their ship when their {@link ShipPart} component has just been added. This system is not responsible for adding welds.
  */
 @All({ShipPart.class, PhysicsRectangleData.class})
+@Exclude(SpawnNotice.class)
 public class ShipConnectionSystem extends BaseEntitySystem {
 
+    private final Logger logger = LoggerFactory.getLogger(ShipConnectionSystem.class);
     private ComponentMapper<ShipPart> mShipPart;
     private ComponentMapper<PhysicsRectangleData> mRecData;
     private ComponentMapper<Ship> mShip;
@@ -50,8 +57,17 @@ public class ShipConnectionSystem extends BaseEntitySystem {
 	////////////////////////////////////////////////////////
 	// Get ship parts from ship the new part was added to //
 	////////////////////////////////////////////////////////
-	final IntBag otherShipParts = (mShip.has(id))? mShip.get(id).parts :
-	    new IntBag();
+	final IntBag otherShipParts;
+	try {
+	    otherShipParts = mShip.get(newPart.shipId).parts;
+	} catch(Exception e){
+	    logger.error(
+		"ShipPart: {} attached to a ship with id {} which doesn't exist!",
+		newPart, newPart.shipId
+	    );
+	    mShipPart.remove(id);
+	    return;  // ShipPart's Ship does not exist
+	}
 
 	/////////////////////////////////
 	// Get possible weld positions //

@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import laurencewarne.secondspace.server.init.ServerConfig;
 import laurencewarne.secondspace.server.manager.ConnectionManager;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
+import laurencewarne.secondspace.server.system.InitSpawnedEntitiesSystem;
 import laurencewarne.secondspace.server.system.PhysicsRectangleSynchronizerSystem;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
 import laurencewarne.secondspace.server.system.ShipConnectionSystem;
@@ -122,6 +123,7 @@ public class SecondSpaceServerBase extends Game {
 		new EntityRemovalCommandExecutorSystem(),
 		new SaveCommandExecutorSystem(),
 		new TemplateSystem(),
+		new InitSpawnedEntitiesSystem(),
 		new PhysicsRectangleDataResolverSystem(),
 		new WeldControllerSystem(),
 		new ShipConnectionSystem(),

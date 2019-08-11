@@ -20,8 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.server.collect.IntBags;
 import laurencewarne.secondspace.server.component.EntityTemplate;
-import laurencewarne.secondspace.server.component.PhysicsRectangleData;
-import laurencewarne.secondspace.server.component.ShipPart;
+import laurencewarne.secondspace.server.component.SpawnNotice;
 import laurencewarne.secondspace.server.component.SpawnRequest;
 import lombok.NonNull;
 import net.fbridault.eeel.annotation.Inserted;
@@ -35,8 +34,7 @@ public class TemplateSystem extends IteratingSystem {
     private Collection<FileHandle> templateFiles;
     private ComponentMapper<EntityTemplate> mEntityTemplate;
     private ComponentMapper<SpawnRequest> mSpawnRequest;
-    private ComponentMapper<ShipPart> mShipPart;
-    private ComponentMapper<PhysicsRectangleData> mRecData;
+    private ComponentMapper<SpawnNotice> mSpawnNotice;
     @NonNull
     private final Map<String, byte[]> entityNameToBytesMap = new HashMap<>();
 
@@ -71,7 +69,7 @@ public class TemplateSystem extends IteratingSystem {
     }
 
     @Inserted
-    @net.fbridault.eeel.annotation.All(EntityTemplate.class)    
+    @net.fbridault.eeel.annotation.All(EntityTemplate.class)
     public void templateInserted(int id) {
 	final EntityTemplate template = mEntityTemplate.get(id);
 	entityNameToBytesMap.put(template.getName(), template.getBytes());
@@ -100,29 +98,10 @@ public class TemplateSystem extends IteratingSystem {
 	    );
 	    for (int entityId : IntBags.toSet(saveFileFormat.entities)) {
 		// Set positions of entities if appropriate
-		initializeEntity(request, id);
+		final SpawnNotice notice = mSpawnNotice.create(entityId);
+		notice.setFromRequest(request);
 	    }
 	}
 	mSpawnRequest.remove(id);
     }	
-
-    private void initializeEntity(@NonNull SpawnRequest request, int id) {
-	float x = request.getX(), y = request.getY();
-	if (mShipPart.has(id)){
-	    final ShipPart part = mShipPart.get(id);
-	    x = x + part.getLocalX();
-	    y = y + part.getLocalY();
-	    if (request.getShipOwner() != -1) {
-		part.shipId = request.getShipOwner();
-		part.setLocalX((int)x);
-		part.setLocalY((int)y);
-		System.out.println(part);
-	    }
-	}
-	if (mRecData.has(id)){
-	    final PhysicsRectangleData rect = mRecData.get(id);
-	    rect.setX(x);
-	    rect.setY(y);
-	}
-    }
 }

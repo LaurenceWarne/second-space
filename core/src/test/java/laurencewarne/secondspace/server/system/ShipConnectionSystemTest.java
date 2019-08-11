@@ -40,6 +40,7 @@ public class ShipConnectionSystemTest {
 	    .build();
 	setup.register(new ShipCoordinateLocaliser());
 	world = new World(setup);
+	m = world.getMapper(ShipPart.class);
 	e1 = world.create();
 	e2 = world.create();
 

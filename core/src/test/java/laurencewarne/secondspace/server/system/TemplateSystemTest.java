@@ -51,12 +51,18 @@ public class TemplateSystemTest {
 	when(t1.nameWithoutExtension()).thenReturn("cool-template");
 	when(t1.readBytes())
 	    .thenReturn("{}".getBytes(StandardCharsets.UTF_8));
+	when(t1.exists())
+	    .thenReturn(true);
 	when(t2.nameWithoutExtension()).thenReturn("another-cool-template");
 	when(t2.readBytes())
 	    .thenReturn("{}".getBytes(StandardCharsets.UTF_8));
+	when(t2.exists())
+	    .thenReturn(true);
 	when(t3.nameWithoutExtension()).thenReturn("cool-template-the-third");
 	when(t3.readBytes())
 	    .thenReturn("{}".getBytes(StandardCharsets.UTF_8));
+	when(t3.exists())
+	    .thenReturn(true);
     }
 
     public void createWorld() {

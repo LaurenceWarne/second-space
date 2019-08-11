@@ -16,6 +16,7 @@ import com.google.common.collect.Iterators;
 import org.junit.Before;
 import org.junit.Test;
 
+@SuppressWarnings("unchecked")
 public class RectanglesTest {
 
     private Rectangle rect;
@@ -25,7 +26,7 @@ public class RectanglesTest {
 	rect = new Rectangle(0f, 0f, 2f, 2f);
     }
 
-    @Test
+    @Test @SuppressWarnings("unchecked")
     public void testCanGetPointsFromSquareNoOffset() {
 	List<Vector2> points = new ArrayList<>();
 	Iterators.addAll(
@@ -41,7 +42,7 @@ public class RectanglesTest {
 	assertEquals(8, points.size());
     }
 
-    @Test
+    @Test @SuppressWarnings("unchecked")
     public void testCanGetPointsFromSquareWithOffset() {
 	List<Vector2> points = new ArrayList<>();
 	Iterators.addAll(
@@ -57,7 +58,7 @@ public class RectanglesTest {
 	assertEquals(8, points.size());
     }
 
-    @Test
+    @Test @SuppressWarnings("unchecked")
     public void testCanGetPointsReturnsEmptyOnBigOffset() {
 	List<Vector2> points = new ArrayList<>();
 	Iterators.addAll(
@@ -66,7 +67,7 @@ public class RectanglesTest {
 	assertThat(points, is(empty()));
     }
 
-    @Test
+    @Test @SuppressWarnings("unchecked")
     public void testCanGetPointsFromSmallRectangleFarFromOrigin() {
 	Rectangle rect = new Rectangle(-700f, -2235f, 1f, 1f);
 	List<Vector2> points = new ArrayList<>();

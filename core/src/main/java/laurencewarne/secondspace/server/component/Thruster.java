@@ -1,6 +1,7 @@
 package laurencewarne.secondspace.server.component;
 
 import com.artemis.Component;
+import com.artemis.annotations.Transient;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,6 +18,7 @@ public class Thruster extends Component {
     /**
      * Signals thruster has been activated
      */
+    @Transient
     public static class ThrusterActivated extends Component {
 	
     }

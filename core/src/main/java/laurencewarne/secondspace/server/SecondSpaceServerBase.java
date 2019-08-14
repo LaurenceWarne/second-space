@@ -30,6 +30,7 @@ import laurencewarne.secondspace.server.system.ShipConnectionSystem;
 import laurencewarne.secondspace.server.system.ShipPartRemovalSystem;
 import laurencewarne.secondspace.server.system.TemplateSystem;
 import laurencewarne.secondspace.server.system.TerminalSystem;
+import laurencewarne.secondspace.server.system.ThrusterSystem;
 import laurencewarne.secondspace.server.system.WeldControllerSystem;
 import laurencewarne.secondspace.server.system.WorldDeserializationSystem;
 import laurencewarne.secondspace.server.system.WorldSerializationSystem;
@@ -63,9 +64,11 @@ public class SecondSpaceServerBase extends Game {
 	// Load server config //
 	////////////////////////
 	FileHandle serverConfigFile = Gdx.files.local("server.properties");
+	logger.info("Loading server config file");
 	final Properties serverProperties = new Properties();
 	try {
 	    serverProperties.load(serverConfigFile.read());
+	    logger.info("Loaded server config file: " + serverConfigFile.path());
 	}
 	catch (GdxRuntimeException e){
 	    logger.info(
@@ -99,7 +102,9 @@ public class SecondSpaceServerBase extends Game {
 	///////////////////////////////
 	// Create Artermis World obj //
 	///////////////////////////////
+	logger.info("Initializing world systems");
 	world = new World(setup);
+	logger.info("Finished intializing world systems");
     }
 
     /**
@@ -131,6 +136,7 @@ public class SecondSpaceServerBase extends Game {
 		new ShipPartRemovalSystem(),
 		new PhysicsSystem(),
 		new PhysicsRectangleSynchronizerSystem(),
+		new ThrusterSystem(),
 		new WorldSerializationSystem()
 	    );
     }
@@ -146,7 +152,7 @@ public class SecondSpaceServerBase extends Game {
     ) {
 	setup.register(new ShipCoordinateLocaliser());
 	box2dWorld = new com.badlogic.gdx.physics.box2d.World(
-	    new Vector2(0f, -4f), true
+	    new Vector2(0f, -0.1f), true
 	);
 	setup.register(box2dWorld);
 	final FileHandle worldSaveFile = Gdx.files.local(

@@ -31,7 +31,7 @@ public class ThrusterSystem extends IteratingSystem {
 	final Vector2 localImpulse = new Vector2(
 	    thruster.getLocalApplX(), thruster.getLocalApplY()
 	).nor().scl(-thruster.getPower());
-	body.applyLinearImpulse(body.getWorldPoint(localImpulse), applPoint, true);
+	body.applyLinearImpulse(body.getWorldVector(localImpulse), applPoint, true);
 	mThrusterActivated.remove(id);
     }
 }

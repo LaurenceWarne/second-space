@@ -19,7 +19,7 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
     private ComponentMapper<SpawnNotice> mSpawnNotice;
     private ComponentMapper<Ship> mShip;
     private ComponentMapper<ShipPart> mShipPart;
-    private ComponentMapper<PhysicsRectangleData> mRecData;    
+    private ComponentMapper<PhysicsRectangleData> mRecData;
 
     @Override
     public void processSystem() {

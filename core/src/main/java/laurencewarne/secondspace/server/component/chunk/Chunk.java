@@ -19,10 +19,10 @@ import lombok.ToString;
 public class Chunk extends Component {
     @EntityId @LinkPolicy(CHECK_SOURCE_AND_TARGETS)
     public IntBag parts = new IntBag(32);
-    @Getter
-    private final int width = 32;
-    @Getter
-    private final int height = 32;
+    @Getter @Setter
+    private int width = 32;
+    @Getter @Setter
+    private int height = 32;
     /** Where in the world the x coord of the bottom-left corner of this chunk is located.*/
     @Getter @Setter
     private int originX = 0;

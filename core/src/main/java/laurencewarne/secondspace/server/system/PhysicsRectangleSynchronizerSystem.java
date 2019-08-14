@@ -9,7 +9,9 @@ import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.component.PhysicsRectangleData;
+import laurencewarne.secondspace.server.event.EntityMovedEvent;
 import lombok.Setter;
+import net.mostlyoriginal.api.event.common.EventSystem;
 import net.mostlyoriginal.api.system.core.TimeboxedProcessingSystem;
 
 /**
@@ -23,6 +25,7 @@ public class PhysicsRectangleSynchronizerSystem extends TimeboxedProcessingSyste
     );
     private ComponentMapper<Physics> mPhysics;
     private ComponentMapper<PhysicsRectangleData> mPhysicsRectangleData;
+    private EventSystem es;
     @Setter
     private float allottedTime = 0.01f;
 
@@ -35,8 +38,16 @@ public class PhysicsRectangleSynchronizerSystem extends TimeboxedProcessingSyste
     public void process(int id) {
 	final Body body = mPhysics.get(id).getBody();
 	final PhysicsRectangleData data = mPhysicsRectangleData.get(id);
-	data.setX(body.getPosition().x);
-	data.setY(body.getPosition().y);
+	float bodyX = body.getPosition().x;
+	float bodyY = body.getPosition().y;
+	if (data.getX() != bodyX || data.getY() != bodyY) {
+	    final EntityMovedEvent entityMovedEvent = new EntityMovedEvent(
+		id, data.getX(), data.getY(), bodyX, bodyY
+	    );
+	    data.setX(body.getPosition().x);
+	    data.setY(body.getPosition().y);
+	    es.dispatch(entityMovedEvent);
+	}	
 	data.setAngle(body.getAngle());
 	data.setVelocityX(body.getLinearVelocity().x);
 	data.setVelocityY(body.getLinearVelocity().y);

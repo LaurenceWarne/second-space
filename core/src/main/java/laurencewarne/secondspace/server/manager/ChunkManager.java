@@ -7,6 +7,7 @@ import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
@@ -39,18 +40,47 @@ public class ChunkManager extends BaseSystem {
 
     }
 
+    /**
+     * Return the chunk coordinate of the chunk the position resides in.
+     *
+     * @param x
+     * @param y
+     * @return chunk coordinate of the chunk (x, y) resides in
+     */
+    public Vector2 worldToChunkCoordinate(float x, float y) {
+	return new Vector2(
+	    MathUtils.floor(x / chunkWidth), MathUtils.floor(y / chunkWidth)
+	);
+    }
+
     public void put(int entity, float x, float y) {
 	final int chunkX = MathUtils.floor(x / chunkWidth);
-	final int chunkY = MathUtils.floor(y / chunkWidth);
-	if (!chunkTable.contains(chunkX, chunkY)) {
-	    chunkTable.put(chunkX, chunkY, mChunk.create(world.create()));
+	final int chunkY = MathUtils.floor(y / chunkHeight);
+	// Small optimisation, most movement occurs in same chunk
+	if (!isEntityInChunk(entity, chunkX, chunkY)){
+	    if (!chunkTable.contains(chunkX, chunkY)) {
+		final Chunk chunk = mChunk.create(world.create());
+		chunk.setOriginX(chunkX);
+		chunk.setOriginY(chunkY);
+		chunkTable.put(chunkX, chunkY, chunk);
+	    }
+	    final Chunk chunk = chunkTable.get(chunkX, chunkY);
+	    chunk.entities.add(entity);
+	    if (idToChunkMap.containsKey(entity)){
+		idToChunkMap.get(entity).entities.remove(entity);
+	    }
+	    idToChunkMap.put(entity, chunk);
 	}
-	final Chunk chunk = chunkTable.get(chunkX, chunkY);
-	chunk.entities.add(entity);
-	if (idToChunkMap.containsKey(entity)){
-	    idToChunkMap.get(entity).entities.remove(entity);
+    }
+
+    public boolean isEntityInChunk(int entity, int chunkX, int chunkY) {
+	if (idToChunkMap.containsKey(entity)) {
+	    final Chunk chunk = idToChunkMap.get(entity);
+	    return chunk.getOriginX() == chunkX && chunk.getOriginY() == chunkY;
 	}
-	idToChunkMap.put(entity, chunk);
+	else {
+	    return false;
+	}
     }
 
     public IntBag getEntitiesInChunk(float x, float y) {
@@ -68,6 +98,14 @@ public class ChunkManager extends BaseSystem {
 	}	
     }
 
+    /**
+     * Return entities in chunks whose <a href="https://en.wikipedia.org/wiki/Chebyshev_distance">Chebyshev Distance</a> from the chunk containing (x, y) is less than or equal to distance.
+     *
+     * @param x
+     * @param y
+     * @param distance
+     * @return entities in chunks which are in range
+     */
     public IntBag getEntitiesInChunks(float x, float y, int distance) {
 	final int chunkX = MathUtils.floor(x / chunkWidth);
 	final int chunkY = MathUtils.floor(y / chunkWidth);

@@ -67,5 +67,4 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
     public void genericNoticeRemover(int id) {
 	mSpawnNotice.remove(id);
     }
-    
 }

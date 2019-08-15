@@ -7,12 +7,16 @@ import com.artemis.annotations.Wire;
 import com.artemis.io.JsonArtemisSerializer;
 import com.artemis.io.SaveFileFormat;
 import com.artemis.managers.WorldSerializationManager;
+import com.artemis.utils.IntBag;
 import com.badlogic.gdx.files.FileHandle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import lombok.NonNull;
+import lombok.Value;
+import net.mostlyoriginal.api.event.common.Event;
+import net.mostlyoriginal.api.event.common.EventSystem;
 
 /**
  * Loads the world from a specified file.
@@ -24,6 +28,7 @@ public class WorldDeserializationSystem extends BaseSystem {
 	);
 	@Wire(name="worldSaveFile") @NonNull
     private FileHandle worldSaveFile;
+	private EventSystem es;
 
     @Override
     public void initialize() {
@@ -52,10 +57,17 @@ public class WorldDeserializationSystem extends BaseSystem {
 			"Finish loading of save file, added {} entities to the world",
 			saveFileFormat.entities.size()
 		);
+		es.dispatch(new EntitiesDeserializedEvent(saveFileFormat.entities));
     }
 
     @Override
     protected void processSystem() {
 		// do nothing
     }
+
+	@Value
+	public static class EntitiesDeserializedEvent implements Event {
+		@NonNull
+		private final IntBag entitiesReadFromFile;
+	}
 }

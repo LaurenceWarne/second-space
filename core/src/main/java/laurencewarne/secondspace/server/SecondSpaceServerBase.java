@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.server.init.ServerConfig;
+import laurencewarne.secondspace.server.manager.ChunkManager;
 import laurencewarne.secondspace.server.manager.ConnectionManager;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
 import laurencewarne.secondspace.server.system.InitSpawnedEntitiesSystem;
@@ -116,27 +117,46 @@ public class SecondSpaceServerBase extends Game {
 	configBuilder
 	    .dependsOn(EntityLinkManager.class)
 	    .with(new EEELPlugin())
-	    .with(
+	    .with(  // Deserialization and events
 		new EventSystem(),
 		new WorldSerializationManager(),
-		new WorldDeserializationSystem(),
+		new WorldDeserializationSystem()
+	    )
+	    .with(  // Managers
 		new ConnectionManager(),
+		new ChunkManager()
+	    )
+	    .with(  // Terminal and command systems
 		new TerminalSystem(),
 		new AddRectangleCommandExecutorSystem(),
 		new AddWeldCommandExecutorSystem(),
 		new SpawnCommandExecutorSystem(),
 		new EntityRemovalCommandExecutorSystem(),
-		new SaveCommandExecutorSystem(),
+		new SaveCommandExecutorSystem()
+	    )
+	    .with(  // Entity creation and initialization
 		new TemplateSystem(),
-		new InitSpawnedEntitiesSystem(),
-		new PhysicsRectangleDataResolverSystem(),
+		new InitSpawnedEntitiesSystem()
+	    )
+	    .with(  // Create fron-end components from back-end components
+		new PhysicsRectangleDataResolverSystem(),		
+		new ConnectionToWeldSystem()
+	    )
+	    .with(  // Ship and ShipPart handling
+		// Adds welds in box2d world
 		new WeldControllerSystem(),
+		// Sends WeldRequests when ShipParts are added
 		new ShipConnectionSystem(),
-		new ConnectionToWeldSystem(),
-		new ShipPartRemovalSystem(),
+		new ShipPartRemovalSystem()
+	    )
+	    .with(  // 'vanity' systems
 		new PhysicsSystem(),
-		new PhysicsRectangleSynchronizerSystem(),
-		new ThrusterSystem(),
+		new ThrusterSystem()
+	    )
+	    .with(  // Synchronizes front-end components and back-end components
+		new PhysicsRectangleSynchronizerSystem()
+	    )
+	    .with(  // Serialization
 		new WorldSerializationSystem()
 	    );
     }

@@ -18,7 +18,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper=false) @ToString
 public class Chunk extends Component {
     @EntityId @LinkPolicy(CHECK_SOURCE_AND_TARGETS)
-    public IntBag parts = new IntBag(32);
+    public IntBag entities = new IntBag(32);
     @Getter @Setter
     private int width = 32;
     @Getter @Setter

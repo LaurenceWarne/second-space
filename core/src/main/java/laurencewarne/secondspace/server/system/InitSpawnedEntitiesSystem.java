@@ -7,9 +7,11 @@ import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import laurencewarne.secondspace.server.component.Ship;
 import laurencewarne.secondspace.server.component.ShipPart;
 import laurencewarne.secondspace.server.component.SpawnNotice;
+import laurencewarne.secondspace.server.event.EntityCreatedEvent;
 import net.fbridault.eeel.annotation.All;
 import net.fbridault.eeel.annotation.Exclude;
 import net.fbridault.eeel.annotation.Inserted;
+import net.mostlyoriginal.api.event.common.EventSystem;
 
 /**
  * This system initializes entities with {@link SpawnNotice} components, and removed the {@link SpawnNotice} components after initialization is complete.
@@ -20,6 +22,7 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
     private ComponentMapper<Ship> mShip;
     private ComponentMapper<ShipPart> mShipPart;
     private ComponentMapper<PhysicsRectangleData> mRecData;
+    private EventSystem es;
 
     @Override
     public void processSystem() {
@@ -42,6 +45,7 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
 		mShip.get(part.shipId).parts.add(id);
 	    } catch (Exception e) {}
 	    mSpawnNotice.remove(id);
+	    es.dispatch(new EntityCreatedEvent(id, notice.getX(), notice.getY()));
 	}
     }
 
@@ -54,6 +58,7 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
 	rect.setX(notice.getX());
 	rect.setY(notice.getY());
 	mSpawnNotice.remove(id);
+	es.dispatch(new EntityCreatedEvent(id, notice.getX(), notice.getY()));
     }
 
     @Inserted

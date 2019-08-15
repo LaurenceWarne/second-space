@@ -10,11 +10,17 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
+import com.google.common.eventbus.Subscribe;
 
 import laurencewarne.secondspace.server.collect.IntBags;
+import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.component.chunk.Chunk;
+import laurencewarne.secondspace.server.event.EntityCreatedEvent;
+import laurencewarne.secondspace.server.event.EntityMovedEvent;
 import lombok.Getter;
 import lombok.NonNull;
+import net.fbridault.eeel.annotation.All;
+import net.fbridault.eeel.annotation.Removed;
 
 /**
  * Manages the addition and removal of entities in chunks.
@@ -116,5 +122,25 @@ public class ChunkManager extends BaseSystem {
 	    }
 	}
 	return allEntities;
+    }
+
+    @Subscribe
+    public void onEntityCreatedEvent(@NonNull EntityCreatedEvent evt) {
+	put(evt.getId(), evt.getX(), evt.getY());	
+    }
+
+    @Subscribe
+    public void onEntityMovedEvent(@NonNull EntityMovedEvent evt) {
+	put(evt.getId(), evt.getPostX(), evt.getPostY());
+    }
+
+    @Removed
+    @All(Physics.class)
+    public void onPhysicsRemoved(int id) {
+	if (idToChunkMap.containsKey(id)){
+	    final Chunk chunk = idToChunkMap.get(id);
+	    chunk.entities.remove(id);
+	    idToChunkMap.remove(id);
+	}
     }
 }

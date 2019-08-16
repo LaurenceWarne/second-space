@@ -30,14 +30,16 @@ public class CannonSystem extends IteratingSystem {
 	    final Body body = mPhysics.get(id).getBody();
 	    final int bulletId = createBulletData(cannon, body);
 	    mBullet.create(bulletId).sourceId = id;
+	    System.out.println("Created bullet: " + mBullet.get(bulletId));
 	    cannon.setCurrentCoolDown(cannon.getCoolDown());
 	}
 	mCannonActivated.remove(id);
     }
 
     @Inserted
-    @All({Bullet.class, Physics.class})
+    @net.fbridault.eeel.annotation.All({Bullet.class, Physics.class})
     public void applyImpulse(int id) {
+	System.out.println("Called apply impulse from id: " + id);
 	final Bullet bullet = mBullet.get(id);
 	if (mCannon.has(bullet.sourceId)) {
 	    final Cannon cannon = mCannon.get(bullet.sourceId);

@@ -14,7 +14,7 @@ public class Cannon extends Component {
     /** Cooldown between consecutive shots.*/
     private float coolDown = 1f;
     private float currentCoolDown = 0f;
-    private float force = 10f;
+    private float force = 0.1f;
     private float localBulletSourceX = 0f;
     private float localBulletSourceY = 0f;
     private float bulletDamage = 1f;

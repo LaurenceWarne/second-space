@@ -12,6 +12,7 @@ import com.artemis.link.EntityLinkManager;
 import com.artemis.managers.WorldSerializationManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -20,10 +21,12 @@ import org.aeonbits.owner.ConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import laurencewarne.secondspace.server.component.Cannon.CannonActivated;
 import laurencewarne.secondspace.server.init.ServerConfig;
 import laurencewarne.secondspace.server.manager.ChunkManager;
 import laurencewarne.secondspace.server.manager.ConnectionManager;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
+import laurencewarne.secondspace.server.system.CannonSystem;
 import laurencewarne.secondspace.server.system.InitSpawnedEntitiesSystem;
 import laurencewarne.secondspace.server.system.PhysicsRectangleSynchronizerSystem;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
@@ -151,7 +154,8 @@ public class SecondSpaceServerBase extends Game {
 	    )
 	    .with(  // 'vanity' systems
 		new PhysicsSystem(),
-		new ThrusterSystem()
+		new ThrusterSystem(),
+		new CannonSystem()
 	    )
 	    .with(  // Synchronizes front-end components and back-end components
 		new PhysicsRectangleSynchronizerSystem()
@@ -197,6 +201,11 @@ public class SecondSpaceServerBase extends Game {
     public void render() {
 	world.setDelta(Gdx.graphics.getDeltaTime());
 	world.process();
+
+        if (Gdx.input.isKeyPressed(Keys.T)) {
+            world.getMapper(CannonActivated.class).create(68);
+        }
+
     }
 
     @Override

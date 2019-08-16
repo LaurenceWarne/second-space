@@ -10,22 +10,27 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-import com.google.common.eventbus.Subscribe;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.server.collect.IntBags;
 import laurencewarne.secondspace.server.component.Physics;
 import laurencewarne.secondspace.server.component.chunk.Chunk;
 import laurencewarne.secondspace.server.event.EntityCreatedEvent;
 import laurencewarne.secondspace.server.event.EntityMovedEvent;
+import laurencewarne.secondspace.server.system.WorldDeserializationSystem;
 import lombok.Getter;
 import lombok.NonNull;
 import net.fbridault.eeel.annotation.All;
 import net.fbridault.eeel.annotation.Removed;
+import net.mostlyoriginal.api.event.common.Subscribe;
 
 /**
  * Manages the addition and removal of entities in chunks.
  */
 public class ChunkManager extends BaseSystem {
+    private final Logger logger = LoggerFactory.getLogger(ChunkManager.class);
     private ComponentMapper<Chunk> mChunk;
     @NonNull
     private final Map<Integer, Chunk> idToChunkMap = new HashMap<>();
@@ -38,7 +43,26 @@ public class ChunkManager extends BaseSystem {
 
     @Override
     public void initialize() {
-	// populate maps based off chunks which have just been deserialized
+	final WorldDeserializationSystem deserializationSystem = world.getSystem(
+	    WorldDeserializationSystem.class
+	);
+	if (deserializationSystem == null) {
+	    return;
+	}
+	int chunkCount = 0;
+	for (int entity : deserializationSystem.getLoadedEntities()) {
+	    if (mChunk.has(entity)) {
+		final Chunk chunk = mChunk.get(entity);
+		chunkTable.put(
+		    chunk.getOriginX(), chunk.getOriginY(), chunk
+		);
+		for (int entityInChunk : IntBags.toSet(chunk.entities)) {
+		    idToChunkMap.put(entityInChunk, chunk);
+		}
+		chunkCount++;
+	    }
+	}
+	logger.info("Loaded {} chunks from file", chunkCount);
     }
 
     @Override
@@ -73,7 +97,7 @@ public class ChunkManager extends BaseSystem {
 	    final Chunk chunk = chunkTable.get(chunkX, chunkY);
 	    chunk.entities.add(entity);
 	    if (idToChunkMap.containsKey(entity)){
-		idToChunkMap.get(entity).entities.remove(entity);
+		idToChunkMap.get(entity).entities.removeValue(entity);
 	    }
 	    idToChunkMap.put(entity, chunk);
 	}
@@ -139,7 +163,7 @@ public class ChunkManager extends BaseSystem {
     public void onPhysicsRemoved(int id) {
 	if (idToChunkMap.containsKey(id)){
 	    final Chunk chunk = idToChunkMap.get(id);
-	    chunk.entities.remove(id);
+	    chunk.entities.removeValue(id);
 	    idToChunkMap.remove(id);
 	}
     }

@@ -17,6 +17,10 @@ public class PhysicsRectangleData extends Component {
     private float width = 2f;
     private float height = 2f;
     private boolean isStatic = false;
+    private boolean isBullet = false;
+    private float density = 0.5f;
+    private float friction = 0.4f;
+    private float restitution = 0.6f;
     // Information about the entity specific to the world
     private float x = 0f;
     private float y = 0f;

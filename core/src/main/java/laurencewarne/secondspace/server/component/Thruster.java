@@ -16,7 +16,7 @@ public class Thruster extends Component {
     private float localApplY = 0f;
 
     /**
-     * Signals thruster has been activated
+     * Signals thruster has been activated.
      */
     @Transient
     public static class ThrusterActivated extends Component {

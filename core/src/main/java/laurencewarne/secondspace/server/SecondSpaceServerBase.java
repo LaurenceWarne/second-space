@@ -155,7 +155,7 @@ public class SecondSpaceServerBase extends Game {
 		new ShipPartRemovalSystem()
 	    )
 	    .with(  // 'vanity' systems
-		new PhysicsSystem(),
+		new PhysicsSystem(1f/40f),
 		new CollisionSystem(),
 		new ThrusterSystem(),
 		new CannonFiringSystem(),

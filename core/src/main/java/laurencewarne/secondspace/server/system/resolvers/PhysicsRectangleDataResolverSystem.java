@@ -56,6 +56,7 @@ public class PhysicsRectangleDataResolverSystem extends BaseEntitySystem {
 	if (!data.isStatic()) {
 	    bodyDef.type = BodyType.DynamicBody;
 	}
+	// Sets position of the origin
 	bodyDef.position.set(data.getX(), data.getY());
 	bodyDef.angle = data.getAngle();
 	return bodyDef;

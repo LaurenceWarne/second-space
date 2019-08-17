@@ -28,6 +28,7 @@ import laurencewarne.secondspace.server.manager.ConnectionManager;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
 import laurencewarne.secondspace.server.system.CannonCooldownSystem;
 import laurencewarne.secondspace.server.system.CannonFiringSystem;
+import laurencewarne.secondspace.server.system.CollisionSystem;
 import laurencewarne.secondspace.server.system.InitSpawnedEntitiesSystem;
 import laurencewarne.secondspace.server.system.PhysicsRectangleSynchronizerSystem;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
@@ -155,6 +156,7 @@ public class SecondSpaceServerBase extends Game {
 	    )
 	    .with(  // 'vanity' systems
 		new PhysicsSystem(),
+		new CollisionSystem(),
 		new ThrusterSystem(),
 		new CannonFiringSystem(),
 		new CannonCooldownSystem()

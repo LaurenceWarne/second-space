@@ -14,8 +14,11 @@ import laurencewarne.secondspace.server.component.PhysicsRectangleData;
 import lombok.NonNull;
 import net.fbridault.eeel.annotation.Inserted;
 
+/**
+ * Fires projectiles from cannons based on {@link laurencewarne.secondspace.server.component.Cannon.CannonActivated} components, and applies impulses to them.
+ */
 @All({CannonActivated.class, Cannon.class, Physics.class})
-public class CannonSystem extends IteratingSystem {
+public class CannonFiringSystem extends IteratingSystem {
 
     private ComponentMapper<CannonActivated> mCannonActivated;
     private ComponentMapper<Cannon> mCannon;
@@ -30,7 +33,6 @@ public class CannonSystem extends IteratingSystem {
 	    final Body body = mPhysics.get(id).getBody();
 	    final int bulletId = createBulletData(cannon, body);
 	    mBullet.create(bulletId).sourceId = id;
-	    System.out.println("Created bullet: " + mBullet.get(bulletId));
 	    cannon.setCurrentCoolDown(cannon.getCoolDown());
 	}
 	mCannonActivated.remove(id);
@@ -39,7 +41,6 @@ public class CannonSystem extends IteratingSystem {
     @Inserted
     @net.fbridault.eeel.annotation.All({Bullet.class, Physics.class})
     public void applyImpulse(int id) {
-	System.out.println("Called apply impulse from id: " + id);
 	final Bullet bullet = mBullet.get(id);
 	if (mCannon.has(bullet.sourceId)) {
 	    final Cannon cannon = mCannon.get(bullet.sourceId);
@@ -60,6 +61,9 @@ public class CannonSystem extends IteratingSystem {
 	rec.setAngle(sourceBody.getAngle());
 	rec.setWidth(cannon.getBulletSize());
 	rec.setHeight(cannon.getBulletSize());
+	rec.setDensity(cannon.getBulletDensity());
+	rec.setFriction(cannon.getBulletFriction());
+	rec.setRestitution(cannon.getBulletRestitution());
 	final Vector2 localSourcePoint = new Vector2(
 	    cannon.getLocalBulletSourceX(), cannon.getLocalBulletSourceY()
 	);

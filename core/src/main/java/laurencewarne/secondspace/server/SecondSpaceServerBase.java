@@ -26,7 +26,8 @@ import laurencewarne.secondspace.server.init.ServerConfig;
 import laurencewarne.secondspace.server.manager.ChunkManager;
 import laurencewarne.secondspace.server.manager.ConnectionManager;
 import laurencewarne.secondspace.server.ship.ShipCoordinateLocaliser;
-import laurencewarne.secondspace.server.system.CannonSystem;
+import laurencewarne.secondspace.server.system.CannonCooldownSystem;
+import laurencewarne.secondspace.server.system.CannonFiringSystem;
 import laurencewarne.secondspace.server.system.InitSpawnedEntitiesSystem;
 import laurencewarne.secondspace.server.system.PhysicsRectangleSynchronizerSystem;
 import laurencewarne.secondspace.server.system.PhysicsSystem;
@@ -155,7 +156,8 @@ public class SecondSpaceServerBase extends Game {
 	    .with(  // 'vanity' systems
 		new PhysicsSystem(),
 		new ThrusterSystem(),
-		new CannonSystem()
+		new CannonFiringSystem(),
+		new CannonCooldownSystem()
 	    )
 	    .with(  // Synchronizes front-end components and back-end components
 		new PhysicsRectangleSynchronizerSystem()
@@ -203,7 +205,7 @@ public class SecondSpaceServerBase extends Game {
 	world.process();
 
         if (Gdx.input.isKeyPressed(Keys.T)) {
-            world.getMapper(CannonActivated.class).create(68);
+            world.getMapper(CannonActivated.class).create(21);
         }
 
     }

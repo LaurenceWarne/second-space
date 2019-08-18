@@ -21,12 +21,12 @@
         "9": []
     },
     "componentIdentifiers": {
-        "laurencewarne.secondspace.server.component.PhysicsRectangleData": "PhysicsRectangleData",
-        "laurencewarne.secondspace.server.component.Ship": "Ship",
-        "laurencewarne.secondspace.server.component.ShipPart": "ShipPart",
-        "laurencewarne.secondspace.server.component.Cannon": "Cannon",
-        "laurencewarne.secondspace.server.component.connection.Connection": "Connection",
-        "laurencewarne.secondspace.server.component.connection.ConnectionReference": "ConnectionReference"
+        "laurencewarne.secondspace.common.component.PhysicsRectangleData": "PhysicsRectangleData",
+        "laurencewarne.secondspace.common.component.Ship": "Ship",
+        "laurencewarne.secondspace.common.component.ShipPart": "ShipPart",
+        "laurencewarne.secondspace.common.component.Cannon": "Cannon",
+        "laurencewarne.secondspace.common.component.connection.Connection": "Connection",
+        "laurencewarne.secondspace.common.component.connection.ConnectionReference": "ConnectionReference"
     },
     "entities": {
         "0": {

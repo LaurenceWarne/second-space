@@ -6,8 +6,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 import laurencewarne.secondspace.client.SecondSpaceClient;
-import laurencewarne.secondspace.server.SecondSpaceServerBase;
-import laurencewarne.secondspace.server.SecondSpaceServerUI;
+import laurencewarne.secondspace.common.SecondSpaceServerBase;
+import laurencewarne.secondspace.common.SecondSpaceServerUI;
 
 public class DesktopLauncher {
     public static void main (String[] args) {

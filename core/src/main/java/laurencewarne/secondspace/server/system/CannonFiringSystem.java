@@ -68,7 +68,6 @@ public class CannonFiringSystem extends IteratingSystem {
 	    cannon.getLocalBulletSourceX(), cannon.getLocalBulletSourceY()
 	);
 	final Vector2 sourcePoint = sourceBody.getWorldPoint(localSourcePoint);
-	//System.out.println("Bullet added point: " + sourcePoint + " sourceBody origin: " + sourceBody.getPosition());
 	rec.setX(sourcePoint.x);
 	rec.setY(sourcePoint.y);
 	rec.setBullet(true);

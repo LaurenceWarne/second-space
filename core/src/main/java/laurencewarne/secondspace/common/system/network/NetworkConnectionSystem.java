@@ -11,8 +11,6 @@ import com.esotericsoftware.kryonet.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import lombok.NonNull;
-
 public class NetworkConnectionSystem extends BaseSystem {
 
     private final Logger logger = LoggerFactory.getLogger(
@@ -45,18 +43,7 @@ public class NetworkConnectionSystem extends BaseSystem {
     }
 
     @Override
-    public void processSystem() {
-	for (Connection c : server.getConnections()) {
-	    final SndSpaceConnection con = (SndSpaceConnection) c;
-	}
-    }
-
-    public void sendClientSurroundings(@NonNull SndSpaceConnection con) {
-	// Send client their ship
-	// Send client surrounding entities via chunk manager
-    }
-
-    public static class SndSpaceConnection extends Connection {
-	private int playerId;
+    protected void processSystem() {
+		
     }
 }

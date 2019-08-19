@@ -15,6 +15,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.esotericsoftware.kryonet.Server;
 
 import org.aeonbits.owner.ConfigFactory;
 import org.slf4j.Logger;
@@ -43,6 +44,8 @@ import laurencewarne.secondspace.common.system.command.AddWeldCommandExecutorSys
 import laurencewarne.secondspace.common.system.command.EntityRemovalCommandExecutorSystem;
 import laurencewarne.secondspace.common.system.command.SaveCommandExecutorSystem;
 import laurencewarne.secondspace.common.system.command.SpawnCommandExecutorSystem;
+import laurencewarne.secondspace.common.system.network.NetworkConnectionSystem;
+import laurencewarne.secondspace.common.system.network.NetworkRegisterSystem;
 import laurencewarne.secondspace.common.system.resolvers.ConnectionToWeldSystem;
 import laurencewarne.secondspace.common.system.resolvers.PhysicsRectangleDataResolverSystem;
 import lombok.Getter;
@@ -59,8 +62,8 @@ public class SecondSpaceServerBase extends Game {
 
     private final Logger logger = LoggerFactory.getLogger(SecondSpaceServerBase.class);
     private com.badlogic.gdx.physics.box2d.World box2dWorld;
-    @Getter
     private World world;
+    private Server server;
 
     @Override
     public void create() {
@@ -89,6 +92,7 @@ public class SecondSpaceServerBase extends Game {
 	ServerConfig serverConfig = ConfigFactory.create(
 	    ServerConfig.class, serverProperties
 	);
+	server = new Server();
 
 	//////////////////////////////////////////////////////////////////
 	// Create world configuration, add plugins and systems to world //
@@ -128,6 +132,10 @@ public class SecondSpaceServerBase extends Game {
 	    .with(  // Managers
 		new ConnectionManager(),
 		new ChunkManager()
+	    )
+	    .with(  // Network
+		new NetworkRegisterSystem(),
+		new NetworkConnectionSystem()
 	    )
 	    .with(  // Terminal and command systems
 		new TerminalSystem(),
@@ -196,7 +204,9 @@ public class SecondSpaceServerBase extends Game {
 	setup.register(
 	    "templateFiles",
 	    Arrays.stream(templateFiles).collect(Collectors.toList())
-	);	
+	);
+	setup.register("server", server);
+	setup.register("kryo", server.getKryo());
     }
 
     @Override

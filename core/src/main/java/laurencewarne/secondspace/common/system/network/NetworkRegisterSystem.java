@@ -1,9 +1,6 @@
 package laurencewarne.secondspace.common.system.network;
 
-import java.util.Set;
-
 import com.artemis.BaseSystem;
-import com.artemis.Component;
 import com.artemis.annotations.Wire;
 import com.esotericsoftware.kryo.Kryo;
 
@@ -11,11 +8,12 @@ import laurencewarne.secondspace.common.component.network.Networked;
 import laurencewarne.secondspace.common.component.network.RegistrationRequest;
 import laurencewarne.secondspace.common.component.network.RegistrationResponse;
 
+/**
+ * Registers objects that need to be sent over a network connection with kryonet, see <a href="https://github.com/EsotericSoftware/kryonet/#registering-classes">this</a> link for more information.
+ */
 public class NetworkRegisterSystem extends BaseSystem {
 
-    @Wire
-    private Set<? extends Component> registeredClasses;
-    @Wire
+    @Wire(name="kryo")
     private Kryo kryo;
 
     @Override

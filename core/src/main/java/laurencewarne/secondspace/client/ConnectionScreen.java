@@ -40,7 +40,7 @@ public class ConnectionScreen implements Screen {
 	stage.addActor(table);
 	table.setDebug(true);
 
-	addressField = new TextField("ip", uiSkin);
+	addressField = new TextField("127.0.0.1", uiSkin);
 	table.add(addressField);
 	TextButton button1 = new TextButton("Connect", uiSkin);
 	button1.addListener(new ChangeListener() {

@@ -16,7 +16,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 /**
-{@link Screen} which loads resources needed for the game whilst showing progress.
+ * {@link Screen} which loads resources needed for the game whilst showing progress.
  */
 @RequiredArgsConstructor
 public class LoadingScreen implements Screen {

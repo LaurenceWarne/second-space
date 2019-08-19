@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import lombok.Getter;
 
 /**
-Start a client.
+ * Start a client.
  */
 @Getter
 public class SecondSpaceClient extends Game {
@@ -16,13 +16,13 @@ public class SecondSpaceClient extends Game {
     private static final String TAG = SecondSpaceClient.class.getName();
 
     private LoadingScreen loadingScreen;
-    private GameScreen gameScreen;
+    private ConnectionScreen connectionScreen;
 
     private SpriteBatch batch;
 
     //pre game stuff
     private AssetManager assetManager;
-    private boolean isGameScreenInitialised = false;
+    private boolean isConnectionScreenInitialised = false;
 
     @Override
     public void create() {
@@ -45,13 +45,13 @@ public class SecondSpaceClient extends Game {
 	    loadingScreen.render(delta);
 	}
 	else {
-	    if ( !isGameScreenInitialised ){
-		this.gameScreen = new GameScreen(batch);
+	    if ( !isConnectionScreenInitialised ){
+		this.connectionScreen = new ConnectionScreen();
 		// setScreen(screen) calls screen.show()
-		setScreen(gameScreen);
-		isGameScreenInitialised = true;
+		setScreen(connectionScreen);
+		isConnectionScreenInitialised = true;
 	    }
-	    gameScreen.render(delta);
+	    connectionScreen.render(delta);
 	}
     }
 
@@ -62,12 +62,12 @@ public class SecondSpaceClient extends Game {
 	    loadingScreen.resize(width, height);
 	}
 	else {
-	    if ( !isGameScreenInitialised ){
-		this.gameScreen = new GameScreen(batch);
-		setScreen(gameScreen);
-		isGameScreenInitialised = true;
+	    if ( !isConnectionScreenInitialised ){
+		this.connectionScreen = new ConnectionScreen();
+		setScreen(connectionScreen);
+		isConnectionScreenInitialised = true;
 	    }
-	    gameScreen.resize(width, height);
+	    connectionScreen.resize(width, height);
 	}
     }
 	
@@ -77,7 +77,7 @@ public class SecondSpaceClient extends Game {
 	Gdx.app.log(TAG, "Disposing of textures and initiating world cleanup.");
 	batch.dispose();
 	loadingScreen.dispose();
-	gameScreen.dispose();
+	connectionScreen.dispose();
 	assetManager.dispose();
     }
 }

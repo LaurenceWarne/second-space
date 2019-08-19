@@ -31,7 +31,7 @@ dependencies {
     // https://github.com/GMWolf/artemis-odb-eeel
     implementation "net.fbridault.eeel:artemis-odb-eeel:1.2.1"
     // https://github.com/crykn/kryonet
-    implementation "com.github.crykn:kryonet:2.22.4"
+    implementation "com.github.crykn:kryonet:2.22.3"
 
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"

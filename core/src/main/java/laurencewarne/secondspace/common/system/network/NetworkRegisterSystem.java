@@ -8,6 +8,8 @@ import com.artemis.annotations.Wire;
 import com.esotericsoftware.kryo.Kryo;
 
 import laurencewarne.secondspace.common.component.network.Networked;
+import laurencewarne.secondspace.common.component.network.RegistrationRequest;
+import laurencewarne.secondspace.common.component.network.RegistrationResponse;
 
 public class NetworkRegisterSystem extends BaseSystem {
 
@@ -18,6 +20,8 @@ public class NetworkRegisterSystem extends BaseSystem {
 
     @Override
     public void initialize() {
+	kryo.register(RegistrationRequest.class);
+	kryo.register(RegistrationResponse.class);
 	kryo.register(Networked.class);
     }
 

@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import laurencewarne.secondspace.common.component.Player;
 import laurencewarne.secondspace.common.component.network.NetworkConnection;
 import laurencewarne.secondspace.common.component.network.RegistrationRequest;
+import laurencewarne.secondspace.common.component.network.RegistrationResponse;
 
 
 public class NewClientConnectionSystem extends BaseSystem {
@@ -61,6 +62,9 @@ public class NewClientConnectionSystem extends BaseSystem {
 		    );
 		}
 		// Send response
+		final RegistrationResponse response = new RegistrationResponse();
+		response.setPlayerId(playerId);
+		conn.sendTCP(response);
 	    }
 	);
 	

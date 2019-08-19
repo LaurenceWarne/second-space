@@ -25,9 +25,13 @@ dependencies {
     implementation "org.aeonbits.owner:owner:1.0.8"
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     implementation "org.slf4j:slf4j-api:1.7.26"
+    // https://github.com/Namek/artemis-odb-entity-tracker
+    implementation "net.namekdev.entity_tracker:artemis-entity-tracker:0.4.0-SNAPSHOT"
     implementation "net.namekdev.entity_tracker:artemis-entity-tracker-gui:0.4.0-SNAPSHOT"
     // https://github.com/GMWolf/artemis-odb-eeel
     implementation "net.fbridault.eeel:artemis-odb-eeel:1.2.1"
+    // https://github.com/crykn/kryonet
+    implementation "com.github.crykn:kryonet:2.22.4"
 
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"

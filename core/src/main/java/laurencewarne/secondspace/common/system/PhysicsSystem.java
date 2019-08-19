@@ -13,7 +13,7 @@ import laurencewarne.secondspace.common.component.Physics;
  */
 public class PhysicsSystem extends IntervalIteratingSystem {
     
-	// odb injects dependencies automatically
+    // odb injects dependencies automatically
     private ComponentMapper<Physics> mPhysics;
     @Wire
     private World box2DWorld;

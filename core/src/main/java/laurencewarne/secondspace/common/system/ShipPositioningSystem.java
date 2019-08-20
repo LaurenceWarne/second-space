@@ -36,7 +36,7 @@ public class ShipPositioningSystem extends IteratingSystem {
 		final Body body = mPhysics.get(partId).getBody();
 		final ShipPart part = mShipPart.get(partId);
 		final Vector2 pos = body.getWorldPoint(
-		    new Vector2(part.getLocalX(), part.getLocalY()).scl(-1)
+		    new Vector2(part.getLocalX(), part.getLocalY()).scl(-1f)
 		);
 		ship.setX(pos.x);
 		ship.setY(pos.y);

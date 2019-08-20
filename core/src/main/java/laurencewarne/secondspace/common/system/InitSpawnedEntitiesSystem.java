@@ -62,6 +62,18 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
     }
 
     @Inserted
+    @All({Ship.class, SpawnNotice.class})
+    public void shipInserted(int id) {
+	final Ship ship = mShip.get(id);
+	final SpawnNotice notice = mSpawnNotice.get(id);
+	if (notice.shipOwner != -1) {
+	    mShip.remove(id);
+	    world.edit(notice.shipOwner).add(ship, mShip.type);
+	}
+	mSpawnNotice.remove(id);
+    }
+
+    @Inserted
     @All(SpawnNotice.class)
     @Exclude({ShipPart.class, PhysicsRectangleData.class})
     public void genericNoticeRemover(int id) {

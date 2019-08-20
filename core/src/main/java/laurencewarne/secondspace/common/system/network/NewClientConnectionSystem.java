@@ -3,9 +3,11 @@ package laurencewarne.secondspace.common.system.network;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.artemis.BaseSystem;
+import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
+import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
+import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener.TypeListener;
 
 import org.slf4j.Logger;
@@ -15,9 +17,13 @@ import laurencewarne.secondspace.common.component.Player;
 import laurencewarne.secondspace.common.component.network.NetworkConnection;
 import laurencewarne.secondspace.common.component.network.RegistrationRequest;
 import laurencewarne.secondspace.common.component.network.RegistrationResponse;
+import lombok.NonNull;
 
-
-public class NewClientConnectionSystem extends BaseSystem {
+/**
+ * This system handles new client connections using player names.
+ */
+@All(Player.class)
+public class NewClientConnectionSystem extends BaseEntitySystem {
 
     private final Logger logger = LoggerFactory.getLogger(
 	NewClientConnectionSystem.class
@@ -29,45 +35,69 @@ public class NewClientConnectionSystem extends BaseSystem {
     private Map<String, Integer> nameToPlayerMap = new HashMap<>();
 
     @Override
+    public void inserted(int id) {
+	final Player player = mPlayer.get(id);
+	nameToPlayerMap.put(player.getName(), id);
+    }
+
+    @Override
     public void initialize() {
 	typeListener.addTypeHandler(
 	    RegistrationRequest.class,
 	    (conn, req) -> {
 		final String name = req.getName();
-		int playerId = -1;
+		RegistrationResponse response;
 		final boolean isExistingPlayer = nameToPlayerMap.containsKey(name);
 		final boolean isAlreadyConnected = isExistingPlayer &&
 		    !mNetworkConnection.has(nameToPlayerMap.get(name));
 		if (isExistingPlayer && !isAlreadyConnected) {
-		    playerId = nameToPlayerMap.get(name);
-		    mNetworkConnection.create(playerId).setConnection(conn);
-		    logger.info(
-			"Known player '{}' has logged on from ip {}",
-			name, conn.getRemoteAddressTCP()
-		    );
+		    response = handleExistingPlayerConnection(name, conn);
 		}
 		else if (!isExistingPlayer) {
-		    playerId = world.create();
-		    mPlayer.create(playerId).setName(name);
-		    mNetworkConnection.create(playerId).setConnection(conn);
-		    logger.info(
-			"New player '{}' has logged on from ip {}",
-			name, conn.getRemoteAddressTCP()
-		    );
+		    response = handleNewPlayerConnection(name, conn);
 		}
 		else {
-		    logger.info(
-			"Rejected request from {} to log on as existing player {}",
-			conn.getRemoteAddressTCP(), name
-		    );
+		    response = handleAlreadyLoggedInConnection(name, conn);
 		}
 		// Send response
-		final RegistrationResponse response = new RegistrationResponse();
-		response.setPlayerId(playerId);
 		conn.sendTCP(response);
 	    }
 	);
-	
+    }
+
+    public RegistrationResponse handleNewPlayerConnection(
+	@NonNull String playerName, @NonNull Connection conn
+    ) {
+	int playerId = nameToPlayerMap.get(playerName);
+	mNetworkConnection.create(playerId).setConnection(conn);
+	logger.info(
+	    "Known player '{}' has logged on from ip {}",
+	    playerName, conn.getRemoteAddressTCP()
+	);	
+	return new RegistrationResponse(playerId);
+    }
+
+    public RegistrationResponse handleExistingPlayerConnection(
+	@NonNull String playerName, @NonNull Connection conn
+    ) {
+	int playerId = world.create();
+	mPlayer.create(playerId).setName(playerName);
+	mNetworkConnection.create(playerId).setConnection(conn);
+	logger.info(
+	    "New player '{}' has logged on from ip {}",
+	    playerName, conn.getRemoteAddressTCP()
+	);
+	return new RegistrationResponse(playerId);	
+    }
+
+    public RegistrationResponse handleAlreadyLoggedInConnection(
+	@NonNull String playerName, @NonNull Connection conn
+    ) {
+	logger.info(
+	    "Rejected request from {} to log on as existing player {}",
+	    conn.getRemoteAddressTCP(), playerName
+	);
+	return new RegistrationResponse(-1);
     }
 
     @Override

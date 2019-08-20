@@ -30,6 +30,7 @@ public class ConnectionScreen implements Screen {
     );    
     private Stage stage;    
     private TextField addressField;
+    private TextField nameField;
     @NonNull
     private final Client client;
 
@@ -44,8 +45,11 @@ public class ConnectionScreen implements Screen {
 	stage.addActor(table);
 	table.setDebug(true);
 
+	nameField = new TextField("Dave", uiSkin);
+	table.add(nameField);
 	addressField = new TextField("127.0.0.1", uiSkin);
 	table.add(addressField);
+	
 	TextButton button1 = new TextButton("Connect", uiSkin);
 	button1.addListener(new ChangeListener() {
 		@Override
@@ -94,7 +98,9 @@ public class ConnectionScreen implements Screen {
 	client.start();
 	try {
 	    client.connect(5000, host, 54555, 54777);
-	    client.sendTCP(new RegistrationRequest());
+	    RegistrationRequest req = new RegistrationRequest();
+	    req.setName(nameField.getText());
+	    client.sendTCP(req);
 	} catch (IOException e) {
 	    logger.error("Could not connect to server: " + e.getMessage());
 	}

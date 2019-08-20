@@ -15,6 +15,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.esotericsoftware.kryonet.Listener.TypeListener;
 import com.esotericsoftware.kryonet.Server;
 
 import org.aeonbits.owner.ConfigFactory;
@@ -33,6 +34,7 @@ import laurencewarne.secondspace.common.system.PhysicsRectangleSynchronizerSyste
 import laurencewarne.secondspace.common.system.PhysicsSystem;
 import laurencewarne.secondspace.common.system.ShipConnectionSystem;
 import laurencewarne.secondspace.common.system.ShipPartRemovalSystem;
+import laurencewarne.secondspace.common.system.ShipPositioningSystem;
 import laurencewarne.secondspace.common.system.TemplateSystem;
 import laurencewarne.secondspace.common.system.TerminalSystem;
 import laurencewarne.secondspace.common.system.ThrusterSystem;
@@ -46,6 +48,7 @@ import laurencewarne.secondspace.common.system.command.SaveCommandExecutorSystem
 import laurencewarne.secondspace.common.system.command.SpawnCommandExecutorSystem;
 import laurencewarne.secondspace.common.system.network.NetworkConnectionSystem;
 import laurencewarne.secondspace.common.system.network.NetworkRegisterSystem;
+import laurencewarne.secondspace.common.system.network.NewClientConnectionSystem;
 import laurencewarne.secondspace.common.system.resolvers.ConnectionToWeldSystem;
 import laurencewarne.secondspace.common.system.resolvers.PhysicsRectangleDataResolverSystem;
 import lombok.Getter;
@@ -135,7 +138,8 @@ public class SecondSpaceServerBase extends Game {
 	    )
 	    .with(  // Network
 		new NetworkRegisterSystem(),
-		new NetworkConnectionSystem()
+		new NetworkConnectionSystem(),
+		new NewClientConnectionSystem()
 	    )
 	    .with(  // Terminal and command systems
 		new TerminalSystem(),
@@ -158,6 +162,7 @@ public class SecondSpaceServerBase extends Game {
 		new WeldControllerSystem(),
 		// Sends WeldRequests when ShipParts are added
 		new ShipConnectionSystem(),
+		new ShipPositioningSystem(),
 		new ShipPartRemovalSystem()
 	    )
 	    .with(  // 'vanity' systems
@@ -207,6 +212,9 @@ public class SecondSpaceServerBase extends Game {
 	);
 	setup.register("server", server);
 	setup.register("kryo", server.getKryo());
+	final TypeListener listener = new TypeListener();
+	server.addListener(listener);
+	setup.register(listener);
     }
 
     @Override

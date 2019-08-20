@@ -65,7 +65,7 @@ public class NewClientConnectionSystem extends BaseEntitySystem {
 	);
     }
 
-    public RegistrationResponse handleNewPlayerConnection(
+    public RegistrationResponse handleExistingPlayerConnection(
 	@NonNull String playerName, @NonNull Connection conn
     ) {
 	int playerId = nameToPlayerMap.get(playerName);
@@ -77,7 +77,7 @@ public class NewClientConnectionSystem extends BaseEntitySystem {
 	return new RegistrationResponse(playerId);
     }
 
-    public RegistrationResponse handleExistingPlayerConnection(
+    public RegistrationResponse handleNewPlayerConnection(
 	@NonNull String playerName, @NonNull Connection conn
     ) {
 	int playerId = world.create();

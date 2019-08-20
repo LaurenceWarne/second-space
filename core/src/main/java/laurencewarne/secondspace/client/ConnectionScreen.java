@@ -18,6 +18,11 @@ import com.esotericsoftware.kryonet.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import laurencewarne.secondspace.common.component.network.RegistrationRequest;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class ConnectionScreen implements Screen {
 
     private final Logger logger = LoggerFactory.getLogger(
@@ -25,12 +30,11 @@ public class ConnectionScreen implements Screen {
     );    
     private Stage stage;    
     private TextField addressField;
-    private Client client;
+    @NonNull
+    private final Client client;
 
     @Override
     public void show() {
-	client = new Client();
-
 	stage = new Stage(new FillViewport(1600f, 900f));
 	Gdx.input.setInputProcessor(stage);
 
@@ -87,8 +91,10 @@ public class ConnectionScreen implements Screen {
 
     public boolean connect() {
 	final String host = addressField.getText();
+	client.start();
 	try {
-	    client.connect(5000, host, 54555);
+	    client.connect(5000, host, 54555, 54777);
+	    client.sendTCP(new RegistrationRequest());
 	} catch (IOException e) {
 	    logger.error("Could not connect to server: " + e.getMessage());
 	}

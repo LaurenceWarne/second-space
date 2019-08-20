@@ -3,10 +3,10 @@ package laurencewarne.secondspace.common.component.network;
 import com.artemis.Component;
 import com.artemis.annotations.Transient;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Transient @Getter @Setter
+@Data @EqualsAndHashCode(callSuper=false) @Transient
 public class RegistrationResponse extends Component {
     private int playerId = -1;
 }

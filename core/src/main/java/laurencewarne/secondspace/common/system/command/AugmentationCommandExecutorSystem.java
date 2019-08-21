@@ -10,22 +10,22 @@ import com.google.common.collect.ImmutableSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import laurencewarne.secondspace.common.component.AugmentationRequest;
 import laurencewarne.secondspace.common.component.Command;
-import laurencewarne.secondspace.common.component.SpawnRequest;
 import lombok.NonNull;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.Namespace;
 
 @All(Command.class)
-public class SpawnCommandExecutorSystem extends CommandExecutorSystem {
+public class AugmentationCommandExecutorSystem extends CommandExecutorSystem {
 
     private final Logger logger = LoggerFactory.getLogger(
-	SpawnCommandExecutorSystem.class
+	AugmentationCommandExecutorSystem.class
     );
-    private ComponentMapper<SpawnRequest> mSpawnRequest;
+    private ComponentMapper<AugmentationRequest> mAugRequest;
     @NonNull
     private final ImmutableSet<String> validCommands = ImmutableSet.of(
-	"spawn", "spwn", "spn"
+	"augment", "aug"
     );
     @NonNull
     private ITemplateExistenceChecker templateExistenceChecker;
@@ -36,13 +36,13 @@ public class SpawnCommandExecutorSystem extends CommandExecutorSystem {
 	boolean exists(String templateName);
     }
 
-    public SpawnCommandExecutorSystem(
+    public AugmentationCommandExecutorSystem(
 	@NonNull ITemplateExistenceChecker templateExistenceChecker) {
 	super();
 	this.templateExistenceChecker = templateExistenceChecker;
     }
 
-    public SpawnCommandExecutorSystem() {
+    public AugmentationCommandExecutorSystem() {
 	super();
 	this.templateExistenceChecker =
 	    name -> entityNameToBytesMap.containsKey(name);
@@ -62,19 +62,18 @@ public class SpawnCommandExecutorSystem extends CommandExecutorSystem {
 
     @Override
     public String getName() {
-	return "spawn";
+	return "augment";
     }
 
     @Override
     public void addArguments(ArgumentParser parser) {
 	parser.addArgument("template");
-	parser.addArgument("x")
-	    .type(Float.class)
-	    // Makes optional
+	parser.addArgument("shipX")
+	    .type(Integer.class)
 	    .nargs("?")
 	    .setDefault(0f);
-	parser.addArgument("y")
-	    .type(Float.class)
+	parser.addArgument("shipY")
+	    .type(Integer.class)
 	    .nargs("?")
 	    .setDefault(0f);
 	parser.addArgument("ship")
@@ -87,11 +86,11 @@ public class SpawnCommandExecutorSystem extends CommandExecutorSystem {
     public void executeCommand(Namespace res) {
 	final String templateName = res.get("template");
 	if (templateExistenceChecker.exists(templateName)) {
-	    final SpawnRequest request = mSpawnRequest.create(world.create());
+	    final AugmentationRequest request = mAugRequest.create(world.create());
 	    request.setTemplateName(templateName);
-	    request.setX(res.getFloat("x"));
-	    request.setY(res.getFloat("y"));
-	    request.setShipOwner(res.getInt("ship"));
+	    request.setShipX(res.getInt("shipX"));
+	    request.setShipY(res.getInt("shipY"));
+	    request.setShip(res.getInt("ship"));
 	}
 	else {
 	    logger.error("No template exists named '{}'", templateName);

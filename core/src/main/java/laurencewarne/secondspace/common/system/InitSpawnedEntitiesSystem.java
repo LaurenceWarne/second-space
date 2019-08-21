@@ -75,7 +75,7 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
 
     @Inserted
     @All(SpawnNotice.class)
-    @Exclude({ShipPart.class, PhysicsRectangleData.class})
+    @Exclude({ShipPart.class, PhysicsRectangleData.class, Ship.class})
     public void genericNoticeRemover(int id) {
 	mSpawnNotice.remove(id);
     }

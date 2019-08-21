@@ -12,6 +12,8 @@ import laurencewarne.secondspace.common.collect.IntBags;
 import laurencewarne.secondspace.common.component.Physics;
 import laurencewarne.secondspace.common.component.Ship;
 import laurencewarne.secondspace.common.component.ShipPart;
+import laurencewarne.secondspace.common.event.EntityMovedEvent;
+import net.mostlyoriginal.api.event.common.EventSystem;
 
 /**
  * Updates positions of {@link Ship}s based on their {@link ShipPart}s.
@@ -22,6 +24,7 @@ public class ShipPositioningSystem extends IteratingSystem {
     private ComponentMapper<Ship> mShip;
     private ComponentMapper<ShipPart> mShipPart;
     private ComponentMapper<Physics> mPhysics;
+    private EventSystem es;
 
     @Override
     public void process(int id) {
@@ -38,6 +41,10 @@ public class ShipPositioningSystem extends IteratingSystem {
 		final Vector2 pos = body.getWorldPoint(
 		    new Vector2(part.getLocalX(), part.getLocalY()).scl(-1f)
 		);
+		final EntityMovedEvent evt = new EntityMovedEvent(
+		    id, ship.getX(), ship.getY(), pos.x, pos.y
+		);
+		es.dispatch(evt);
 		ship.setX(pos.x);
 		ship.setY(pos.y);
 	    }

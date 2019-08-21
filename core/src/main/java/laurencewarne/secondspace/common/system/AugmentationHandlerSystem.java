@@ -43,6 +43,17 @@ public class AugmentationHandlerSystem extends IteratingSystem {
 		final AugmentationNotice notice = mAugNotice.create(entityId);
 		notice.setFromRequest(request);
 	    }
+	    logger.info(
+		"Added augmentation '{}' to ship with id {}",
+		request.getTemplateName(), request.ship
+	    );
+	}
+	else {
+	    logger.error(
+		"Declined augmentation request '{}' as their exists no" +
+		" augmentation with name: '{}'",
+		request, name
+	    );
 	}
 	mAugRequest.remove(id);
     }	

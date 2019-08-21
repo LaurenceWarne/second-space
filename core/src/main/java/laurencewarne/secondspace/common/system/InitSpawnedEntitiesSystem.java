@@ -3,6 +3,7 @@ package laurencewarne.secondspace.common.system;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 
+import laurencewarne.secondspace.common.component.AugmentationNotice;
 import laurencewarne.secondspace.common.component.PhysicsRectangleData;
 import laurencewarne.secondspace.common.component.Ship;
 import laurencewarne.secondspace.common.component.ShipPart;
@@ -19,6 +20,7 @@ import net.mostlyoriginal.api.event.common.EventSystem;
 public class InitSpawnedEntitiesSystem extends BaseSystem {
 
     private ComponentMapper<SpawnNotice> mSpawnNotice;
+    private ComponentMapper<AugmentationNotice> mAugNotice;
     private ComponentMapper<Ship> mShip;
     private ComponentMapper<ShipPart> mShipPart;
     private ComponentMapper<PhysicsRectangleData> mRecData;
@@ -45,6 +47,19 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
 	    mSpawnNotice.remove(id);
 	    es.dispatch(new EntityCreatedEvent(id, notice.getX(), notice.getY()));
 	}
+    }
+
+    @Inserted
+    @All({ShipPart.class, PhysicsRectangleData.class, AugmentationNotice.class})
+    public void augmentationInserted(int id) {
+	final AugmentationNotice notice = mAugNotice.get(id);
+	if (notice.getShip() != -1) {  // Not added to an existing ship
+	    final ShipPart part = mShipPart.get(id);
+	    part.shipId = notice.getShip();
+	    part.setLocalX(notice.getShipX());
+	    part.setLocalY(notice.getShipY());
+	}
+	mAugNotice.remove(id);
     }
 
     @Inserted

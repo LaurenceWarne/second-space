@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.common.component.Command;
 import laurencewarne.secondspace.common.component.SpawnRequest;
-import laurencewarne.secondspace.common.system.TemplateSystem;
 import lombok.NonNull;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.Namespace;
@@ -43,7 +42,7 @@ public class SpawnCommandExecutorSystem extends CommandExecutorSystem {
     public SpawnCommandExecutorSystem() {
 	super();
 	this.templateExistenceChecker =
-	    name -> world.getSystem(TemplateSystem.class).templateExists(name);
+	    name -> true;//world.getSystem(TemplateSystem.class).templateExists(name);
     }
 
     @Override

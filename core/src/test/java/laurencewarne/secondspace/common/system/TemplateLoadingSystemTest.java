@@ -1,13 +1,16 @@
 package laurencewarne.secondspace.common.system;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.artemis.ComponentMapper;
 import com.artemis.World;
@@ -18,6 +21,7 @@ import com.artemis.managers.WorldSerializationManager;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.files.FileHandle;
 
+import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -27,14 +31,15 @@ import laurencewarne.secondspace.common.component.EntityTemplate;
 import laurencewarne.secondspace.common.component.SpawnRequest;
 import net.fbridault.eeel.EEELPlugin;
 
-public class TemplateSystemTest {
+public class TemplateLoadingSystemTest {
 
     private World world;
-    private TemplateSystem sys;
+    private TemplateLoadingSystem sys;
     private Collection<FileHandle> templateFiles = new ArrayList<>();
     private ComponentMapper<EntityTemplate> m;
     private ComponentMapper<SpawnRequest> ms;
     private WorldSerializationManager s;
+    private Map<String, byte[]> entityNameToBytesMap = new HashMap<>();
 
     @Mock
     private FileHandle t1, t2, t3;
@@ -69,10 +74,11 @@ public class TemplateSystemTest {
 	WorldConfiguration setup = new WorldConfigurationBuilder()
 	    .with(new EEELPlugin())
 	    .with(
-		sys = new TemplateSystem()
+		sys = new TemplateLoadingSystem()
 	    )
 	    .build();
 	setup.register("templateFiles", templateFiles);
+	setup.register("templates", entityNameToBytesMap);
 	world = new World(setup);
 	m = world.getMapper(EntityTemplate.class);
 	ms = world.getMapper(SpawnRequest.class);
@@ -83,16 +89,16 @@ public class TemplateSystemTest {
     public void testCanLoadOneTemplate() {
 	templateFiles.add(t1);
 	createWorld();
-	assertTrue(sys.templateExists(t1.nameWithoutExtension()));
+	assertThat(entityNameToBytesMap.keySet(), hasItems(t1.nameWithoutExtension()));
     }
 
     @Test
     public void testCanLoadMultipleTemplates() {
 	templateFiles.addAll(Arrays.asList(t1, t2, t3));
 	createWorld();
-	assertTrue(sys.templateExists(t1.nameWithoutExtension()));
-	assertTrue(sys.templateExists(t2.nameWithoutExtension()));
-	assertTrue(sys.templateExists(t3.nameWithoutExtension()));
+	assertThat(entityNameToBytesMap.keySet(), hasItems(t1.nameWithoutExtension()));
+	assertThat(entityNameToBytesMap.keySet(), hasItems(t2.nameWithoutExtension()));
+	assertThat(entityNameToBytesMap.keySet(), hasItems(t3.nameWithoutExtension()));
     }
 
     @Test
@@ -101,9 +107,9 @@ public class TemplateSystemTest {
 	EntityTemplate t = m.create(world.create());
 	t.setName("brilliant-template");
 	world.process();
-	assertTrue(sys.templateExists(t.getName()));
+	assertThat(entityNameToBytesMap.keySet(), hasItems(t.getName()));
     }
-
+    
     @Test
     public void testSystemRemovesTemplateAddedByComponentWhenRemoved() {
 	createWorld();
@@ -113,8 +119,8 @@ public class TemplateSystemTest {
 	world.process();
 	world.delete(id);
 	world.process();
-	assertFalse(sys.templateExists(t.getName()));
+	assertThat(entityNameToBytesMap.keySet(), is(IsEmptyCollection.empty()));
     }
-
+    
 }
 

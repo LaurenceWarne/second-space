@@ -2,6 +2,7 @@ package laurencewarne.secondspace.common;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,7 @@ import laurencewarne.secondspace.common.system.PlayerShipCreatorSystem;
 import laurencewarne.secondspace.common.system.ShipConnectionSystem;
 import laurencewarne.secondspace.common.system.ShipPartRemovalSystem;
 import laurencewarne.secondspace.common.system.ShipPositioningSystem;
-import laurencewarne.secondspace.common.system.TemplateSystem;
+import laurencewarne.secondspace.common.system.TemplateLoadingSystem;
 import laurencewarne.secondspace.common.system.TerminalSystem;
 import laurencewarne.secondspace.common.system.ThrusterSystem;
 import laurencewarne.secondspace.common.system.WeldControllerSystem;
@@ -151,7 +152,7 @@ public class SecondSpaceServerBase extends Game {
 		new SaveCommandExecutorSystem()
 	    )
 	    .with(  // Entity creation and initialization
-		new TemplateSystem(),
+		new TemplateLoadingSystem(),
 		new InitSpawnedEntitiesSystem()
 	    )
 	    .with(  // Create fron-end components from back-end components
@@ -217,6 +218,7 @@ public class SecondSpaceServerBase extends Game {
 	final TypeListener listener = new TypeListener();
 	server.addListener(listener);
 	setup.register(listener);
+	setup.register("templates", new HashMap<String, byte[]>());
     }
 
     @Override

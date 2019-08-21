@@ -39,11 +39,6 @@ public class ShipConnectionSystem extends BaseEntitySystem {
     private ShipCoordinateLocaliser shipCoordLocaliser;
 
     @Override
-    public void initialize() {
-	connectionManager = world.getSystem(ConnectionManager.class);
-    }
-
-    @Override
     public void processSystem() {
 	
     }    

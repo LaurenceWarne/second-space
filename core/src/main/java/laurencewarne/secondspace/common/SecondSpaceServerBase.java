@@ -32,6 +32,7 @@ import laurencewarne.secondspace.common.system.CollisionSystem;
 import laurencewarne.secondspace.common.system.InitSpawnedEntitiesSystem;
 import laurencewarne.secondspace.common.system.PhysicsRectangleSynchronizerSystem;
 import laurencewarne.secondspace.common.system.PhysicsSystem;
+import laurencewarne.secondspace.common.system.PlayerShipCreatorSystem;
 import laurencewarne.secondspace.common.system.ShipConnectionSystem;
 import laurencewarne.secondspace.common.system.ShipPartRemovalSystem;
 import laurencewarne.secondspace.common.system.ShipPositioningSystem;
@@ -170,7 +171,8 @@ public class SecondSpaceServerBase extends Game {
 		new CollisionSystem(),
 		new ThrusterSystem(),
 		new CannonFiringSystem(),
-		new CannonCooldownSystem()
+		new CannonCooldownSystem(),
+		new PlayerShipCreatorSystem()
 	    )
 	    .with(  // Synchronizes front-end components and back-end components
 		new PhysicsRectangleSynchronizerSystem()

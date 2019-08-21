@@ -80,9 +80,12 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
 	final Ship ship = mShip.get(id);
 	final SpawnNotice notice = mSpawnNotice.get(id);
 	if (notice.shipOwner != -1) {
-	    final Ship newShip = mShip.create(notice.shipOwner);
-	    newShip.parts = ship.parts;
-	    mShip.remove(id);
+	    try {  // next line will fail if an entity doesn't exist with the id
+		final Ship newShip = mShip.create(notice.shipOwner);
+		newShip.parts = ship.parts;
+	    }
+	    catch (ArrayIndexOutOfBoundsException e){}  // log error
+	    mShip.remove(id);		
 	}
 	mSpawnNotice.remove(id);
     }

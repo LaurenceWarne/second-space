@@ -13,13 +13,13 @@ import lombok.ToString;
  */
 @Transient @Getter @Setter @ToString
 public class SpawnRequest extends Component {
-    /** Name of the template to load.*/
+    /** Name of the template to load*/
     private String templateName = "";
-    /** Desired x position.*/
+    /** Desired x position*/
     private float x = 0f;
-    /** Desired y position.*/
+    /** Desired y position*/
     private float y = 0f;
-    /** Owner of any ShipPart components in the template, -1 to ignore.*/
+    /** Set any Ship components to this id, along with the owner of any ShipPart components in the template, -1 to ignore*/
     @EntityId
     public int shipOwner = -1;
 }

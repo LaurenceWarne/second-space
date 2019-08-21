@@ -39,8 +39,6 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
 	else {
 	    final ShipPart part = mShipPart.get(id);
 	    part.shipId = notice.getShipOwner();
-	    part.setLocalX((int)notice.getX());
-	    part.setLocalY((int)notice.getY());
 	    try {
 		mShip.get(part.shipId).parts.add(id);
 	    } catch (Exception e) {}

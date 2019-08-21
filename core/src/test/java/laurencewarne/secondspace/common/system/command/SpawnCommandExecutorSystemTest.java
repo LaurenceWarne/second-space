@@ -4,7 +4,7 @@ import static org.hamcrest.text.MatchesPattern.matchesPattern;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.artemis.ComponentMapper;
@@ -41,7 +41,7 @@ public class SpawnCommandExecutorSystemTest {
 		sys = new SpawnCommandExecutorSystem(name -> true)
 	    )
 	    .build();
-	setup.register("templateFiles", new ArrayList<>());
+	setup.register("templates", new HashMap<String, byte[]>());
 	world = new World(setup);
 	m = world.getMapper(Command.class);
 	mRequest = world.getMapper(SpawnRequest.class);

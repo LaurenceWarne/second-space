@@ -1,7 +1,10 @@
 package laurencewarne.secondspace.common.system.command;
 
+import java.util.Map;
+
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
+import com.artemis.annotations.Wire;
 import com.google.common.collect.ImmutableSet;
 
 import org.slf4j.Logger;
@@ -28,6 +31,8 @@ public class SpawnCommandExecutorSystem extends CommandExecutorSystem {
     private final String name = "spawn";
     @NonNull
     private ITemplateExistenceChecker templateExistenceChecker;
+    @Wire(name="templates")
+    private Map<String, byte[]> entityNameToBytesMap;    
 
     public interface ITemplateExistenceChecker {
 	boolean exists(String templateName);
@@ -42,7 +47,7 @@ public class SpawnCommandExecutorSystem extends CommandExecutorSystem {
     public SpawnCommandExecutorSystem() {
 	super();
 	this.templateExistenceChecker =
-	    name -> true;//world.getSystem(TemplateSystem.class).templateExists(name);
+	    name -> entityNameToBytesMap.containsKey(name);
     }
 
     @Override

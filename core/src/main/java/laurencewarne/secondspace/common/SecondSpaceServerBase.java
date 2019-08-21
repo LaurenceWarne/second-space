@@ -37,6 +37,7 @@ import laurencewarne.secondspace.common.system.PlayerShipCreatorSystem;
 import laurencewarne.secondspace.common.system.ShipConnectionSystem;
 import laurencewarne.secondspace.common.system.ShipPartRemovalSystem;
 import laurencewarne.secondspace.common.system.ShipPositioningSystem;
+import laurencewarne.secondspace.common.system.SpawnFromTemplateSystem;
 import laurencewarne.secondspace.common.system.TemplateLoadingSystem;
 import laurencewarne.secondspace.common.system.TerminalSystem;
 import laurencewarne.secondspace.common.system.ThrusterSystem;
@@ -153,6 +154,7 @@ public class SecondSpaceServerBase extends Game {
 	    )
 	    .with(  // Entity creation and initialization
 		new TemplateLoadingSystem(),
+		new SpawnFromTemplateSystem(),
 		new InitSpawnedEntitiesSystem()
 	    )
 	    .with(  // Create fron-end components from back-end components

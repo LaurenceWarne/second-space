@@ -121,6 +121,5 @@ public class TemplateLoadingSystemTest {
 	world.process();
 	assertThat(entityNameToBytesMap.keySet(), is(IsEmptyCollection.empty()));
     }
-    
 }
 

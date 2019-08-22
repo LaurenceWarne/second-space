@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Map;
 
 import com.artemis.ComponentMapper;
+import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.io.SaveFileFormat;
 import com.artemis.managers.WorldSerializationManager;
@@ -17,6 +18,7 @@ import laurencewarne.secondspace.common.collect.IntBags;
 import laurencewarne.secondspace.common.component.AugmentationNotice;
 import laurencewarne.secondspace.common.component.AugmentationRequest;
 
+@All(AugmentationRequest.class)
 public class AugmentationHandlerSystem extends IteratingSystem {
 
     private final Logger logger = LoggerFactory.getLogger(

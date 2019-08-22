@@ -25,11 +25,12 @@ import net.mostlyoriginal.api.event.common.EventSystem;
  */
 public class WorldSerializationSystem extends BaseSystem {
 
-    @Wire(name="worldSaveFile") @NonNull
-    private FileHandle worldSaveFile;
     private final Logger logger = LoggerFactory.getLogger(
 	WorldSerializationSystem.class
     );
+    private WorldSerializationManager serializationManager;
+    @Wire(name="worldSaveFile") @NonNull
+    private FileHandle worldSaveFile;
     private EventSystem es;
 
     @Override
@@ -44,10 +45,6 @@ public class WorldSerializationSystem extends BaseSystem {
 	///////////////////////////////////////////////////////////////////////////
 	// Check we can get serialization manager and its initialized correctly. //
 	///////////////////////////////////////////////////////////////////////////
-	final WorldSerializationManager serializationManager = world.getSystem(
-	    WorldSerializationManager.class
-	);
-	// PR artemis-odb for better javadoc?
 	if (serializationManager == null) {
 	    // WorldSerializationManager not added to world
 	    logger.error(

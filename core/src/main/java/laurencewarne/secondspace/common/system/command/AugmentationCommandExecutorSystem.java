@@ -68,18 +68,12 @@ public class AugmentationCommandExecutorSystem extends CommandExecutorSystem {
     @Override
     public void addArguments(ArgumentParser parser) {
 	parser.addArgument("template");
-	parser.addArgument("shipX")
-	    .type(Integer.class)
-	    .nargs("?")
-	    .setDefault(0f);
-	parser.addArgument("shipY")
-	    .type(Integer.class)
-	    .nargs("?")
-	    .setDefault(0f);
 	parser.addArgument("ship")
-	    .type(Integer.class)
-	    .nargs("?")
-	    .setDefault(-1);
+	    .type(Integer.class);
+	parser.addArgument("shipX")
+	    .type(Integer.class);
+	parser.addArgument("shipY")
+	    .type(Integer.class);
     }
 
     @Override
@@ -88,9 +82,9 @@ public class AugmentationCommandExecutorSystem extends CommandExecutorSystem {
 	if (templateExistenceChecker.exists(templateName)) {
 	    final AugmentationRequest request = mAugRequest.create(world.create());
 	    request.setTemplateName(templateName);
+	    request.setShip(res.getInt("ship"));
 	    request.setShipX(res.getInt("shipX"));
 	    request.setShipY(res.getInt("shipY"));
-	    request.setShip(res.getInt("ship"));
 	}
 	else {
 	    logger.error("No template exists named '{}'", templateName);

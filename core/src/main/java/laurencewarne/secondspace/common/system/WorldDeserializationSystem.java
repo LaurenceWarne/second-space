@@ -23,50 +23,47 @@ import net.mostlyoriginal.api.event.common.EventSystem;
  */
 public class WorldDeserializationSystem extends BaseSystem {
 
-	private final Logger logger = LoggerFactory.getLogger(
-		WorldDeserializationSystem.class
-	);
-	@Wire(name="worldSaveFile") @NonNull
+    private final Logger logger = LoggerFactory.getLogger(
+	WorldDeserializationSystem.class
+    );
+    @Wire(name="worldSaveFile") @NonNull
     private FileHandle worldSaveFile;
-	private EventSystem es;
-	@Getter
-	private ImmutableSet<Integer> loadedEntities;
+    private EventSystem es;
+    @Getter
+    private ImmutableSet<Integer> loadedEntities;
+    private WorldSerializationManager serializationManager;
 
     @Override
     public void initialize() {
-		final WorldSerializationManager serializationManager = world.getSystem(
-			WorldSerializationManager.class
-		);
-		// PR artemis-odb for better javadoc?
-		if (serializationManager == null) {
-			// WorldSerializationManager not added to world
-			logger.error(
-				"Can't load entities from world save file because a" +
-				" WorldSerializationManager instance has not been" +
-				" added to the world"
-			);
-			return;
-		}
-		if (serializationManager.getSerializer() == null){
-			serializationManager.setSerializer(
-				new JsonArtemisSerializer(world)
-			);
-		}
-		InputStream inputStream = worldSaveFile.read();
-		final SaveFileFormat saveFileFormat = serializationManager.load(
-			inputStream, SaveFileFormat.class
-		);
-		logger.info(
-			"Finished loading of save file, added {} entities to the world",
-			saveFileFormat.entities.size()
-		);
-		loadedEntities = ImmutableSet.<Integer>builder().addAll(
-			IntBags.toSet(saveFileFormat.entities)
-		).build();
+	if (serializationManager == null) {
+	    // WorldSerializationManager not added to world
+	    logger.error(
+		"Can't load entities from world save file because a" +
+		" WorldSerializationManager instance has not been" +
+		" added to the world"
+	    );
+	    return;
+	}
+	if (serializationManager.getSerializer() == null){
+	    serializationManager.setSerializer(
+		new JsonArtemisSerializer(world)
+	    );
+	}
+	InputStream inputStream = worldSaveFile.read();
+	final SaveFileFormat saveFileFormat = serializationManager.load(
+	    inputStream, SaveFileFormat.class
+	);
+	logger.info(
+	    "Finished loading of save file, added {} entities to the world",
+	    saveFileFormat.entities.size()
+	);
+	loadedEntities = ImmutableSet.<Integer>builder().addAll(
+	    IntBags.toSet(saveFileFormat.entities)
+	).build();
     }
 
     @Override
     protected void processSystem() {
-		// do nothing
+	// do nothing
     }
 }

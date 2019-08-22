@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import laurencewarne.secondspace.common.component.AugmentationNotice;
 import laurencewarne.secondspace.common.component.PhysicsRectangleData;
 import laurencewarne.secondspace.common.component.Ship;
 import laurencewarne.secondspace.common.component.ShipPart;
@@ -26,7 +27,7 @@ import lombok.NonNull;
  * This system connects entities which have {@link ShipPart} components to other components on their ship when their {@link ShipPart} component has just been added. This system is not responsible for adding welds.
  */
 @All({ShipPart.class, PhysicsRectangleData.class})
-@Exclude(SpawnNotice.class)
+@Exclude({SpawnNotice.class, AugmentationNotice.class})
 public class ShipConnectionSystem extends BaseEntitySystem {
 
     private final Logger logger = LoggerFactory.getLogger(ShipConnectionSystem.class);

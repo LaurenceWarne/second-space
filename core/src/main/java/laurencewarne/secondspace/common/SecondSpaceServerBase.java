@@ -27,6 +27,7 @@ import laurencewarne.secondspace.common.init.ServerConfig;
 import laurencewarne.secondspace.common.manager.ChunkManager;
 import laurencewarne.secondspace.common.manager.ConnectionManager;
 import laurencewarne.secondspace.common.ship.ShipCoordinateLocaliser;
+import laurencewarne.secondspace.common.system.AugmentationHandlerSystem;
 import laurencewarne.secondspace.common.system.CannonCooldownSystem;
 import laurencewarne.secondspace.common.system.CannonFiringSystem;
 import laurencewarne.secondspace.common.system.CollisionSystem;
@@ -46,6 +47,7 @@ import laurencewarne.secondspace.common.system.WorldDeserializationSystem;
 import laurencewarne.secondspace.common.system.WorldSerializationSystem;
 import laurencewarne.secondspace.common.system.command.AddRectangleCommandExecutorSystem;
 import laurencewarne.secondspace.common.system.command.AddWeldCommandExecutorSystem;
+import laurencewarne.secondspace.common.system.command.AugmentationCommandExecutorSystem;
 import laurencewarne.secondspace.common.system.command.EntityRemovalCommandExecutorSystem;
 import laurencewarne.secondspace.common.system.command.SaveCommandExecutorSystem;
 import laurencewarne.secondspace.common.system.command.SpawnCommandExecutorSystem;
@@ -149,12 +151,14 @@ public class SecondSpaceServerBase extends Game {
 		new AddRectangleCommandExecutorSystem(),
 		new AddWeldCommandExecutorSystem(),
 		new SpawnCommandExecutorSystem(),
+		new AugmentationCommandExecutorSystem(),
 		new EntityRemovalCommandExecutorSystem(),
 		new SaveCommandExecutorSystem()
 	    )
 	    .with(  // Entity creation and initialization
 		new TemplateLoadingSystem(),
 		new SpawnFromTemplateSystem(),
+		new AugmentationHandlerSystem(),
 		new InitSpawnedEntitiesSystem()
 	    )
 	    .with(  // Create fron-end components from back-end components

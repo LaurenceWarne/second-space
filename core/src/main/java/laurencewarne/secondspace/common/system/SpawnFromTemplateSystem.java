@@ -28,7 +28,7 @@ public class SpawnFromTemplateSystem extends IteratingSystem {
     private ComponentMapper<SpawnNotice> mSpawnNotice;
     @Wire(name="templates")
     private Map<String, byte[]> entityNameToBytesMap;
-    private WorldSerializationManager serializationManager;
+    private WorldSerializationManager sm;
 
     @Override
     public void process(int id) {
@@ -38,9 +38,17 @@ public class SpawnFromTemplateSystem extends IteratingSystem {
 	    final InputStream is = new ByteArrayInputStream(
 		entityNameToBytesMap.get(name)
 	    );
-	    final SaveFileFormat saveFileFormat = serializationManager.load(
-		is, SaveFileFormat.class
-	    );
+	    final SaveFileFormat saveFileFormat;
+	    try {
+		 saveFileFormat = sm.load(is, SaveFileFormat.class);
+	    } catch (Exception e) {
+		logger.error(
+		    "Could not load template '{}' due to error: '{}'",
+		    name, e.getMessage()
+		);
+		mSpawnRequest.remove(id);
+		return;
+	    }
 	    for (int entityId : IntBags.toSet(saveFileFormat.entities)) {
 		// Set positions of entities if appropriate
 		final SpawnNotice notice = mSpawnNotice.create(entityId);

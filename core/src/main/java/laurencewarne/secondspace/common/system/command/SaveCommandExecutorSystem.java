@@ -18,6 +18,7 @@ public class SaveCommandExecutorSystem extends CommandExecutorSystem {
     private final Logger logger = LoggerFactory.getLogger(
 	SaveCommandExecutorSystem.class
     );
+    private WorldSerializationSystem serializationSystem;
     @NonNull
     private final ImmutableSet<String> validCommands = ImmutableSet.of(
 	"save", "sv"
@@ -49,9 +50,6 @@ public class SaveCommandExecutorSystem extends CommandExecutorSystem {
 
     @Override
     public void executeCommand(Namespace res) {
-	final WorldSerializationSystem serializationSystem = world.getSystem(
-	    WorldSerializationSystem.class
-	);
 	if (serializationSystem != null){
 	    serializationSystem.serialize();
 	}

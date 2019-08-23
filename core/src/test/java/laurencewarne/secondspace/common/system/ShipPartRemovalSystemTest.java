@@ -103,5 +103,4 @@ public class ShipPartRemovalSystemTest {
 	assertTrue(ms.has(part1Id));
 	assertTrue(ms.has(part2Id));
     }
-
 }

@@ -12,6 +12,6 @@ public class Networked extends Component {
     @Getter
     private int id = -1;
     @Getter
-    private final ClassToInstanceMap<Component> numberDefaults =
+    private final ClassToInstanceMap<Component> components =
 	MutableClassToInstanceMap.create();
 }

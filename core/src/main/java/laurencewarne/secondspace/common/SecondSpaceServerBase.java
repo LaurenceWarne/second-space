@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
+import com.artemis.Component;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.esotericsoftware.kryonet.Listener.TypeListener;
 import com.esotericsoftware.kryonet.Server;
@@ -225,6 +227,10 @@ public class SecondSpaceServerBase extends Game {
 	server.addListener(listener);
 	setup.register(listener);
 	setup.register("templates", new HashMap<String, byte[]>());
+	setup.register(
+	   "networked-components",
+	   new Array<Class<? extends Component>>()
+	);
     }
 
     @Override

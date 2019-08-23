@@ -3,6 +3,7 @@ package laurencewarne.secondspace.common.system.network;
 import com.artemis.BaseSystem;
 import com.artemis.Component;
 import com.artemis.annotations.Wire;
+import com.artemis.utils.IntBag;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.kryo.Kryo;
 
@@ -27,14 +28,19 @@ public class NetworkRegisterSystem extends BaseSystem {
 
     @Override
     public void initialize() {
-	kryo.register(RegistrationRequest.class);
-	kryo.register(RegistrationResponse.class);
-	kryo.register(Networked.class);
-
 	typesToSend.addAll(
 	    Ship.class, PhysicsRectangleData.class, ShipPart.class,
 	    Thruster.class, Cannon.class
 	);
+
+	for (Class cls : typesToSend) {
+	    kryo.register(cls);
+	}
+	kryo.register(RegistrationRequest.class);
+	kryo.register(RegistrationResponse.class);
+	kryo.register(Networked.class);
+	kryo.register(IntBag.class);
+	kryo.register(int[].class);
     }
 
     @Override

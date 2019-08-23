@@ -56,6 +56,7 @@ import laurencewarne.secondspace.common.system.command.SpawnCommandExecutorSyste
 import laurencewarne.secondspace.common.system.network.NetworkConnectionSystem;
 import laurencewarne.secondspace.common.system.network.NetworkRegisterSystem;
 import laurencewarne.secondspace.common.system.network.NewClientConnectionSystem;
+import laurencewarne.secondspace.common.system.network.StateSenderSystem;
 import laurencewarne.secondspace.common.system.resolvers.ConnectionToWeldSystem;
 import laurencewarne.secondspace.common.system.resolvers.PhysicsRectangleDataResolverSystem;
 import lombok.Getter;
@@ -146,7 +147,8 @@ public class SecondSpaceServerBase extends Game {
 	    .with(  // Network
 		new NetworkRegisterSystem(),
 		new NetworkConnectionSystem(),
-		new NewClientConnectionSystem()
+		new NewClientConnectionSystem(),
+		new StateSenderSystem()
 	    )
 	    .with(  // Terminal and command systems
 		new TerminalSystem(),

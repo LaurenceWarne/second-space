@@ -14,8 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.esotericsoftware.kryonet.Client;
-import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Listener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,15 +59,15 @@ public class ConnectionScreen implements Screen {
 	});
 	table.add(button1);
 
-	client.addListener(new Listener() {
-		public void received (Connection connection, Object object) {
-		    System.out.println(
-			"Received from server: " +
-			connection.getRemoteAddressTCP() +
-			" object: " + object
-		    );
-		}
-	});
+	// client.addListener(new Listener() {
+	// 	public void received (Connection connection, Object object) {
+	// 	    System.out.println(
+	// 		"Received from server: " +
+	// 		connection.getRemoteAddressTCP() +
+	// 		" object: " + object
+	// 	    );
+	// 	}
+	// });
     }
 
     @Override

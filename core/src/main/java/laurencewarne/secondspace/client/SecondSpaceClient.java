@@ -1,16 +1,20 @@
 package laurencewarne.secondspace.client;
 
+import com.artemis.Component;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Listener.TypeListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import laurencewarne.secondspace.common.component.network.Networked;
 import laurencewarne.secondspace.common.system.network.NetworkRegisterSystem;
 import lombok.Getter;
 
@@ -48,6 +52,14 @@ public class SecondSpaceClient extends Game {
 	final WorldConfiguration setup = setupBuilder.build();
 	setup.register("client", client);
 	setup.register("kryo", client.getKryo());
+	setup.register(
+	   "networked-components",
+	   new Array<Class<? extends Component>>()
+	);
+	final TypeListener listener = new TypeListener();
+	listener.addTypeHandler(Networked.class, (conn, c) -> System.out.println(c));
+	client.addListener(listener);
+	setup.register(listener);
 	world = new World(setup);
     }
 

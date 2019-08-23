@@ -8,6 +8,7 @@ import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
 import com.badlogic.gdx.utils.Array;
+import com.esotericsoftware.kryonet.Connection;
 
 import laurencewarne.secondspace.common.collect.IntBags;
 import laurencewarne.secondspace.common.component.Player;
@@ -15,6 +16,7 @@ import laurencewarne.secondspace.common.component.Ship;
 import laurencewarne.secondspace.common.component.network.NetworkConnection;
 import laurencewarne.secondspace.common.component.network.Networked;
 import laurencewarne.secondspace.common.manager.ChunkManager;
+import lombok.NonNull;
 
 /**
  * Sends the state of the world near a player to the player.
@@ -36,17 +38,22 @@ public class StateSenderSystem extends IteratingSystem {
 	final Set<Integer> entitiesToSend = IntBags.toSet(
 	    chunkManager.getEntitiesInChunks(playerX, playerY, 2)
 	);
+	final Connection conn = mNetworkConnection.get(id).getConnection();
 	for (int entity : entitiesToSend) {
-	    final Networked networked = new Networked();
 	    for (Class<? extends Component> cls : typesToSend) {
 		if (world.getMapper(cls).has(entity)) {
-		    networked.getComponents().put(
-			cls, world.getMapper(cls).get(entity)
-		    );
+		    sendComponent(id, world.getMapper(cls).get(entity), conn);
 		}
 	    }
-	    // send networked
-	    mNetworkConnection.get(id).getConnection().sendTCP(networked);
 	}
+    }
+
+    public <T extends Component> void sendComponent(
+	int id, @NonNull T component, @NonNull Connection conn
+    ) {
+	final Networked<T> networked = new Networked<>();
+	networked.setId(id);
+	networked.setComponent(component);
+	conn.sendTCP(networked);
     }
 }

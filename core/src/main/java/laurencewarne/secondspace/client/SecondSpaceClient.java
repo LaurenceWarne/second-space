@@ -14,6 +14,7 @@ import com.esotericsoftware.kryonet.Listener.TypeListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import laurencewarne.secondspace.client.system.StateSynchronizerSystem;
 import laurencewarne.secondspace.common.component.network.Networked;
 import laurencewarne.secondspace.common.system.network.NetworkRegisterSystem;
 import lombok.Getter;
@@ -57,7 +58,7 @@ public class SecondSpaceClient extends Game {
 	   new Array<Class<? extends Component>>()
 	);
 	final TypeListener listener = new TypeListener();
-	listener.addTypeHandler(Networked.class, (conn, c) -> System.out.println(c));
+	listener.addTypeHandler(Networked.class, (conn, c) -> System.out.println(c.getComponent().getClass()));
 	client.addListener(listener);
 	setup.register(listener);
 	world = new World(setup);
@@ -71,7 +72,8 @@ public class SecondSpaceClient extends Game {
     protected void setupWorldConfig(WorldConfigurationBuilder configBuilder) {
 	configBuilder
 	    .with(
-		new NetworkRegisterSystem()
+		new NetworkRegisterSystem(),
+		new StateSynchronizerSystem()
 	    );
     }
 

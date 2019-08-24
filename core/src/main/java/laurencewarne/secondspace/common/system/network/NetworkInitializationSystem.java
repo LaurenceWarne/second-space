@@ -12,10 +12,10 @@ import com.esotericsoftware.kryonet.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NetworkConnectionSystem extends BaseSystem {
+public class NetworkInitializationSystem extends BaseSystem {
 
     private final Logger logger = LoggerFactory.getLogger(
-	NetworkConnectionSystem.class
+	NetworkInitializationSystem.class
     );
     @Wire(name="server")
     private Server server;

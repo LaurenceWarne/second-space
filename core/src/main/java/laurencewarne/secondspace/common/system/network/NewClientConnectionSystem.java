@@ -46,10 +46,10 @@ public class NewClientConnectionSystem extends BaseEntitySystem {
 	    RegistrationRequest.class,
 	    (conn, req) -> {
 		final String name = req.getName();
-		RegistrationResponse response;
+		final RegistrationResponse response;
 		final boolean isExistingPlayer = nameToPlayerMap.containsKey(name);
 		final boolean isAlreadyConnected = isExistingPlayer &&
-		    !mNetworkConnection.has(nameToPlayerMap.get(name));
+		    mNetworkConnection.has(nameToPlayerMap.get(name));
 		if (isExistingPlayer && !isAlreadyConnected) {
 		    response = handleExistingPlayerConnection(name, conn);
 		}

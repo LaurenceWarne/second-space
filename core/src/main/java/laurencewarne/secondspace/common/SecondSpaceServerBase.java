@@ -53,7 +53,7 @@ import laurencewarne.secondspace.common.system.command.AugmentationCommandExecut
 import laurencewarne.secondspace.common.system.command.EntityRemovalCommandExecutorSystem;
 import laurencewarne.secondspace.common.system.command.SaveCommandExecutorSystem;
 import laurencewarne.secondspace.common.system.command.SpawnCommandExecutorSystem;
-import laurencewarne.secondspace.common.system.network.NetworkConnectionSystem;
+import laurencewarne.secondspace.common.system.network.NetworkInitializationSystem;
 import laurencewarne.secondspace.common.system.network.NetworkRegisterSystem;
 import laurencewarne.secondspace.common.system.network.NewClientConnectionSystem;
 import laurencewarne.secondspace.common.system.network.StateSenderSystem;
@@ -146,7 +146,7 @@ public class SecondSpaceServerBase extends Game {
 	    )
 	    .with(  // Network
 		new NetworkRegisterSystem(),
-		new NetworkConnectionSystem(),
+		new NetworkInitializationSystem(),
 		new NewClientConnectionSystem(),
 		new StateSenderSystem()
 	    )

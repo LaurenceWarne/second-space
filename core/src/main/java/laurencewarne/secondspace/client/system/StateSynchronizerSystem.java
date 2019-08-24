@@ -16,6 +16,7 @@ public class StateSynchronizerSystem extends BaseSystem {
 	typeListener.addTypeHandler(
 	    Networked.class, (conn, networked) -> {
 		System.out.println(networked.getComponent().getClass().cast(networked.getComponent()));
+		world.edit(0).add(networked);
 	    }
 	);
     }

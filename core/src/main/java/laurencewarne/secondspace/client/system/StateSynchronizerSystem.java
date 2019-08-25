@@ -4,7 +4,7 @@ import com.artemis.BaseSystem;
 import com.artemis.annotations.Wire;
 import com.esotericsoftware.kryonet.Listener.TypeListener;
 
-import laurencewarne.secondspace.client.IdTranslator;
+import laurencewarne.secondspace.client.manager.IdTranslatorManager;
 import laurencewarne.secondspace.common.component.network.Networked;
 
 /**
@@ -12,16 +12,15 @@ import laurencewarne.secondspace.common.component.network.Networked;
  */
 public class StateSynchronizerSystem extends BaseSystem {
 
+    private IdTranslatorManager idTranslatorManager;
     @Wire
     private TypeListener typeListener;
-    @Wire
-    private IdTranslator idTranslator;
 
     @Override
     public void initialize() {
 	typeListener.addTypeHandler(
 	    Networked.class, (conn, networked) -> {
-		int clientId = idTranslator.translate(networked.getId());
+		int clientId = idTranslatorManager.translate(networked.getId());
  		world.edit(clientId).add(networked.getComponent());
 	    }
 	);

@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.common.component.network.RegistrationRequest;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -33,6 +34,8 @@ public class ConnectionScreen implements Screen {
     private TextField nameField;
     @NonNull
     private final Client client;
+    @Getter
+    private boolean isConnected = false;
 
     @Override
     public void show() {
@@ -102,7 +105,7 @@ public class ConnectionScreen implements Screen {
 	stage.dispose();
     }
 
-    public boolean connect() {
+    public void connect() {
 	final String host = addressField.getText();
 	client.start();
 	try {
@@ -110,9 +113,9 @@ public class ConnectionScreen implements Screen {
 	    RegistrationRequest req = new RegistrationRequest();
 	    req.setName(nameField.getText());
 	    client.sendTCP(req);
+	    isConnected = true;
 	} catch (IOException e) {
 	    logger.error("Could not connect to server: " + e.getMessage());
 	}
-	return false;
     }
 }

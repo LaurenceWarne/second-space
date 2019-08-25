@@ -31,8 +31,7 @@ public class SecondSpaceClient extends Game {
     private final Logger logger = LoggerFactory.getLogger(
 	SecondSpaceClient.class
     );
-    private LoadingScreen loadingScreen;
-    private ConnectionScreen connectionScreen;
+    private ScreenController screenController;
 
     //pre game stuff
     private AssetManager assetManager;
@@ -43,13 +42,17 @@ public class SecondSpaceClient extends Game {
     @Override
     public void create() {
 	this.assetManager = new AssetManager();
-	this.loadingScreen = new LoadingScreen(assetManager);
+	client = new Client();
+	screenController = new ScreenController(
+	    new LoadingScreen(assetManager),
+	    new ConnectionScreen(client),
+	    new GameScreen(new SpriteBatch())
+	);
+	setScreen(screenController.getActiveScreen());
 	logger.info(
 	    "Starting application with resolution {}*{}",
 	    Gdx.graphics.getWidth(), Gdx.graphics.getHeight()
 	);
-	client = new Client();
-	setScreen(loadingScreen);
 	final WorldConfigurationBuilder setupBuilder =
 	    new WorldConfigurationBuilder();
 	setupWorldConfig(setupBuilder);
@@ -97,40 +100,22 @@ public class SecondSpaceClient extends Game {
     @Override
     public void render() {
 	float delta = Gdx.graphics.getDeltaTime();
-	if ( !loadingScreen.isLoadingComplete() ){
-	    loadingScreen.render(delta);
+	if (screenController.checkForScreenChange()){
+	    setScreen(screenController.getActiveScreen());
 	}
-	else {
-	    if ( !isConnectionScreenInitialised ){
-		this.connectionScreen = new ConnectionScreen(client);
-		// setScreen(screen) calls screen.show()
-		setScreen(connectionScreen);
-		isConnectionScreenInitialised = true;
-	    }
-	    connectionScreen.render(delta);
-	}
+	screenController.getActiveScreen().render(delta);
     }
 
     @Override
-    public void resize( int width, int height ) {
-	if ( !loadingScreen.isLoadingComplete() ){
-	    loadingScreen.resize(width, height);
-	}
-	else {
-	    if ( !isConnectionScreenInitialised ){
-		this.connectionScreen = new ConnectionScreen(client);
-		setScreen(connectionScreen);
-		isConnectionScreenInitialised = true;
-	    }
-	    connectionScreen.resize(width, height);
-	}
+    public void resize(int width, int height) {
+	screenController.getActiveScreen().resize(width, height);
     }
 	
     @Override
     public void dispose() {
 	logger.info("Disposing of textures and initiating world cleanup.");
-	loadingScreen.dispose();
-	connectionScreen.dispose();
 	assetManager.dispose();
+	screenController.dipose();
+	world.dispose();
     }
 }

@@ -54,7 +54,7 @@ public class SecondSpaceClient extends Game {
 	final ConnectionScreen connectionScreen;
 	screenController = new ScreenControllerBuilder()
 	    .withScreen(new LoadingScreen())
-	    .withScreen(connectionScreen = new ConnectionScreen(client, setup))
+	    .withScreen(connectionScreen = new ConnectionScreen(setup))
 	    .withFinalScreenFactory(new ScreenFactory(){
 		@Override
 		public Screen create() {

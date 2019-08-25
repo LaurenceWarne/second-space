@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import laurencewarne.secondspace.client.component.Camera;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class GameScreen implements Screen {
     public void show() {
 	// the parameters here are void right?
 	gameCamera = new OrthographicCamera(100, 100);
-	// Create camera component here
+	world.getMapper(Camera.class).create(world.create()).setCamera(gameCamera);
 	gameViewport = new FitViewport(cameraWidth, cameraHeight, gameCamera);
 	inputMultiplexer = new InputMultiplexer();
 	Gdx.input.setInputProcessor(inputMultiplexer);	

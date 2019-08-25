@@ -34,8 +34,7 @@ public class ConnectionScreen extends ScreenAdapter implements IProgressScreen {
     private Stage stage;    
     private TextField addressField;
     private TextField nameField;
-    @NonNull
-    private final Client client;
+    private Client client;
     @NonNull
     private final WorldConfiguration setup;
     @Getter
@@ -45,6 +44,9 @@ public class ConnectionScreen extends ScreenAdapter implements IProgressScreen {
 
     @Override
     public void show() {
+	client = new Client();
+	setup.register(client);
+	
 	stage = new Stage(new FillViewport(1600f, 900f));
 	Gdx.input.setInputProcessor(stage);
 

@@ -43,22 +43,21 @@ public class SecondSpaceClient extends Game {
     public void create() {
 	this.assetManager = new AssetManager();
 	client = new Client();
+	final WorldConfigurationBuilder setupBuilder =
+	    new WorldConfigurationBuilder();
+	setupWorldConfig(setupBuilder);
+	final WorldConfiguration setup = setupBuilder.build();
 	screenController = new ScreenController(
 	    new LoadingScreen(assetManager),
 	    new ConnectionScreen(client),
-	    new GameScreen(new SpriteBatch())
+	    new GameScreen(setup)
 	);
 	setScreen(screenController.getActiveScreen());
 	logger.info(
 	    "Starting application with resolution {}*{}",
 	    Gdx.graphics.getWidth(), Gdx.graphics.getHeight()
 	);
-	final WorldConfigurationBuilder setupBuilder =
-	    new WorldConfigurationBuilder();
-	setupWorldConfig(setupBuilder);
-	final WorldConfiguration setup = setupBuilder.build();
 	injectDependencies(setup);
-	world = new World(setup);
     }
 
     /**
@@ -116,6 +115,5 @@ public class SecondSpaceClient extends Game {
 	logger.info("Disposing of textures and initiating world cleanup.");
 	assetManager.dispose();
 	screenController.dipose();
-	world.dispose();
     }
 }

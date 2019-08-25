@@ -1,14 +1,16 @@
 package laurencewarne.secondspace.client;
 
+import com.artemis.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -17,13 +19,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor @Getter
 public class GameScreen implements Screen {
 
-    // Constructor args
+    private final Logger logger = LoggerFactory.getLogger(
+	GameScreen.class
+    );    
     @NonNull
-    private SpriteBatch batch;
-
-    //game loop stuff
-    private static final String TAG = GameScreen.class.getName();
-
+    private final World world;
     private final int cameraWidth = 32;
     private final int cameraHeight = 18;
     private InputMultiplexer inputMultiplexer;
@@ -31,46 +31,34 @@ public class GameScreen implements Screen {
     //graphics stuff
     private Viewport gameViewport;
     private OrthographicCamera gameCamera;
-    private BitmapFont font;
     
     @Override
     public void show() {
-
 	// the parameters here are void right?
 	gameCamera = new OrthographicCamera(100, 100);
-	// initial ratio 16:9
+	// Create camera component here
 	gameViewport = new FitViewport(cameraWidth, cameraHeight, gameCamera);
 	inputMultiplexer = new InputMultiplexer();
 	Gdx.input.setInputProcessor(inputMultiplexer);	
 	
 	Gdx.graphics.setTitle("Second Space");
-	font = new BitmapFont();
     }
 
     @Override
-    public void render( float delta ) {
-    
+    public void render(float delta) {
 	gameViewport.apply();
 	gameCamera.update();
-	batch.setProjectionMatrix(gameCamera.combined);
 
 	Gdx.gl.glClearColor(0, 0, 0, 1);
 	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-	batch.begin();
-	font.draw(
-	    batch, "Hi!",
-	    -gameCamera.viewportWidth / 4f,
-	    5, gameCamera.viewportWidth / 2f,
-	    5, false
-	);
-	batch.end();
+	world.setDelta(delta);
+	world.process();
     }
 
     @Override
-    public void resize( int width, int height ) {
+    public void resize(int width, int height) {
      
-	Gdx.app.log(TAG, "Setting resolution to:" + width + "*" + height);
+	logger.info("Setting resolution to:{}*{}", width, height);
 	// use true here to center the camera
         // that's what you probably want in case of a UI
         gameViewport.update(width, height, false);
@@ -93,7 +81,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-
-	Gdx.app.log(TAG, "Disposing of textures and initiating world cleanup.");
+	logger.info("Disposing of textures and initiating world cleanup");
+	world.dispose();
     }
 }

@@ -2,6 +2,8 @@ package laurencewarne.secondspace.client;
 
 import java.io.IOException;
 
+import com.artemis.World;
+import com.artemis.WorldConfiguration;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -34,6 +36,10 @@ public class ConnectionScreen implements Screen {
     private TextField nameField;
     @NonNull
     private final Client client;
+    @NonNull
+    private final WorldConfiguration setup;
+    @NonNull
+    private World world;
     @Getter
     private boolean isConnected = false;
 
@@ -62,15 +68,7 @@ public class ConnectionScreen implements Screen {
 	});
 	table.add(button1);
 
-	// client.addListener(new Listener() {
-	// 	public void received (Connection connection, Object object) {
-	// 	    System.out.println(
-	// 		"Received from server: " +
-	// 		connection.getRemoteAddressTCP() +
-	// 		" object: " + object
-	// 	    );
-	// 	}
-	// });
+	world = new World(setup);
     }
 
     @Override

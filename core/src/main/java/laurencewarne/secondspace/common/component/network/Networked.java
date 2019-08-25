@@ -8,9 +8,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Transient @ToString
-public class Networked<T extends Component> extends Component {
+public class Networked extends Component {
     @Getter @Setter
     private int id = -1;
     @Getter @Setter
-    private T component;
+    private Component component;
 }

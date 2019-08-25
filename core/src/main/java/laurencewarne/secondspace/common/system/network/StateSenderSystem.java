@@ -16,7 +16,6 @@ import laurencewarne.secondspace.common.component.Ship;
 import laurencewarne.secondspace.common.component.network.NetworkConnection;
 import laurencewarne.secondspace.common.component.network.Networked;
 import laurencewarne.secondspace.common.manager.ChunkManager;
-import lombok.NonNull;
 
 /**
  * Sends the state of the world near a player to the player.
@@ -42,18 +41,12 @@ public class StateSenderSystem extends IteratingSystem {
 	for (int entity : entitiesToSend) {
 	    for (Class<? extends Component> cls : typesToSend) {
 		if (world.getMapper(cls).has(entity)) {
-		    sendComponent(id, world.getMapper(cls).get(entity), conn);
+		    final Networked networked = new Networked();
+		    networked.setId(id);
+		    networked.setComponent(world.getMapper(cls).get(entity));
+		    conn.sendTCP(networked);
 		}
 	    }
 	}
-    }
-
-    public <T extends Component> void sendComponent(
-	int id, @NonNull T component, @NonNull Connection conn
-    ) {
-	final Networked<T> networked = new Networked<>();
-	networked.setId(id);
-	networked.setComponent(component);
-	conn.sendTCP(networked);
     }
 }

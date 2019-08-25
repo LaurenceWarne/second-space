@@ -12,7 +12,7 @@ import net.namekdev.entity_tracker.EntityTracker;
 import net.namekdev.entity_tracker.ui.EntityTrackerMainWindow;
 
 /**
- * Renders box2d world with @Link{Box2DDebugRenderer}, Also allows for movement of camera with arrow keys.
+ * Renders box2d world with @Link{Box2DDebugRenderer}. Also allows for movement of camera with arrow keys.
  */
 @Getter
 public class SecondSpaceServerUI extends SecondSpaceServerBase {

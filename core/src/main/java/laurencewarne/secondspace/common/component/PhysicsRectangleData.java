@@ -22,7 +22,9 @@ public class PhysicsRectangleData extends Component {
     private float friction = 0.4f;
     private float restitution = 0.6f;
     // Information about the entity specific to the world
+    /** x coordinate of rectangle centre in world.*/
     private float x = 0f;
+    /** y coordinate of rectangle centre in world.*/    
     private float y = 0f;
     private float velocityX = 0f;
     private float velocityY = 0f;

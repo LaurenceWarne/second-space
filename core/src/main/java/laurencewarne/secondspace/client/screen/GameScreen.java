@@ -25,20 +25,20 @@ public class GameScreen implements Screen {
     );    
     @NonNull
     private final World world;
-    private final int cameraWidth = 32;
-    private final int cameraHeight = 18;
+    private final int worldWidth = 16 * 10;
+    private final int worldHeight = 9 * 10;
     private InputMultiplexer inputMultiplexer;
 
     //graphics stuff
     private Viewport gameViewport;
-    private OrthographicCamera gameCamera;
     
     @Override
     public void show() {
 	// the parameters here are void right?
-	gameCamera = new OrthographicCamera(100, 100);
-	world.getMapper(Camera.class).create(world.create()).setCamera(gameCamera);
-	gameViewport = new FitViewport(cameraWidth, cameraHeight, gameCamera);
+	gameViewport = new FitViewport(worldWidth, worldHeight);
+	gameViewport.apply();
+	world.getMapper(Camera.class).create(world.create())
+	    .setCamera((OrthographicCamera) gameViewport.getCamera());
 	inputMultiplexer = new InputMultiplexer();
 	Gdx.input.setInputProcessor(inputMultiplexer);	
 	
@@ -47,9 +47,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-	gameViewport.apply();
-	gameCamera.update();
-
 	Gdx.gl.glClearColor(0, 0, 0, 1);
 	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	world.setDelta(delta);

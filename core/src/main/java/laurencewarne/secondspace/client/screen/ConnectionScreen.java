@@ -16,10 +16,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Listener.TypeListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import laurencewarne.secondspace.common.component.network.Networked;
 import laurencewarne.secondspace.common.component.network.RegistrationRequest;
 import lombok.Getter;
 import lombok.NonNull;
@@ -45,7 +47,18 @@ public class ConnectionScreen extends ScreenAdapter implements IProgressScreen {
     @Override
     public void show() {
 	client = new Client();
-	setup.register(client);
+	setup.register("client", client);
+	setup.register("kryo", client.getKryo());
+	final TypeListener listener = new TypeListener();
+	listener.addTypeHandler(Networked.class, (conn, c) -> System.out.println(c.getComponent().getClass()));
+	client.addListener(listener);
+	setup.register(listener);
+	// client.addListener(new Listener() {
+	// 	@Override
+	// 	public void received(Connection conn, Object o) {
+	// 	    System.out.println(o);
+	// 	}
+	//     });
 	
 	stage = new Stage(new FillViewport(1600f, 900f));
 	Gdx.input.setInputProcessor(stage);
@@ -70,6 +83,7 @@ public class ConnectionScreen extends ScreenAdapter implements IProgressScreen {
 	});
 	table.add(button1);
 	world = new World(setup);
+	client.start();
     }
 
     @Override
@@ -96,7 +110,6 @@ public class ConnectionScreen extends ScreenAdapter implements IProgressScreen {
 
     public void connect() {
 	final String host = addressField.getText();
-	client.start();
 	try {
 	    client.connect(5000, host, 54555, 54777);
 	    RegistrationRequest req = new RegistrationRequest();

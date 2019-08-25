@@ -35,14 +35,14 @@ public class StateSenderSystem extends IteratingSystem {
 	final float playerX = playerShip.getX();
 	final float playerY = playerShip.getY();
 	final Set<Integer> entitiesToSend = IntBags.toSet(
-	    chunkManager.getEntitiesInChunks(playerX, playerY, 2)
+	    chunkManager.getEntitiesInChunks(playerX, playerY, 3)
 	);
 	final Connection conn = mNetworkConnection.get(id).getConnection();
 	for (int entity : entitiesToSend) {
 	    for (Class<? extends Component> cls : typesToSend) {
 		if (world.getMapper(cls).has(entity)) {
 		    final Networked networked = new Networked();
-		    networked.setId(id);
+		    networked.setId(entity);
 		    networked.setComponent(world.getMapper(cls).get(entity));
 		    conn.sendTCP(networked);
 		}

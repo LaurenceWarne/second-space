@@ -1,4 +1,4 @@
-package laurencewarne.secondspace.client;
+package laurencewarne.secondspace.client.screen;
 
 import com.artemis.World;
 import com.badlogic.gdx.Gdx;

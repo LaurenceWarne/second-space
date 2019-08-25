@@ -1,7 +1,8 @@
-package laurencewarne.secondspace.client;
+package laurencewarne.secondspace.client.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -11,22 +12,22 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 /**
  * {@link Screen} which loads resources needed for the game whilst showing progress.
  */
-@RequiredArgsConstructor
-public class LoadingScreen implements Screen {
+public class LoadingScreen extends ScreenAdapter implements IProgressScreen {
 
-    private static final String TAG = LoadingScreen.class.getName();
-
-    @NonNull
-    private final AssetManager assetManager;
+    private final Logger logger = LoggerFactory.getLogger(
+	LoadingScreen.class
+    );
+    private AssetManager assetManager;
     @Getter
-    private boolean isLoadingComplete;
+    private boolean isLoadingComplete = false;
 
     // Stuff rendered by the screen whilst loading
     private Stage stage;
@@ -41,11 +42,11 @@ public class LoadingScreen implements Screen {
     
     @Override
     public void show() {
-
+	assetManager = new AssetManager();
 	/////////////////////////////////////////////////////
 	// // Load assets for use in loading screen	   //
 	/////////////////////////////////////////////////////
-	Gdx.app.log(TAG, "Loading assets used in loading screen");
+	logger.info("Loading assets used in loading screen");
         assetManager.load(
 	    "textures/startup/loading-pack.atlas", TextureAtlas.class
 	);
@@ -147,22 +148,12 @@ public class LoadingScreen implements Screen {
     }
 
     @Override
-    public void pause() {
-		
-    }
-
-    @Override
-    public void resume() {
-		
-    }
-
-    @Override
-    public void hide() {
-		
+    public boolean isFinished() {
+	return isLoadingComplete;
     }
 
     @Override
     public void dispose() {
-
+	assetManager.dispose();
     }
 }

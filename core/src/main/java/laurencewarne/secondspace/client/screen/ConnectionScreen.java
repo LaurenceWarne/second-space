@@ -1,11 +1,11 @@
-package laurencewarne.secondspace.client;
+package laurencewarne.secondspace.client.screen;
 
 import java.io.IOException;
 
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -26,7 +26,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ConnectionScreen implements Screen {
+public class ConnectionScreen extends ScreenAdapter implements IProgressScreen {
 
     private final Logger logger = LoggerFactory.getLogger(
 	ConnectionScreen.class
@@ -38,7 +38,7 @@ public class ConnectionScreen implements Screen {
     private final Client client;
     @NonNull
     private final WorldConfiguration setup;
-    @NonNull
+    @Getter
     private World world;
     @Getter
     private boolean isConnected = false;
@@ -67,7 +67,6 @@ public class ConnectionScreen implements Screen {
 		}
 	});
 	table.add(button1);
-
 	world = new World(setup);
     }
 
@@ -84,23 +83,13 @@ public class ConnectionScreen implements Screen {
     }
 
     @Override
-    public void pause() {
-		
-    }
-
-    @Override
-    public void resume() {
-		
-    }
-
-    @Override
-    public void hide() {
-		
-    }
-
-    @Override
     public void dispose() {
 	stage.dispose();
+    }
+
+    @Override
+    public boolean isFinished() {
+	return isConnected;
     }
 
     public void connect() {

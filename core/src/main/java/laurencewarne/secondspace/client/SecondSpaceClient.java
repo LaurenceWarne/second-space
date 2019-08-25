@@ -6,7 +6,7 @@ import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.kryonet.Client;
@@ -16,6 +16,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.client.manager.IdTranslatorManager;
+import laurencewarne.secondspace.client.screen.ConnectionScreen;
+import laurencewarne.secondspace.client.screen.GameScreen;
+import laurencewarne.secondspace.client.screen.LoadingScreen;
+import laurencewarne.secondspace.client.screen.ScreenController;
+import laurencewarne.secondspace.client.screen.ScreenControllerBuilder;
+import laurencewarne.secondspace.client.screen.ScreenFactory;
 import laurencewarne.secondspace.client.system.StateSynchronizerSystem;
 import laurencewarne.secondspace.common.component.network.Networked;
 import laurencewarne.secondspace.common.system.network.NetworkRegisterSystem;
@@ -34,24 +40,28 @@ public class SecondSpaceClient extends Game {
     private ScreenController screenController;
 
     //pre game stuff
-    private AssetManager assetManager;
     private boolean isConnectionScreenInitialised = false;
     private World world;
     private Client client;
 
     @Override
     public void create() {
-	this.assetManager = new AssetManager();
 	client = new Client();
 	final WorldConfigurationBuilder setupBuilder =
 	    new WorldConfigurationBuilder();
 	setupWorldConfig(setupBuilder);
 	final WorldConfiguration setup = setupBuilder.build();
-	screenController = new ScreenController(
-	    new LoadingScreen(assetManager),
-	    new ConnectionScreen(client),
-	    new GameScreen(setup)
-	);
+	final ConnectionScreen connectionScreen;
+	screenController = new ScreenControllerBuilder()
+	    .withScreen(new LoadingScreen())
+	    .withScreen(connectionScreen = new ConnectionScreen(client, setup))
+	    .withFinalScreenFactory(new ScreenFactory(){
+		@Override
+		public Screen create() {
+		    return new GameScreen(connectionScreen.getWorld());
+		}
+	     })
+	    .build();
 	setScreen(screenController.getActiveScreen());
 	logger.info(
 	    "Starting application with resolution {}*{}",
@@ -113,7 +123,6 @@ public class SecondSpaceClient extends Game {
     @Override
     public void dispose() {
 	logger.info("Disposing of textures and initiating world cleanup.");
-	assetManager.dispose();
 	screenController.dipose();
     }
 }

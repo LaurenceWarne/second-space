@@ -8,6 +8,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Listener.TypeListener;
 
 import org.slf4j.Logger;
@@ -61,6 +62,15 @@ public class NewClientConnectionSystem extends BaseEntitySystem {
 		}
 		// Send response
 		conn.sendTCP(response);
+		conn.addListener(new Listener() {
+			@Override
+			public void disconnected(@NonNull Connection conn) {
+			    if (response.getPlayerId() != -1) {
+				mNetworkConnection.remove(response.getPlayerId());
+			    }
+			}
+		    }
+		);
 	    }
 	);
     }

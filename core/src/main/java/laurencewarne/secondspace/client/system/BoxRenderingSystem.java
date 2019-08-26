@@ -43,14 +43,14 @@ public class BoxRenderingSystem extends IteratingSystem {
 	shapeRenderer.identity();
 	shapeRenderer.translate(data.getX(), data.getY(), 0f);
 	shapeRenderer.rotate(0, 0, 1, data.getAngle() * MathUtils.radiansToDegrees);
-	shapeRenderer.translate(-data.getX(), -data.getY(), 0f);
-	shapeRenderer.box(
-	    data.getX() - data.getWidth() / 2f,
-	    data.getY() - data.getHeight() / 2f,
+	shapeRenderer.box(  // it's relative to the current point
+	    -data.getWidth() / 2f,
+	    -data.getHeight() / 2f,
 	    0f,
 	    data.getWidth(), data.getHeight(), 0f
 	);
 	// undo
+	shapeRenderer.translate(-data.getX(), -data.getY(), 0f);
 	shapeRenderer.rotate(0, 0, 1, -data.getAngle() * MathUtils.radiansToDegrees);
     }
 

@@ -40,10 +40,9 @@ public class TerminalSystem extends BaseEntitySystem {
 		    // Could no build terminal, but we don't really care
 		}
 		final LineReader reader = readerBuilder.build();
-		String line = null;
 		while (true) {
 		    try {
-			line = reader.readLine("second-space> ");
+			String line = reader.readLine("second-space> ");
 			commandQueue.put(line);
 		    } catch (UserInterruptException e) {
 			// Ignore

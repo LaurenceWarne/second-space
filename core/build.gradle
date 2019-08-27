@@ -19,7 +19,6 @@ dependencies {
     implementation "net.onedaybeard.artemis:artemis-odb:2.2.0"
     implementation "net.onedaybeard.artemis:artemis-odb-serializer-json-libgdx:2.2.0"
     implementation "net.mostlyoriginal.artemis-odb:contrib-eventbus:2.4.0"
-
     implementation "com.google.guava:guava:28.0-jre"
     implementation "org.jline:jline:3.11.0"
     implementation "net.sourceforge.argparse4j:argparse4j:0.8.1"
@@ -40,7 +39,6 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest:2.1"
     // https://mvnrepository.com/artifact/com.andrewjamesjohnson/junit-parameterized-test-case
     testImplementation "com.andrewjamesjohnson:junit-parameterized-test-case:1.0.1"
-
     testImplementation 'org.hamcrest:hamcrest-library:2.1'    
     testImplementation "junit:junit:4.12"        
     testImplementation "org.mockito:mockito-core:2.28.2"

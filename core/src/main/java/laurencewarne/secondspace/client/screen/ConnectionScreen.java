@@ -21,8 +21,10 @@ import com.esotericsoftware.kryonet.Listener.TypeListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import laurencewarne.secondspace.common.component.network.Networked;
+import laurencewarne.secondspace.client.component.ClientPlayer;
+import laurencewarne.secondspace.client.manager.IdTranslatorManager;
 import laurencewarne.secondspace.common.component.network.RegistrationRequest;
+import laurencewarne.secondspace.common.component.network.RegistrationResponse;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -50,15 +52,17 @@ public class ConnectionScreen extends ScreenAdapter implements IProgressScreen {
 	setup.register("client", client);
 	setup.register("kryo", client.getKryo());
 	final TypeListener listener = new TypeListener();
-	listener.addTypeHandler(Networked.class, (conn, c) -> System.out.println(c.getComponent().getClass()));
 	client.addListener(listener);
 	setup.register(listener);
-	// client.addListener(new Listener() {
-	// 	@Override
-	// 	public void received(Connection conn, Object o) {
-	// 	    System.out.println(o);
-	// 	}
-	//     });
+
+	listener.addTypeHandler(RegistrationResponse.class, (conn, response) -> {
+		isConnected = true;
+		int playerId = response.getPlayerId();
+		int clientId = world.getSystem(IdTranslatorManager.class)
+		    .translate(playerId);
+		world.getMapper(ClientPlayer.class).create(clientId);
+	    }
+	);
 	
 	stage = new Stage(new FillViewport(1600f, 900f));
 	Gdx.input.setInputProcessor(stage);
@@ -115,7 +119,6 @@ public class ConnectionScreen extends ScreenAdapter implements IProgressScreen {
 	    RegistrationRequest req = new RegistrationRequest();
 	    req.setName(nameField.getText());
 	    client.sendTCP(req);
-	    isConnected = true;
 	} catch (IOException e) {
 	    logger.error("Could not connect to server: " + e.getMessage());
 	}

@@ -19,12 +19,13 @@ public class BoxRenderingSystem extends IteratingSystem {
     private ComponentMapper<Camera> mCamera;
     @NonNull
     private ShapeRenderer shapeRenderer;
+    private Camera camera;
 
+    // temporary hack before odb contrib's singleton plugin is released
     @Inserted
     @net.fbridault.eeel.annotation.All(Camera.class)
-    public void onCameraInserted(int id) {
-	final Camera camera = mCamera.get(id);
-	shapeRenderer.setProjectionMatrix(camera.getCamera().combined);
+    public void cameraInserted(int id) {
+	camera = mCamera.get(id);
     }
 
     @Override
@@ -34,6 +35,7 @@ public class BoxRenderingSystem extends IteratingSystem {
 
     @Override
     public void begin() {
+	shapeRenderer.setProjectionMatrix(camera.getCamera().combined);
 	shapeRenderer.begin(ShapeType.Filled);
     }
 

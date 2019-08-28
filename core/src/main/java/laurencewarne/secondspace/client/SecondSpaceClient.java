@@ -22,6 +22,7 @@ import laurencewarne.secondspace.client.screen.ScreenControllerBuilder;
 import laurencewarne.secondspace.client.screen.ScreenFactory;
 import laurencewarne.secondspace.client.system.BoxRenderingSystem;
 import laurencewarne.secondspace.client.system.CameraUpdateSystem;
+import laurencewarne.secondspace.client.system.KeyInitializerSystem;
 import laurencewarne.secondspace.client.system.StateSynchronizerSystem;
 import laurencewarne.secondspace.common.system.network.NetworkRegisterSystem;
 import lombok.Getter;
@@ -79,6 +80,7 @@ public class SecondSpaceClient extends Game {
 	    .with(
 		new IdTranslatorManager(),
 		new NetworkRegisterSystem(),
+		new KeyInitializerSystem(),
 		new StateSynchronizerSystem(),
 		new CameraUpdateSystem(),
 		new BoxRenderingSystem()

@@ -9,9 +9,14 @@ import com.badlogic.gdx.math.MathUtils;
 
 import laurencewarne.secondspace.client.component.Camera;
 import laurencewarne.secondspace.common.component.PhysicsRectangleData;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import net.fbridault.eeel.annotation.Inserted;
 
+/**
+ * Renders entities with PhysicsRectangleData using libgdx's ShapeRenderer.
+ */
 @All(PhysicsRectangleData.class)
 public class BoxRenderingSystem extends IteratingSystem {
 
@@ -19,6 +24,8 @@ public class BoxRenderingSystem extends IteratingSystem {
     private ComponentMapper<Camera> mCamera;
     @NonNull
     private ShapeRenderer shapeRenderer;
+    @NonNull @Getter @Setter
+    private ShapeType shapeType = ShapeType.Filled;
     private Camera camera;
 
     // temporary hack before odb contrib's singleton plugin is released
@@ -36,7 +43,7 @@ public class BoxRenderingSystem extends IteratingSystem {
     @Override
     public void begin() {
 	shapeRenderer.setProjectionMatrix(camera.getCamera().combined);
-	shapeRenderer.begin(ShapeType.Filled);
+	shapeRenderer.begin(shapeType);
     }
 
     @Override

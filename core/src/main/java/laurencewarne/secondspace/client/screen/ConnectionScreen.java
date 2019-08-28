@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.client.component.ClientPlayer;
 import laurencewarne.secondspace.client.manager.IdTranslatorManager;
+import laurencewarne.secondspace.common.component.network.NetworkConnection;
 import laurencewarne.secondspace.common.component.network.RegistrationRequest;
 import laurencewarne.secondspace.common.component.network.RegistrationResponse;
 import lombok.Getter;
@@ -61,6 +62,8 @@ public class ConnectionScreen extends ScreenAdapter implements IProgressScreen {
 		int clientId = world.getSystem(IdTranslatorManager.class)
 		    .translate(playerId);
 		world.getMapper(ClientPlayer.class).create(clientId);
+		world.getMapper(NetworkConnection.class).create(clientId)
+		    .setConnection(conn);
 	    }
 	);
 	

@@ -19,5 +19,5 @@ public class Key extends Component {
     @Getter @Setter
     private int key;
     @EntityId @LinkPolicy(CHECK_SOURCE_AND_TARGETS)
-    private IntBag entitiesToActivate = new IntBag();
+    public IntBag entitiesToActivate = new IntBag();
 }

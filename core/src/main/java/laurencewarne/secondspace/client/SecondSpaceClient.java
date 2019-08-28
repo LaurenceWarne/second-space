@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +21,10 @@ import laurencewarne.secondspace.client.screen.LoadingScreen;
 import laurencewarne.secondspace.client.screen.ScreenController;
 import laurencewarne.secondspace.client.screen.ScreenControllerBuilder;
 import laurencewarne.secondspace.client.screen.ScreenFactory;
+import laurencewarne.secondspace.client.system.ActivationInitializerSystem;
 import laurencewarne.secondspace.client.system.BoxRenderingSystem;
 import laurencewarne.secondspace.client.system.CameraUpdateSystem;
+import laurencewarne.secondspace.client.system.KeyActivationSystem;
 import laurencewarne.secondspace.client.system.KeyInitializerSystem;
 import laurencewarne.secondspace.client.system.StateSynchronizerSystem;
 import laurencewarne.secondspace.common.system.network.NetworkRegisterSystem;
@@ -81,7 +84,9 @@ public class SecondSpaceClient extends Game {
 		new IdTranslatorManager(),
 		new NetworkRegisterSystem(),
 		new KeyInitializerSystem(),
+		new ActivationInitializerSystem(),
 		new StateSynchronizerSystem(),
+		new KeyActivationSystem(),
 		new CameraUpdateSystem(),
 		new BoxRenderingSystem()
 	    );
@@ -100,6 +105,10 @@ public class SecondSpaceClient extends Game {
 	setup.register(
 	   "networked-components",
 	   new Array<Class<? extends Component>>()
+	);
+	setup.register(
+	    "activation-map",
+	    new ObjectMap<Class<? extends Component>, Class<? extends Component>>(8)
 	);
     }    
 

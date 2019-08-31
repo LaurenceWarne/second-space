@@ -9,16 +9,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
+import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
-import com.artemis.io.SaveFileFormat;
-import com.artemis.managers.WorldSerializationManager;
-import com.artemis.utils.IntBag;
+import com.artemis.annotations.All;
 import com.badlogic.gdx.files.FileHandle;
 
 import org.hamcrest.collection.IsEmptyCollection;
@@ -27,9 +25,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import laurencewarne.componentlookup.ComponentLookupPlugin;
 import laurencewarne.secondspace.common.component.EntityTemplate;
-import laurencewarne.secondspace.common.component.SpawnRequest;
-import net.fbridault.eeel.EEELPlugin;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 public class TemplateLoadingSystemTest {
 
@@ -37,22 +36,17 @@ public class TemplateLoadingSystemTest {
     private TemplateLoadingSystem sys;
     private Collection<FileHandle> templateFiles = new ArrayList<>();
     private ComponentMapper<EntityTemplate> m;
-    private ComponentMapper<SpawnRequest> ms;
-    private WorldSerializationManager s;
-    private Map<String, byte[]> entityNameToBytesMap = new HashMap<>();
+    private List<String> loadedTemplateNames;
 
     @Mock
     private FileHandle t1, t2, t3;
-    @Mock
-    private SaveFileFormat save;
-    private IntBag loadedEntities;
 
     @Before
     public void setUp() {
 	MockitoAnnotations.initMocks(this);
 	templateFiles = new ArrayList<>();
-	loadedEntities = new IntBag();
-	save.entities = loadedEntities;
+	loadedTemplateNames = new ArrayList<>();
+	
 	when(t1.nameWithoutExtension()).thenReturn("cool-template");
 	when(t1.readBytes())
 	    .thenReturn("{}".getBytes(StandardCharsets.UTF_8));
@@ -72,16 +66,15 @@ public class TemplateLoadingSystemTest {
 
     public void createWorld() {
 	WorldConfiguration setup = new WorldConfigurationBuilder()
-	    .with(new EEELPlugin())
+	    .with(new ComponentLookupPlugin())
 	    .with(
-		sys = new TemplateLoadingSystem()
+		sys = new TemplateLoadingSystem(),
+		new TemplateTrackingSystem(loadedTemplateNames)
 	    )
 	    .build();
 	setup.register("templateFiles", templateFiles);
-	setup.register("templates", entityNameToBytesMap);
 	world = new World(setup);
 	m = world.getMapper(EntityTemplate.class);
-	ms = world.getMapper(SpawnRequest.class);
 	world.process();
     }
 
@@ -89,16 +82,16 @@ public class TemplateLoadingSystemTest {
     public void testCanLoadOneTemplate() {
 	templateFiles.add(t1);
 	createWorld();
-	assertThat(entityNameToBytesMap.keySet(), hasItems(t1.nameWithoutExtension()));
+	assertThat(loadedTemplateNames, hasItems(t1.nameWithoutExtension()));
     }
 
     @Test
     public void testCanLoadMultipleTemplates() {
 	templateFiles.addAll(Arrays.asList(t1, t2, t3));
 	createWorld();
-	assertThat(entityNameToBytesMap.keySet(), hasItems(t1.nameWithoutExtension()));
-	assertThat(entityNameToBytesMap.keySet(), hasItems(t2.nameWithoutExtension()));
-	assertThat(entityNameToBytesMap.keySet(), hasItems(t3.nameWithoutExtension()));
+	assertThat(loadedTemplateNames, hasItems(t1.nameWithoutExtension()));
+	assertThat(loadedTemplateNames, hasItems(t2.nameWithoutExtension()));
+	assertThat(loadedTemplateNames, hasItems(t3.nameWithoutExtension()));
     }
 
     @Test
@@ -107,7 +100,7 @@ public class TemplateLoadingSystemTest {
 	EntityTemplate t = m.create(world.create());
 	t.setName("brilliant-template");
 	world.process();
-	assertThat(entityNameToBytesMap.keySet(), hasItems(t.getName()));
+	assertThat(loadedTemplateNames, hasItems(t.getName()));
     }
     
     @Test
@@ -119,7 +112,30 @@ public class TemplateLoadingSystemTest {
 	world.process();
 	world.delete(id);
 	world.process();
-	assertThat(entityNameToBytesMap.keySet(), is(IsEmptyCollection.empty()));
+	assertThat(loadedTemplateNames, is(IsEmptyCollection.empty()));
+    }
+
+    @All(EntityTemplate.class) @RequiredArgsConstructor
+    private static class TemplateTrackingSystem extends BaseEntitySystem {
+
+	private ComponentMapper<EntityTemplate> m;
+	@NonNull
+	private final List<String> templateNamesSeen;
+
+	@Override
+	public void inserted(int id) {
+	    templateNamesSeen.add(m.get(id).getName());
+	}
+
+	@Override
+	public void removed(int id) {
+	    templateNamesSeen.remove(m.get(id).getName());
+	}
+	
+	@Override
+	public void processSystem() {
+	    
+	}
     }
 }
 

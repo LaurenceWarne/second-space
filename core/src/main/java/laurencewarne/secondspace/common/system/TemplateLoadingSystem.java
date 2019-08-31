@@ -2,25 +2,24 @@ package laurencewarne.secondspace.common.system;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Map;
 
-import com.artemis.BaseEntitySystem;
+import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
-import com.artemis.annotations.All;
 import com.artemis.annotations.Wire;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.ObjectIntMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import laurencewarne.componentlookup.annotations.FieldLookup;
 import laurencewarne.secondspace.common.component.EntityTemplate;
 import lombok.NonNull;
 
 /**
  * Loads and controls {@link EntityTemplate}s.
  */
-@All(EntityTemplate.class)
-public class TemplateLoadingSystem extends BaseEntitySystem {
+public class TemplateLoadingSystem extends BaseSystem {
 
     private final Logger logger = LoggerFactory.getLogger(
 	TemplateLoadingSystem.class
@@ -28,8 +27,8 @@ public class TemplateLoadingSystem extends BaseEntitySystem {
     @Wire(name="templateFiles") @NonNull
     private Collection<FileHandle> templateFiles;
     private ComponentMapper<EntityTemplate> mEntityTemplate;
-    @Wire(name="templates")
-    private Map<String, byte[]> entityNameToBytesMap;
+    @FieldLookup(component=EntityTemplate.class, field="name")
+    private ObjectIntMap<String> templateNameMap;
 
     @Override
     public void initialize() {
@@ -52,25 +51,11 @@ public class TemplateLoadingSystem extends BaseEntitySystem {
 	    EntityTemplate template = mEntityTemplate.create(world.create());
 	    template.setName(file.nameWithoutExtension());
 	    template.setBytes(file.readBytes());
-	    // Apparently @Inserted doesn't get called from initialize()
-	    entityNameToBytesMap.put(template.getName(), template.getBytes());
 	}
     }    
 
     @Override
-    public void inserted(int id) {
-	final EntityTemplate template = mEntityTemplate.get(id);
-	entityNameToBytesMap.put(template.getName(), template.getBytes());
-    }
-
-    @Override
-    public void removed(int id) {
-	final EntityTemplate template = mEntityTemplate.get(id);
-	entityNameToBytesMap.remove(template.getName());
-    }
-
-    @Override
     public void processSystem() {
-	
+
     }
 }

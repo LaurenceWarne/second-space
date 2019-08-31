@@ -2,7 +2,6 @@ package laurencewarne.secondspace.common;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -25,6 +24,7 @@ import org.aeonbits.owner.ConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import laurencewarne.componentlookup.ComponentLookupPlugin;
 import laurencewarne.secondspace.common.init.ServerConfig;
 import laurencewarne.secondspace.common.manager.ChunkManager;
 import laurencewarne.secondspace.common.manager.ConnectionManager;
@@ -135,6 +135,7 @@ public class SecondSpaceServerBase extends Game {
 	configBuilder
 	    .dependsOn(EntityLinkManager.class)
 	    .with(new EEELPlugin())
+	    .with(new ComponentLookupPlugin())
 	    .with(  // Deserialization and events
 		new EventSystem(),
 		new WorldSerializationManager(),
@@ -228,7 +229,6 @@ public class SecondSpaceServerBase extends Game {
 	final TypeListener listener = new TypeListener();
 	server.addListener(listener);
 	setup.register(listener);
-	setup.register("templates", new HashMap<String, byte[]>());
 	setup.register(
 	   "networked-components",
 	   new Array<Class<? extends Component>>()

@@ -24,12 +24,13 @@ public class KeyActivationSystem extends IteratingSystem {
 	final Key key = mKey.get(id);
 	if (Gdx.input.isKeyPressed(key.getKey())) {
 	    final IntBagIterator it = new IntBagIterator(key.entitiesToActivate);
-	    for (int entity = -1; it.hasNext(); entity = it.next()){
+	    while (it.hasNext()) {
+		final int entity = it.next();
 		if (entity != -1) {
 		    for (Class<? extends Component> cls : activationMap.keys()) {
 			if (world.getMapper(cls).has(entity)) {
 			    world.getMapper(activationMap.get(cls))
-				.create(world.create());
+				.create(entity);
 			}
 		    }
 		}

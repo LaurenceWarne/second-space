@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import laurencewarne.componentlookup.ComponentLookupPlugin;
 import laurencewarne.secondspace.client.manager.IdTranslatorManager;
 import laurencewarne.secondspace.client.screen.ConnectionScreen;
 import laurencewarne.secondspace.client.screen.GameScreen;
@@ -25,6 +26,7 @@ import laurencewarne.secondspace.client.system.ActivationInitializerSystem;
 import laurencewarne.secondspace.client.system.BoxRenderingSystem;
 import laurencewarne.secondspace.client.system.CameraUpdateSystem;
 import laurencewarne.secondspace.client.system.KeyActivationSystem;
+import laurencewarne.secondspace.client.system.KeyDefaultAssignerSystem;
 import laurencewarne.secondspace.client.system.KeyInitializerSystem;
 import laurencewarne.secondspace.client.system.StateSynchronizerSystem;
 import laurencewarne.secondspace.client.system.network.ActivationSenderSystem;
@@ -81,6 +83,7 @@ public class SecondSpaceClient extends Game {
     protected void setupWorldConfig(WorldConfigurationBuilder configBuilder) {
 	configBuilder
 	    .with(new EEELPlugin())
+	    .with(new ComponentLookupPlugin())
 	    .with(
 		new IdTranslatorManager(),
 		new NetworkRegisterSystem(),
@@ -88,6 +91,7 @@ public class SecondSpaceClient extends Game {
 		new ActivationInitializerSystem(),
 		new StateSynchronizerSystem(),
 		new KeyActivationSystem(),
+		new KeyDefaultAssignerSystem(),
 		new ActivationSenderSystem(),
 		new CameraUpdateSystem(),
 		new BoxRenderingSystem()

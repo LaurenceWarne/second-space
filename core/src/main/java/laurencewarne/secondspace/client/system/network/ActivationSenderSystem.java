@@ -22,21 +22,23 @@ public class ActivationSenderSystem extends IteratingSystem {
     @Wire(name="activation-map")
     private ObjectMap<Class<? extends Component>, Class<? extends Component>>
 	activationMap;
-    private IdTranslatorManager IdTranslatorManager;
+    private IdTranslatorManager idTranslatorManager;
 
     @Override
     public void process(int id) {
 	final Ship ship = mShip.get(id);
 	final NetworkConnection con = mNetworkConnection.get(id);
 	final IntBagIterator it = new IntBagIterator(ship.parts);
-	for (int entity = -1; it.hasNext(); entity = it.next()){
-	    if (entity != -1) {
+	while (it.hasNext()) {
+	    final int clientId = idTranslatorManager.translate(it.next());
+	    if (clientId != -1) {
 		for (Class<? extends Component> cls : activationMap.values()) {
-		    if (world.getMapper(cls).has(entity)) {
+		    if (world.getMapper(cls).has(clientId)) {
 			final Networked networked = new Networked();
-			networked.setId(IdTranslatorManager.translateClient(id));
-			networked.setComponent(world.getMapper(cls).get(entity));
+			networked.setId(clientId);
+			networked.setComponent(world.getMapper(cls).get(clientId));
 			con.getConnection().sendTCP(networked);
+			world.getMapper(cls).remove(clientId);
 		    }		
 		}
 	    }

@@ -16,7 +16,9 @@ public class KeyInitializerSystem extends BaseSystem {
     @Override
     public void initialize() {
 	for (int i = Keys.A; i <= Keys.Z; i++){
-	    mKey.create(world.create()).setKey(i);
+	    final Key key = mKey.create(world.create());
+	    key.setKey(i);
+	    key.setIdentifier(Character.toString((char)(i % Keys.A + 'a')));
 	}
     }
 

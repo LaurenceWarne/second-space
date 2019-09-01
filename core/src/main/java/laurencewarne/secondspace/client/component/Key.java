@@ -18,6 +18,8 @@ import lombok.ToString;
 public class Key extends Component {
     @Getter @Setter
     private int key;
+    @Getter @Setter
+    private String identifier;
     @EntityId @LinkPolicy(CHECK_SOURCE_AND_TARGETS)
     public IntBag entitiesToActivate = new IntBag();
 }

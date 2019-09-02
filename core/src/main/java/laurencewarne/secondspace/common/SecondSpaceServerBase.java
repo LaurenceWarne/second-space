@@ -230,9 +230,14 @@ public class SecondSpaceServerBase extends Game {
 	server.addListener(listener);
 	setup.register(listener);
 	setup.register(
-	   "networked-components",
+	   "server-to-client-components",
 	   new Array<Class<? extends Component>>()
 	);
+	setup.register(
+	   "client-to-server-components",
+	   new Array<Class<? extends Component>>()
+	);
+	
     }
 
     @Override

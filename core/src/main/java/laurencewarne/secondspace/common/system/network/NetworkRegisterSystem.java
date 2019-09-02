@@ -8,10 +8,12 @@ import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.kryo.Kryo;
 
 import laurencewarne.secondspace.common.component.Cannon;
+import laurencewarne.secondspace.common.component.Cannon.CannonActivated;
 import laurencewarne.secondspace.common.component.PhysicsRectangleData;
 import laurencewarne.secondspace.common.component.Ship;
 import laurencewarne.secondspace.common.component.ShipPart;
 import laurencewarne.secondspace.common.component.Thruster;
+import laurencewarne.secondspace.common.component.Thruster.ThrusterActivated;
 import laurencewarne.secondspace.common.component.network.Networked;
 import laurencewarne.secondspace.common.component.network.RegistrationRequest;
 import laurencewarne.secondspace.common.component.network.RegistrationResponse;
@@ -23,19 +25,28 @@ public class NetworkRegisterSystem extends BaseSystem {
 
     @Wire(name="kryo")
     private Kryo kryo;
-    @Wire(name="networked-components")
-    private Array<Class<? extends Component>> typesToSend;    
+    @Wire(name="server-to-client-components")
+    private Array<Class<? extends Component>> serverToClientTypes;
+    @Wire(name="client-to-server-components")
+    private Array<Class<? extends Component>> clientToServerTypes;
 
     @Override
     public void initialize() {
-	typesToSend.addAll(
+	serverToClientTypes.addAll(
 	    Ship.class, PhysicsRectangleData.class, ShipPart.class,
 	    Thruster.class, Cannon.class
 	);
-
-	for (Class cls : typesToSend) {
+	for (Class cls : serverToClientTypes) {
 	    kryo.register(cls);
 	}
+
+	clientToServerTypes.addAll(
+	    ThrusterActivated.class, CannonActivated.class
+	);
+	for (Class cls : clientToServerTypes) {
+	    kryo.register(cls);
+	}	
+
 	kryo.register(RegistrationRequest.class);
 	kryo.register(RegistrationResponse.class);
 	kryo.register(Networked.class);

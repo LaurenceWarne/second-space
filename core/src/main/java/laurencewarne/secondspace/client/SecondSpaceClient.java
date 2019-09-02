@@ -109,7 +109,11 @@ public class SecondSpaceClient extends Game {
     ) {
 	setup.register(new SpriteBatch());
 	setup.register(
-	   "networked-components",
+	   "server-to-client-components",
+	   new Array<Class<? extends Component>>()
+	);
+	setup.register(
+	   "client-to-server-components",
 	   new Array<Class<? extends Component>>()
 	);
 	setup.register(

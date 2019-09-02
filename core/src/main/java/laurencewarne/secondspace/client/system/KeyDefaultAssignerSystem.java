@@ -57,7 +57,6 @@ public class KeyDefaultAssignerSystem extends BaseEntitySystem {
 	final String key = Character.toString(
 	    "qwertyuiopasdfghjklzxcvbnm".charAt(keysAssignedPrior)
 	);
-	System.out.println(keyLookup);
 	mKey.get(keyLookup.get(key, -1)).entitiesToActivate.add(id);
 	logger.info("Assigned activation of entity: {} to key '{}'", id, key);
     }

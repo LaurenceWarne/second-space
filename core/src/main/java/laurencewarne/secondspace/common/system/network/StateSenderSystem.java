@@ -26,8 +26,8 @@ public class StateSenderSystem extends IteratingSystem {
     private ComponentMapper<Ship> mShip;
     private ComponentMapper<NetworkConnection> mNetworkConnection;
     private ChunkManager chunkManager;
-    @Wire(name="networked-components")
-    private Array<Class<? extends Component>> typesToSend;
+    @Wire(name="server-to-client-components")
+    private Array<Class<? extends Component>> serverToClientTypes;
 
     @Override
     protected void process(int id) {
@@ -39,7 +39,7 @@ public class StateSenderSystem extends IteratingSystem {
 	);
 	final Connection conn = mNetworkConnection.get(id).getConnection();
 	for (int entity : entitiesToSend) {
-	    for (Class<? extends Component> cls : typesToSend) {
+	    for (Class<? extends Component> cls : serverToClientTypes) {
 		if (world.getMapper(cls).has(entity)) {
 		    final Networked networked = new Networked();
 		    networked.setId(entity);

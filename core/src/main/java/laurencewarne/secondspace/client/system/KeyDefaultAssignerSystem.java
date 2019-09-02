@@ -19,6 +19,9 @@ import laurencewarne.secondspace.client.manager.IdTranslatorManager;
 import laurencewarne.secondspace.common.component.Ship;
 import laurencewarne.secondspace.common.component.network.NetworkConnection;
 
+/**
+ * Assigns keys to activatable parts of a ship when the client is assigned a ship.
+ */
 @All({ClientPlayer.class, NetworkConnection.class, Ship.class})
 public class KeyDefaultAssignerSystem extends BaseEntitySystem {
 

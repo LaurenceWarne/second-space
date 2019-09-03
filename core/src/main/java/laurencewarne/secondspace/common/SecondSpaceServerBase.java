@@ -53,9 +53,11 @@ import laurencewarne.secondspace.common.system.command.AugmentationCommandExecut
 import laurencewarne.secondspace.common.system.command.EntityRemovalCommandExecutorSystem;
 import laurencewarne.secondspace.common.system.command.SaveCommandExecutorSystem;
 import laurencewarne.secondspace.common.system.command.SpawnCommandExecutorSystem;
+import laurencewarne.secondspace.common.system.network.FromClientAuthenticatorSystem;
 import laurencewarne.secondspace.common.system.network.NetworkInitializationSystem;
 import laurencewarne.secondspace.common.system.network.NetworkRegisterSystem;
 import laurencewarne.secondspace.common.system.network.NewClientConnectionSystem;
+import laurencewarne.secondspace.common.system.network.RegisterAuthSystem;
 import laurencewarne.secondspace.common.system.network.StateSenderSystem;
 import laurencewarne.secondspace.common.system.resolvers.ConnectionToWeldSystem;
 import laurencewarne.secondspace.common.system.resolvers.PhysicsRectangleDataResolverSystem;
@@ -146,10 +148,12 @@ public class SecondSpaceServerBase extends Game {
 		new ChunkManager()
 	    )
 	    .with(  // Network
-		new NetworkRegisterSystem(),
-		new NetworkInitializationSystem(),
-		new NewClientConnectionSystem(),
-		new StateSenderSystem()
+		new NetworkRegisterSystem(),          // Registers classes for Kryo
+		new NetworkInitializationSystem(),    // Starts server
+		new NewClientConnectionSystem(),      // Handles new clients
+		new StateSenderSystem(),              // Sends world state to clients
+		new FromClientAuthenticatorSystem(),  // Handles client requests
+		new RegisterAuthSystem()              // Handles specific requests
 	    )
 	    .with(  // Terminal and command systems
 		new TerminalSystem(),

@@ -14,6 +14,7 @@ import laurencewarne.secondspace.common.component.Ship;
 import laurencewarne.secondspace.common.component.ShipPart;
 import laurencewarne.secondspace.common.component.Thruster;
 import laurencewarne.secondspace.common.component.Thruster.ThrusterActivated;
+import laurencewarne.secondspace.common.component.network.FromClient;
 import laurencewarne.secondspace.common.component.network.Networked;
 import laurencewarne.secondspace.common.component.network.RegistrationRequest;
 import laurencewarne.secondspace.common.component.network.RegistrationResponse;
@@ -30,26 +31,27 @@ public class NetworkRegisterSystem extends BaseSystem {
     @Wire(name="client-to-server-components")
     private Array<Class<? extends Component>> clientToServerTypes;
 
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public void initialize() {
 	serverToClientTypes.addAll(
 	    Ship.class, PhysicsRectangleData.class, ShipPart.class,
 	    Thruster.class, Cannon.class
 	);
-	for (Class cls : serverToClientTypes) {
+	for (Class<?> cls : serverToClientTypes) {
 	    kryo.register(cls);
 	}
 
 	clientToServerTypes.addAll(
 	    ThrusterActivated.class, CannonActivated.class
 	);
-	for (Class cls : clientToServerTypes) {
+	for (Class<?> cls : clientToServerTypes) {
 	    kryo.register(cls);
 	}	
 
 	kryo.register(RegistrationRequest.class);
 	kryo.register(RegistrationResponse.class);
 	kryo.register(Networked.class);
+	kryo.register(FromClient.class);
 	kryo.register(IntBag.class);
 	kryo.register(int[].class);
     }

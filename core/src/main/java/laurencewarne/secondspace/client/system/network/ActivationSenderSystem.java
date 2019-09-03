@@ -11,8 +11,8 @@ import com.badlogic.gdx.utils.ObjectMap;
 import laurencewarne.secondspace.client.component.ClientPlayer;
 import laurencewarne.secondspace.client.manager.IdTranslatorManager;
 import laurencewarne.secondspace.common.component.Ship;
+import laurencewarne.secondspace.common.component.network.FromClient;
 import laurencewarne.secondspace.common.component.network.NetworkConnection;
-import laurencewarne.secondspace.common.component.network.Networked;
 
 @All({ClientPlayer.class, NetworkConnection.class, Ship.class})
 public class ActivationSenderSystem extends IteratingSystem {
@@ -30,14 +30,18 @@ public class ActivationSenderSystem extends IteratingSystem {
 	final NetworkConnection con = mNetworkConnection.get(id);
 	final IntBagIterator it = new IntBagIterator(ship.parts);
 	while (it.hasNext()) {
-	    final int clientId = idTranslatorManager.translate(it.next());
+	    final int serverId = it.next();
+	    final int clientId = idTranslatorManager.translate(serverId);
 	    if (clientId != -1) {
 		for (Class<? extends Component> cls : activationMap.values()) {
 		    if (world.getMapper(cls).has(clientId)) {
-			final Networked networked = new Networked();
-			networked.setId(clientId);
-			networked.setComponent(world.getMapper(cls).get(clientId));
-			con.getConnection().sendTCP(networked);
+			final FromClient fromClient = new FromClient();
+			fromClient.setClientId(
+			    idTranslatorManager.translateClient(id)
+			);
+			fromClient.setId(serverId);
+			fromClient.setComponent(world.getMapper(cls).get(clientId));
+			con.getConnection().sendTCP(fromClient);
 			world.getMapper(cls).remove(clientId);
 		    }		
 		}

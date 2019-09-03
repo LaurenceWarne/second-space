@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import com.artemis.BaseSystem;
 import com.artemis.annotations.Wire;
-import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Listener.TypeListener;
 import com.esotericsoftware.kryonet.Server;
 
@@ -41,14 +39,6 @@ public class NetworkInitializationSystem extends BaseSystem {
 	);
 	TypeListener typeListener = new TypeListener();
 	server.addListener(typeListener);
-	server.addListener(new Listener() {
-		public void received (Connection connection, Object object) {
-		    System.out.println(
-			"Received from client: " + connection.getRemoteAddressTCP() +
-			" object: " + object
-		    );
-		}
-	    });
     }
 
     @Override

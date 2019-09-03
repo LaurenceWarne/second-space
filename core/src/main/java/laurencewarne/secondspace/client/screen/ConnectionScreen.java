@@ -61,7 +61,8 @@ public class ConnectionScreen extends ScreenAdapter implements IProgressScreen {
 		int playerId = response.getPlayerId();
 		int clientId = world.getSystem(IdTranslatorManager.class)
 		    .translate(playerId);
-		world.getMapper(ClientPlayer.class).create(clientId);
+		world.getMapper(ClientPlayer.class).create(clientId)
+		    .setServerId(playerId);
 		world.getMapper(NetworkConnection.class).create(clientId)
 		    .setConnection(conn);
 	    }

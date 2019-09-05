@@ -30,7 +30,7 @@ public class PlayerShipCreatorSystem extends BaseEntitySystem {
     public void inserted(int id) {
 	final SpawnRequest req = mSpawnRequest.create(id);
 	req.setShipOwner(id);
-	req.setTemplateName("arch-hunter");
+	req.setTemplateName("deban-rosette");
 	logger.info(
 	    "Spawning in ship {} for player {}",
 	    req.getTemplateName(), mPlayer.get(id).getName()

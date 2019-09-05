@@ -43,7 +43,7 @@ public class FromClientAuthenticatorSystem extends BaseSystem
 	// Check if the client is who they say they are:
 	final boolean clientAuth = mNetConn.has(fromClient.getClientId()) &&
 	    mNetConn.get(fromClient.getClientId()).getConnection() == connection;
-	if (!clientAuth) {
+	if (!clientAuth || clientComponent == null) {
 	    return;
 	}
 	if (authenticators.containsKey(clientComponent.getClass())) {

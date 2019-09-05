@@ -48,7 +48,10 @@ public class CannonFiringSystem extends IteratingSystem {
 	    final Vector2 applPoint = new Vector2(
 		body.getPosition().x, body.getPosition().y
 	    );
-	    final Vector2 localImpulse = new Vector2(0, 1).scl(cannon.getForce());
+	    final Vector2 localImpulse = new Vector2(
+		cannon.getLocalBulletSourceX(),
+		cannon.getLocalBulletSourceY()
+	    ).nor().scl(cannon.getForce());
 	    body.applyLinearImpulse(
 		body.getWorldVector(localImpulse), applPoint, true
 	    );

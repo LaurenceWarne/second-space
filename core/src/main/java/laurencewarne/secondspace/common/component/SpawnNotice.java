@@ -1,7 +1,6 @@
 package laurencewarne.secondspace.common.component;
 
 import com.artemis.Component;
-import com.artemis.annotations.EntityId;
 import com.artemis.annotations.Transient;
 
 import lombok.Getter;
@@ -20,14 +19,10 @@ public class SpawnNotice extends Component {
     private float x = 0f;
     /** Desired y position.*/
     private float y = 0f;
-    /** Owner of any ShipPart components in the template, -1 to ignore.*/
-    @EntityId
-    public int shipOwner = -1;
 
     public void setFromRequest(@NonNull SpawnRequest request) {
 	this.templateName = request.getTemplateName();
 	this.x = request.getX();
 	this.y = request.getY();
-	this.shipOwner = request.shipOwner;
     }
 }

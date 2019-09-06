@@ -35,18 +35,12 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
     @All({ShipPart.class, PhysicsRectangleData.class, SpawnNotice.class})
     public void partInserted(int id) {
 	final SpawnNotice notice = mSpawnNotice.get(id);
-	if (notice.getShipOwner() == -1) {  // Not added to an existing ship
-	    rectInserted(id);
-	}
-	else {
-	    final ShipPart part = mShipPart.get(id);
-	    part.shipId = notice.getShipOwner();
-	    try {
-		mShip.get(part.shipId).parts.add(id);
-	    } catch (Exception e) {}
-	    mSpawnNotice.remove(id);
-	    es.dispatch(new EntityCreatedEvent(id, notice.getX(), notice.getY()));
-	}
+	final ShipPart part = mShipPart.get(id);
+	final PhysicsRectangleData recData = mRecData.get(id);
+	recData.setX(notice.getX() + part.getLocalX());
+	recData.setY(notice.getY() + part.getLocalY());
+	mSpawnNotice.remove(id);
+	es.dispatch(new EntityCreatedEvent(id, notice.getX(), notice.getY()));
     }
 
     @Inserted
@@ -79,14 +73,8 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
     public void shipInserted(int id) {
 	final Ship ship = mShip.get(id);
 	final SpawnNotice notice = mSpawnNotice.get(id);
-	if (notice.shipOwner != -1) {
-	    try {  // next line will fail if an entity doesn't exist with the id
-		final Ship newShip = mShip.create(notice.shipOwner);
-		newShip.parts = ship.parts;
-	    }
-	    catch (ArrayIndexOutOfBoundsException e){}  // log error
-	    mShip.remove(id);		
-	}
+	ship.setX(notice.getX());
+	ship.setY(notice.getY());
 	mSpawnNotice.remove(id);
     }
 

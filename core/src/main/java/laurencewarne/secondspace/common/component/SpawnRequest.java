@@ -18,4 +18,6 @@ public class SpawnRequest extends Component {
     private float x = 0f;
     /** Desired y position*/
     private float y = 0f;
+    /** The {@link Ship} owner of any {@link ShipPart}s, -1 indicates no owner exists or change of owner is required*/
+    private int shipOwner = -1;
 }

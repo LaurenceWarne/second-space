@@ -42,7 +42,7 @@ public class PlayerShipCreatorSystem extends BaseEntitySystem {
     @Override
     public void inserted(int id) {
 	final SpawnRequest req = mSpawnRequest.create(id);
-	//req.setShipOwner(id);
+	req.setShipOwner(id);
 	req.setTemplateName("deban-rosette");
 	final Vector2 spawnLocation = findSpawnLocation(20f, 20);
 	req.setX(spawnLocation.x);

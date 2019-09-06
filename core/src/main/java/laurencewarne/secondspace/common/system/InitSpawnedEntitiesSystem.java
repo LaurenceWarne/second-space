@@ -39,6 +39,14 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
 	final PhysicsRectangleData recData = mRecData.get(id);
 	recData.setX(notice.getX() + part.getLocalX());
 	recData.setY(notice.getY() + part.getLocalY());
+	if (notice.getShipOwner() != -1) {
+	    part.shipId = notice.getShipOwner();
+	    if (!mShip.has(notice.getShipOwner())) {
+		Ship ship = mShip.create(notice.getShipOwner());
+		ship.setX(notice.getX()); ship.setY(notice.getY());
+	    }
+	    mShip.get(notice.getShipOwner()).parts.add(id);
+	}
 	mSpawnNotice.remove(id);
 	es.dispatch(new EntityCreatedEvent(id, notice.getX(), notice.getY()));
     }
@@ -73,8 +81,13 @@ public class InitSpawnedEntitiesSystem extends BaseSystem {
     public void shipInserted(int id) {
 	final Ship ship = mShip.get(id);
 	final SpawnNotice notice = mSpawnNotice.get(id);
-	ship.setX(notice.getX());
-	ship.setY(notice.getY());
+	if (notice.getShipOwner() != -1) {
+	    mShip.remove(id);
+	}
+	else {
+	    ship.setX(notice.getX());
+	    ship.setY(notice.getY());	    
+	}
 	mSpawnNotice.remove(id);
     }
 

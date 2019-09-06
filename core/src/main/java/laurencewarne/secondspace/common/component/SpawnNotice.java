@@ -19,10 +19,13 @@ public class SpawnNotice extends Component {
     private float x = 0f;
     /** Desired y position.*/
     private float y = 0f;
+    /** The {@link Ship} owner of any {@link ShipPart}s, -1 indicates no owner exists or change of owner is required*/
+    private int shipOwner = -1;
 
     public void setFromRequest(@NonNull SpawnRequest request) {
 	this.templateName = request.getTemplateName();
 	this.x = request.getX();
 	this.y = request.getY();
+	this.shipOwner = request.getShipOwner();
     }
 }

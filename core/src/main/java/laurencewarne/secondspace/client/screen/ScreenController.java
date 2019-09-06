@@ -53,6 +53,8 @@ public class ScreenController {
 	for (Screen screen : screens) {
 	    screen.dispose();
 	}
-	finalScreen.dispose();
+	if (finalScreen != null) {
+	    finalScreen.dispose();
+	}
     }
 }

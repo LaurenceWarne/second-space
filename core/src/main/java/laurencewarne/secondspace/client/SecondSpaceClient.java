@@ -19,6 +19,8 @@ import laurencewarne.secondspace.client.manager.IdTranslatorManager;
 import laurencewarne.secondspace.client.screen.ConnectionScreen;
 import laurencewarne.secondspace.client.screen.GameScreen;
 import laurencewarne.secondspace.client.screen.LoadingScreen;
+import laurencewarne.secondspace.client.screen.MenuScreen;
+import laurencewarne.secondspace.client.screen.MenuScreen;
 import laurencewarne.secondspace.client.screen.ScreenController;
 import laurencewarne.secondspace.client.screen.ScreenControllerBuilder;
 import laurencewarne.secondspace.client.screen.ScreenFactory;
@@ -60,6 +62,7 @@ public class SecondSpaceClient extends Game {
 	final ConnectionScreen connectionScreen;
 	screenController = new ScreenControllerBuilder()
 	    .withScreen(new LoadingScreen())
+	    .withScreen(new MenuScreen())
 	    .withScreen(connectionScreen = new ConnectionScreen(setup))
 	    .withFinalScreenFactory(new ScreenFactory(){
 		@Override

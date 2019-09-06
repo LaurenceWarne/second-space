@@ -32,7 +32,9 @@ dependencies {
     implementation "net.fbridault.eeel:artemis-odb-eeel:1.2.1"
     // https://github.com/crykn/kryonet
     implementation "com.github.crykn:kryonet:2.22.3"
-    implementation 'com.github.laurencewarne:artemis-odb-component-lookup:-SNAPSHOT'
+    implementation "com.github.laurencewarne:artemis-odb-component-lookup:-SNAPSHOT"
+    // https://github.com/kotcrab/vis-ui
+    implementation "com.kotcrab.vis:vis-ui:1.4.3"
     
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
@@ -40,7 +42,7 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest:2.1"
     // https://mvnrepository.com/artifact/com.andrewjamesjohnson/junit-parameterized-test-case
     testImplementation "com.andrewjamesjohnson:junit-parameterized-test-case:1.0.1"
-    testImplementation 'org.hamcrest:hamcrest-library:2.1'    
+    testImplementation "org.hamcrest:hamcrest-library:2.1"
     testImplementation "junit:junit:4.12"        
     testImplementation "org.mockito:mockito-core:2.28.2"
     testImplementation "uk.org.lidalia:slf4j-test:1.1.0"

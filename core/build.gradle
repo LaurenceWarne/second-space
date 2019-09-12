@@ -35,6 +35,8 @@ dependencies {
     implementation "com.github.laurencewarne:artemis-odb-component-lookup:-SNAPSHOT"
     // https://github.com/kotcrab/vis-ui
     implementation "com.kotcrab.vis:vis-ui:1.4.3"
+    implementation 'com.github.LaurenceWarne:libgdx-screen-control:-SNAPSHOT'
+
     
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"

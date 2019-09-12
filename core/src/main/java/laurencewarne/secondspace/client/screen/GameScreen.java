@@ -3,7 +3,6 @@ package laurencewarne.secondspace.client.screen;
 import com.artemis.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -13,12 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import laurencewarne.secondspace.client.component.Camera;
+import libgdxscreencontrol.screen.ITransitionScreen;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor @Getter
-public class GameScreen implements Screen {
+public class GameScreen implements ITransitionScreen {
 
     private final Logger logger = LoggerFactory.getLogger(
 	GameScreen.class
@@ -81,5 +81,15 @@ public class GameScreen implements Screen {
     public void dispose() {
 	logger.info("Disposing of textures and initiating world cleanup");
 	world.dispose();
+    }
+
+    @Override
+    public void reset() {
+	
+    }
+
+    @Override
+    public boolean isFinished() {
+	return false;
     }
 }

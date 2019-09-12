@@ -26,12 +26,13 @@ import laurencewarne.secondspace.client.manager.IdTranslatorManager;
 import laurencewarne.secondspace.common.component.network.NetworkConnection;
 import laurencewarne.secondspace.common.component.network.RegistrationRequest;
 import laurencewarne.secondspace.common.component.network.RegistrationResponse;
+import libgdxscreencontrol.screen.ITransitionScreen;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ConnectionScreen extends ScreenAdapter implements IProgressScreen {
+public class ConnectionScreen extends ScreenAdapter implements ITransitionScreen {
 
     private final Logger logger = LoggerFactory.getLogger(
 	ConnectionScreen.class
@@ -115,6 +116,11 @@ public class ConnectionScreen extends ScreenAdapter implements IProgressScreen {
     public boolean isFinished() {
 	return isConnected;
     }
+
+    @Override
+    public void reset() {
+	this.isConnected = false;
+    }    
 
     public void connect() {
 	final String host = addressField.getText();

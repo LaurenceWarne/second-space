@@ -15,12 +15,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import libgdxscreencontrol.screen.ITransitionScreen;
 import lombok.Getter;
 
 /**
  * {@link Screen} which loads resources needed for the game whilst showing progress.
  */
-public class LoadingScreen extends ScreenAdapter implements IProgressScreen {
+public class LoadingScreen extends ScreenAdapter implements ITransitionScreen {
 
     private final Logger logger = LoggerFactory.getLogger(
 	LoadingScreen.class
@@ -150,6 +151,11 @@ public class LoadingScreen extends ScreenAdapter implements IProgressScreen {
     @Override
     public boolean isFinished() {
 	return isLoadingComplete;
+    }
+
+    @Override
+    public void reset() {
+	
     }
 
     @Override

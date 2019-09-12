@@ -6,7 +6,6 @@ import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -20,10 +19,6 @@ import laurencewarne.secondspace.client.screen.ConnectionScreen;
 import laurencewarne.secondspace.client.screen.GameScreen;
 import laurencewarne.secondspace.client.screen.LoadingScreen;
 import laurencewarne.secondspace.client.screen.MenuScreen;
-import laurencewarne.secondspace.client.screen.MenuScreen;
-import laurencewarne.secondspace.client.screen.ScreenController;
-import laurencewarne.secondspace.client.screen.ScreenControllerBuilder;
-import laurencewarne.secondspace.client.screen.ScreenFactory;
 import laurencewarne.secondspace.client.system.ActivationInitializerSystem;
 import laurencewarne.secondspace.client.system.BoxRenderingSystem;
 import laurencewarne.secondspace.client.system.CameraUpdateSystem;
@@ -33,6 +28,8 @@ import laurencewarne.secondspace.client.system.KeyInitializerSystem;
 import laurencewarne.secondspace.client.system.StateSynchronizerSystem;
 import laurencewarne.secondspace.client.system.network.ActivationSenderSystem;
 import laurencewarne.secondspace.common.system.network.NetworkRegisterSystem;
+import libgdxscreencontrol.ScreenController;
+import libgdxscreencontrol.ScreenControllerBuilder;
 import lombok.Getter;
 import lombok.NonNull;
 import net.fbridault.eeel.EEELPlugin;
@@ -59,19 +56,26 @@ public class SecondSpaceClient extends Game {
 	setupWorldConfig(setupBuilder);
 	final WorldConfiguration setup = setupBuilder.build();
 	injectDependencies(setup);
-	final ConnectionScreen connectionScreen;
-	screenController = new ScreenControllerBuilder()
-	    .withScreen(new LoadingScreen())
-	    .withScreen(new MenuScreen())
-	    .withScreen(connectionScreen = new ConnectionScreen(setup))
-	    .withFinalScreenFactory(new ScreenFactory(){
-		@Override
-		public Screen create() {
-		    return new GameScreen(connectionScreen.getWorld());
-		}
-	     })
+
+	// Create ScreenController
+	final ScreenControllerBuilder screenControllerBuilder =
+	    new ScreenControllerBuilder();
+	screenController = screenControllerBuilder
+	    .register("loading-screen", new LoadingScreen())
+	    .register("menu-screen", new MenuScreen())
+	    .register("connection-screen", new ConnectionScreen(setup))
+	    .register("game-screen", () -> new GameScreen(
+			  screenControllerBuilder.get(
+			      "connection-screen", ConnectionScreen.class
+			  ).getWorld()))
+	    .withStartingScreen("loading-screen")
+	    .setSuccession("loading-screen", "menu-screen")
+	    .choice("menu-screen", "connection-screen", 0)
+	    .setSuccession("connection-screen", "game-screen")
+	    .setSuccession("game-screen", "menu-screen")
 	    .build();
-	setScreen(screenController.getActiveScreen());
+	
+	setScreen(screenController.get());
 	logger.info(
 	    "Starting application with resolution {}*{}",
 	    Gdx.graphics.getWidth(), Gdx.graphics.getHeight()
@@ -128,20 +132,20 @@ public class SecondSpaceClient extends Game {
     @Override
     public void render() {
 	float delta = Gdx.graphics.getDeltaTime();
-	if (screenController.checkForScreenChange()){
-	    setScreen(screenController.getActiveScreen());
+	if (screenController.update()){
+	    setScreen(screenController.get());
 	}
-	screenController.getActiveScreen().render(delta);
+	screenController.get().render(delta);
     }
 
     @Override
     public void resize(int width, int height) {
-	screenController.getActiveScreen().resize(width, height);
+	screenController.get().resize(width, height);
     }
 	
     @Override
     public void dispose() {
 	logger.info("Disposing of textures and initiating world cleanup.");
-	screenController.dipose();
+	screenController.dispose();
     }
 }

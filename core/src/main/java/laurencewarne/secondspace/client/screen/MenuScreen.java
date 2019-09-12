@@ -3,19 +3,23 @@ package laurencewarne.secondspace.client.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import libgdxscreencontrol.screen.IChoiceScreen;
 import lombok.NonNull;
 
-public class MenuScreen extends ScreenAdapter implements IProgressScreen {
+public class MenuScreen extends ScreenAdapter implements IChoiceScreen {
 
     @NonNull
     private Stage stage;
+    private int choice = -1;
 
     @Override
     public void show() {
@@ -34,7 +38,8 @@ public class MenuScreen extends ScreenAdapter implements IProgressScreen {
 	titleLabel.setScale(2f);
 	table.add(titleLabel).padTop(30f);
 	table.row();
-	table.add(new TextButton("Single Player", skin)).expandX();
+	final TextButton singlePlayerButton = new TextButton("Single Player", skin);
+	table.add(singlePlayerButton).expandX();
 	table.row();
 	table.add(new TextButton("Multi Player", skin)).expandX();
 	table.row();
@@ -43,6 +48,12 @@ public class MenuScreen extends ScreenAdapter implements IProgressScreen {
 	table.add(new TextButton("Quit", skin)).expandX();
 
 	stage.addActor(rootTable);
+	singlePlayerButton.addListener(new ChangeListener() {
+		@Override
+		public void changed (ChangeEvent event, Actor actor) {
+		    choice = 0;
+		}
+	});
     }    
 
     @Override
@@ -60,11 +71,21 @@ public class MenuScreen extends ScreenAdapter implements IProgressScreen {
 
     @Override
     public boolean isFinished() {
-	return false;
+	return choice != -1;
+    }
+
+    @Override
+    public void reset() {
+	this.choice = -1;
+    }
+
+    @Override
+    public int getChoice() {
+	return choice;
     }
 
     @Override
     public void dispose() {
-
+	stage.dispose();
     }
 }

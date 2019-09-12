@@ -9,4 +9,3 @@ public interface IProgressScreen extends Screen {
 
     boolean isFinished();
 }
-

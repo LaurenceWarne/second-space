@@ -29,7 +29,6 @@ public class MenuScreen extends ScreenAdapter implements IChoiceScreen {
 
 	final Skin skin = new Skin(Gdx.files.internal("skins/star-soldier/uiskin.json"));
 	final Table rootTable = new Table(skin);
-	//rootTable.setDebug(true);
 	rootTable.setFillParent(true);
 	final Table table = new Table(skin);
 	table.background(skin.getDrawable("window"));

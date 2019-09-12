@@ -9,12 +9,13 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Listener.TypeListener;
 
@@ -69,28 +70,36 @@ public class ConnectionScreen extends ScreenAdapter implements ITransitionScreen
 	    }
 	);
 	
-	stage = new Stage(new FillViewport(1600f, 900f));
+	stage = new Stage(new FitViewport(960f, 540f));
 	Gdx.input.setInputProcessor(stage);
 
-	Skin uiSkin = new Skin(Gdx.files.internal("skins/default/uiskin.json"));
-	Table table = new Table();
-	table.setFillParent(true);
-	stage.addActor(table);
-	table.setDebug(true);
+	final Skin skin = new Skin(Gdx.files.internal("skins/star-soldier/uiskin.json"));
+	final Table rootTable = new Table(skin);
+	stage.addActor(rootTable);
+	rootTable.setFillParent(true);
+	final Table table = new Table(skin);
+	table.background(skin.getDrawable("window"));
+	rootTable.add(table).center();
 
-	nameField = new TextField("Dave", uiSkin);
-	table.add(nameField);
-	addressField = new TextField("127.0.0.1", uiSkin);
-	table.add(addressField);
+	final Label nameLabel = new Label("Name", skin);
+	table.add(nameLabel).pad(30f, 20f, 0f, 20f);;
+	nameField = new TextField("Dave", skin);
+	table.add(nameField).pad(30f, 0f, 0f, 20f);
+	table.row();
+	final Label addressLabel = new Label("Server", skin);
+	table.add(addressLabel).pad(30f, 20f, 0f, 20f);
+	addressField = new TextField("127.0.0.1", skin);
+	table.add(addressField).pad(30f, 0f, 0f, 20f);
+	table.row();
 	
-	TextButton button1 = new TextButton("Connect", uiSkin);
+	TextButton button1 = new TextButton("Connect", skin);
 	button1.addListener(new ChangeListener() {
 		@Override
 		public void changed (ChangeEvent event, Actor actor) {
 		    connect();
 		}
 	});
-	table.add(button1);
+	table.add(button1).colspan(2);
 	world = new World(setup);
 	client.start();
     }
